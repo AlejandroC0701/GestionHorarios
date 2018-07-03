@@ -1,0 +1,251 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Nuevo Horario</title>
+<style type="text/css">
+@import url("estilos.css");
+}
+body,td,th {
+	font-family: source-sans-pro;
+	font-style: normal;
+	font-weight: 200;
+}
+</style>
+
+<script>var __adobewebfontsappname__="dreamweaver"</script>
+<script src="http://use.edgefonts.net/source-sans-pro:n2:default.js" type="text/javascript"></script>
+
+</head>
+	
+<header id="headercolor">
+  <article>		
+	  <h1 id="titulo1"><strong>GESTIÓN DE HORARIOS UCAB</strong></h1>
+	  <p>&nbsp;</p>
+	  <img style="float: left; padding-left: 100px; " src="imagenes/logoucab.jpg" alt="" width="170" height="188" align="left"/>
+	  &nbsp; 
+	  <h2 id="slogan">CREA, ORGANIZA Y PLANIFICA </h2>
+	  <h2 id="slogan"> TUS OPCIONES DE HORARIOS </h2>
+      <p>&nbsp; </p>
+	  <p>&nbsp;</p>
+	  <p>&nbsp;</p>
+	</article>
+</header>
+	
+<nav id="barranav">
+	<h3><strong>Nuevo Horario</strong></h3>
+</nav>
+	
+<body id="body">
+
+<label id="labels"> Titulo del Horario: </label>
+	<input name="titulo" type="text" required="required" value="Horario" size="20px"> 
+	<label style="margin-left: 100px" id="labels"> Carrera: </label>
+<select name="Carrera" required="required" id="Carrera" title="S">
+		<option value="saab">Informática </option>
+		<option value="saab">Administración </option>
+		<option value="saab">Contaduría </option>
+		<option value="saab">Ciencias Sociales </option>
+		<option value="saab">Comunicación Social </option>
+		<option value="saab">Derecho </option>
+		<option value="saab">Economía </option>
+		<option value="saab">Educación </option>
+		<option value="saab">Filosofía </option>
+		<option value="saab">Ingeniería Civil</option>
+		<option value="saab">Ingeniería Industrial </option>
+		<option value="saab">Ingeniería Informática </option>
+		<option value="saab">Ingeniería en Telecomunicaciones </option>
+		<option value="saab">Letras </option>
+		<option value="saab">Psicología </option>
+		<option value="saab">Teología </option>
+		<option selected="selected">Seleccionar Carrera</option>
+	</select>
+<label style="margin-left: 100px" id="labels"> Semestre: </label>
+<select name="Semestre" required="required" id="Semestre">
+		<option value="saab">Primero </option>
+		<option value="saab">Segundo </option>
+		<option value="saab">Tercero </option>
+		<option value="saab">Cuarto </option>
+		<option value="saab">Quinto</option>
+		<option value="saab">Sexto </option>
+		<option value="saab">Septimo </option>
+		<option value="saab">Octavo </option>
+		<option value="saab">Noveno </option>
+		<option value="saab">Decimo </option>
+		<option selected="selected">Semestre</option>
+</select>
+	<br>
+	<br>
+<label style="margin-left: 50px" id="labels"> Materia: </label>
+	<select name="Materia" required="required" id="Materia">
+		<option selected="selected">Seleccionar Materia </option>
+	</select>
+<label style="margin-left: 215px" id="labels"> Profesor: </label>
+<select name="Profesor" required="required" id="Profesor">
+		<option selected="selected"> Seleccionar Profesor </option>
+	</select>
+<label style="margin-left: 165px" id="labels"> Sección: </label>
+	<select name="Seccion" required="required" id="Seccion">
+		<option selected="selected"> Sección</option>
+	</select>
+	<br>
+	<br>
+	<br>
+	<img style="margin-left: 100px;" src="imagenes/icon.png" width="65" height="65" alt=""/>
+	<img style="margin-left: 130px;" src="imagenes/escoba.png" width="65" height="65" alt=""/>
+	<a href="Principal.html"><img style="margin-left: 130px;" src="imagenes/flecha-retroceso.png" width="65" height="65" alt=""/></a>
+	<img style="margin-left: 130px;" src="imagenes/verificacion-de-la-lista-de-entrega-simbolo-de-portapapeles.png" width="65" height="65" alt=""/>
+		<img style="margin-left: 130px;" src="imagenes/goma-de-doble-cara.png" width="65" height="65" alt=""/>
+	<img style="margin-left: 130px;" src="imagenes/cubo-de-basura-boton-borrar.png" width="65" height="65" alt=""/>
+	<br>
+<label style="margin-left: 70px;" id="labels"> Guardar Horario </label>
+	<label style="margin-left: 70px;" id="labels"> Limpiar Horario </label>
+	<label style="margin-left: 70px;" id="labels"> Volver sin Guardar </label>
+<label style="margin-left: 50px;" id="labels"> Guardar Materia </label>
+<label style="margin-left: 60px;" id="labels"> Limpiar Materia </label>
+	<label style="margin-left: 70px;" id="labels"> Eliminar Materia </label>
+	<br>
+	<br>
+	<table width="1100" border="5" align="center" cellpadding="10" cellspacing="10" id="tablahorario">
+  <tbody>
+    <tr>
+      <th width="100" bgcolor="#A2F524" scope="col">HORA</th>
+      <th  width="300" bgcolor="#A2F524" scope="col">LUNES</th>
+      <th  width="300" bgcolor="#A2F524" scope="col">MARTES</th>
+      <th  width="300" bgcolor="#A2F524" scope="col">MIERCOLES</th>
+      <th  width="300" bgcolor="#A2F524" scope="col">JUEVES</th>
+      <th  width="300" bgcolor="#A2F524" scope="col">VIENES</th>
+    </tr>
+    <tr>
+      <th  width="300" bgcolor="#A2F524" scope="col">7:00 am a 7:50 am</th>
+      <td >&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <th  width="300" bgcolor="#A2F524" scope="col">8:00 am a 8:50 am</th>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <th  width="300" bgcolor="#A2F524" scope="col">9:00 am a 9:50 am</th>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <th  width="300" bgcolor="#A2F524" scope="col">10:00 am a 10:50 am</th>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <th  width="300" bgcolor="#A2F524" scope="col">11:00 am a 11:50 am</th>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <th  width="300" bgcolor="#A2F524" scope="col">12:00 pm a 12:50 pm</th>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <th  width="300" bgcolor="#A2F524" scope="col">1:00 pm a 1:50 pm</th>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <th  width="300" bgcolor="#A2F524" scope="col">2:00 pm a 2:50 pm</th>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <th  width="300" bgcolor="#A2F524" scope="col">3:00 pm a 3:50 pm</th>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <th  width="300" bgcolor="#A2F524" scope="col">4:00 pm a 4:50 pm</th>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <th  width="300" bgcolor="#A2F524" scope="col">5:00 pm a 5:50 pm</th>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <th  width="300" bgcolor="#A2F524" scope="col">6:00 pm a 6:50 pm</th>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <th  width="300" bgcolor="#A2F524" scope="col">7:00 pm a 7:50 pm</th>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <th  width="300" bgcolor="#A2F524" scope="col">8:00 pm a 8:50 pm</th>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <th  width="300" bgcolor="#A2F524" scope="col">9:00 pm a 9:50 pm</th>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+</body>
+	
+<footer id="footer">
+  <h4 style="display: inline;">Desing by: Griller Oliver, Martinez Armando, Correia Manuel </h4>
+  <h4 style="display: inline; margin-left: 500px">Escuela Ingeniería Informática</h4>
+	
+</footer>
+
+</html>
