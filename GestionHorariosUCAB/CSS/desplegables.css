@@ -1,0 +1,44 @@
+.Listado{  
+  background:rgba(154, 187, 170, 0.172);
+  border:none;
+  color:white;
+  font-size: 10pt;
+  height: 30px;
+  margin-top: 1%;      
+  border-radius: 3px;
+  padding: 5px;
+  text-align: center;
+}
+.SeccionListado{
+  background:rgba(0, 0, 0, 0.227); 
+  color: black;
+}
+.ElementoListado{
+  background:rgb(255, 255, 255); 
+  color: black;
+}
+button[id = "nextBoton"]:hover{
+  color: rgb(235, 235, 235);
+}
+button[id = "nextBoton"]{
+  margin-top:1%;
+}
+
+.BotonNext{  
+  
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  line-height: none;
+  overflow: visible;
+  padding: 0px;
+  font-size: 50pt;
+  color: rgba(119, 133, 213, 0.508);
+  outline:none;
+  -webkit-user-select: none; /* for button */  
+  -moz-user-select: none;
+  -ms-user-select: none;
+  transition: all 0.8s;  
+}

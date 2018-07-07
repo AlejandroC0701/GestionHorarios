@@ -1,0 +1,50 @@
+body{
+  background: white;
+}
+#titulo1{ 
+	text-align: center; 
+	color: #FFCB16;	
+}
+#headerSection{
+ 
+  background: rgb(28, 28, 28);
+  width: 100%;
+}
+#logoImagen{
+  width: 50%;  
+  height: auto;
+  background: rgba(0, 0, 0, 0);
+  padding: 10px;
+}
+
+button[id = "homeBoton"]:hover{
+  color: white;
+}
+button[id = "homeBoton"]:active{
+  color: rgb(253, 245, 182);
+}
+.Deslizador{
+  transition: all 0.8s;
+}
+.BotonMenuSuperior{  
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  line-height: none;
+  overflow: visible;
+  padding-top: 10px;
+  font-size: 50pt;
+  color: rgba(230, 153, 153, 0.508);
+  outline:none;
+  -webkit-user-select: none; /* for button */  
+  -moz-user-select: none;
+  -ms-user-select: none;
+  transition: all 0.8s;  
+}
+.DatosHorario{
+  background:black;
+  color: white;
+  transition: all 1s;
+}

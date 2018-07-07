@@ -1,26 +1,5 @@
 @charset "utf-8";
 
-#titulo1{
-	text-align: center; 
-	color: #FFCB16; 
-	
-}
-
-#body
-{	
-	background: #000000;
-	color: #FFFFFF;
-	
-}
-
-#labels
-{
-	font-size: 20px;
-	font-family: "source-sans-pro";
-	font-weight: bold;
-	margin-left: 50px;
-}
-
 #tablahorario
 {
 	margin-left: 50px;
