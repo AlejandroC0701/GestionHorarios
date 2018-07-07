@@ -13,7 +13,7 @@ function siguientePaso(){
       $('.Herramientas').css('height','100px');  
       $('.CabeceraTabla').css({'display':'table-header-group'});  
       $('.Fila').css({'display':'table-row'}) }, 800);
-      $('#contenedorHorario').css('height','100%'); 
+      $('#contenedorHorario').css('height','350px'); 
 
     setTimeout(function(){ 
       $('.SeccionBoton').css({'opacity':'1'}); 
