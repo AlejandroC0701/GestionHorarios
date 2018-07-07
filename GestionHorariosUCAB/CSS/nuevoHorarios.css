@@ -7,7 +7,7 @@ body{
 }
 #headerSection{
  
-  background: rgb(28, 28, 28);
+  background: black;
   width: 100%;
 }
 #logoImagen{
@@ -15,6 +15,23 @@ body{
   height: auto;
   background: rgba(0, 0, 0, 0);
   padding: 10px;
+}
+
+.logoUcabSvg{
+  padding-left: 3rem !important;
+}
+
+.tituloLogo{
+  font-size: 1.8rem;
+  font-weight: lighter;
+  margin-top: 0px;
+}
+
+.arrowLogo{
+  float: left;
+  margin-top: 5.8px;
+  margin-left: -10px;
+  margin-right: 20px;
 }
 
 button[id = "homeBoton"]:hover{
