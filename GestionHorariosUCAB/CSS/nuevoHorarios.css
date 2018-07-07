@@ -25,6 +25,23 @@ img[id="logoImagen"]{
   padding: 10px;
 }
 
+.logoUcabSvg{
+  padding-left: 3rem !important;
+}
+
+.tituloLogo{
+  font-size: 1.8rem;
+  font-weight: lighter;
+  margin-top: 0px;
+}
+
+.arrowLogo{
+  float: left;
+  margin-top: 5.8px;
+  margin-left: -10px;
+  margin-right: 20px;
+}
+
 button[id = "homeBoton"]:hover{
   color: white;
 }
@@ -42,8 +59,8 @@ button[id = "homeBoton"]:active{
   font: inherit;
   line-height: none;
   overflow: visible;
-  padding-top: 10px;
-  font-size: 50pt;
+  padding-top: 2px;
+  font-size: 23pt;
   color: rgba(255, 255, 255, 0.57);
   outline:none;
   -webkit-user-select: none; /* for button */  
