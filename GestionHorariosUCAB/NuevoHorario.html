@@ -49,259 +49,285 @@
       
       
     </div>
-    <div class="col-md-4">
+    <div class="col-md-8">
       <i  class="material-icons arrowLogo">arrow_forward_ios</i>
       <h2  style="float: left;" class="tituloLogo">Creacion de Horarios</h2>
     </div>
-    <div id="opciones" class="col" >
+    <div id="opciones" class="col align-self-center" >
+  
       <button id="homeBoton" class="icon-home BotonMenuSuperior" type="button" onclick="document.location.href='index.html';"></button>
     </div>   
-  </div>
-			
-		  	
+  </div>	  	
 </header>	
 	
 <body id="body">
 
   <div class="DatosHorario container-fluid">
-    <div class="Deslizador row">
-      <div class="col-md-3  align-self-center">
-      </div>
 
-      <div class="col-md-3  align-self-center">
-        <div id="tituloHorario">
-          <label  id="labels">Titulo:</label>
-          <input  name="titulo" type="text"  size="20px" placeholder="Titulo del horario"> 
+    <div class="Deslizador row" style="width:300%; display: flex;">
+
+      <div class="col-md-12">
+
+        <div class="row" style="background: rgb(16, 16, 16);">          
+           
+          <div class="col-md-1">
+          </div>
+
+          <div class="col-md-2  align-self-center">
+ 
+              <label  id="labels">Titulo:</label>
+              <input id="inputTitulo"  name="titulo" type="text"  size="20px" placeholder="Titulo del horario"> 
+                
+              <label  id="seleccionarCarrera">Carrera: </label>
+              <select class="Listado" name="Carrera" required="required" placeholder="Seleccione carrera" id="Carrera" title="S">
+                <optgroup class="SeccionListado" label="Ingeniería">
+                  <option class="ElementoListado" value="saab">Informática </option>
+                  <option class="ElementoListado" value="saab">Civil</option>
+                  <option class="ElementoListado" value="saab">Industrial </option>
+                  <option class="ElementoListado" value="saab">Telecomunicaciones </option>      
+                </optgroup>
+                <optgroup class="SeccionListado" label="Humanidades y Educacion">
+                  <option class="ElementoListado" value="saab">Comunicación Social </option>
+                  <option class="ElementoListado" value="saab">Educación </option>
+                  <option class="ElementoListado" value="saab">Filosofía </option>
+                  <option class="ElementoListado" value="saab">Letras </option>
+                  <option class="ElementoListado" value="saab">Psicología </option>
+                </optgroup>
+                <optgroup class="SeccionListado" label="Ciencias Económicas y Sociales">
+                  <option class="ElementoListado" value="saab">Administración y contaduria</option>
+                  <option class="ElementoListado" value="saab">Ciencias Sociales </option>
+                  <option class="ElementoListado" value="saab">Economía </option>
+                </optgroup>
+                <option class="ElementoListado" value="saab">Derecho </option> 
+                <option class="ElementoListado" value="saab">Teología </option>
+                <option class="ElementoListado" selected="selected">Seleccione su carrera</option>
+              </select>              
+            </div>            
+                        
+            <div class="col-md-1">
+              <button id="nextBoton" class="icon-circle-right BotonNext" type="button" onclick="siguientePaso();">
+              </button>
+            </div> 
+
+            <div id="siguientesDatos" class="col-md-8 align-self-center" style="transition: all 1s;">
+
+              <label style="margin-left: 14px;" id="labels"> Semestre: </label>
+              <select  class="Listado" name="Semestre" required="required" id="Semestre">
+                <option class="ElementoListado" value="saab">Primero </option>
+                <option class="ElementoListado" value="saab">Segundo </option>
+                <option class="ElementoListado" value="saab">Tercero </option>
+                <option class="ElementoListado" value="saab">Cuarto </option>
+                <option class="ElementoListado" value="saab">Quinto</option>
+                <option class="ElementoListado" value="saab">Sexto </option>
+                <option class="ElementoListado" value="saab">Septimo </option>
+                <option class="ElementoListado" value="saab">Octavo </option>
+                <option class="ElementoListado" value="saab">Noveno </option>
+                <option class="ElementoListado" value="saab">Decimo </option>
+                <option class="ElementoListado" selected="selected">Semestre</option>
+              </select> 
+
+              <label style="margin-left: 20px" id="labels"> Materia: </label>
+              <select class="Listado" name="Materia" required="required" id="Materia">
+                <option class="ElementoListado" selected="selected">Seleccionar Materia </option>
+              </select>
+              
+              <label style="margin-left: 20px" id="labels"> Materia: </label>
+              <select class="Listado" name="Materia" required="required" id="Materia">
+                <option class="ElementoListado" selected="selected">Seleccionar Materia </option>
+              </select>
+
+              <label style="margin-left: 20px" id="labels"> Profesor: </label>
+              <select  class="Listado" name="Profesor" required="required" id="Profesor">
+                <option class="ElementoListado" selected="selected"> Seleccionar Profesor </option>	  
+              </select>
+
+              <label style="margin-left: 20px" id="labels"> Sección: </label>
+              <select class="Listado" name="Seccion" required="required" id="Seccion">
+                <option class="ElementoListado" selected="selected"> Sección</option>
+              </select>
+            </div>          
+          </div>
+          <div class="row" style="background: rgb(16, 16, 16);">
+            <div class="col-lg-12 Herramientas" >
+              <div class="col-md-3">
+              </div>
+              <div   class="col-md-1 SeccionBoton">
+                <button id="guardarHorario" class=" icon-clipboard BotonOptions" type="button" onclick="">
+                </button>
+                <br/>
+                <label  id="labels"> Guardar Horario </label>
+              </div> 
+
+              <div class="col-md-1 SeccionBoton">
+                <button id="guardarMateria" class="icon-save-disk  BotonOptions" type="button" onclick="">
+                </button>
+                <br/>
+                <label  id="labels"> Guardar materia </label>
+              </div>  
+              
+              <div  class=" col-md-1 SeccionBoton">
+                <button id="horarioVacio" class="icon-file-empty BotonOptions" type="button" onclick="">
+                </button>
+                <br/>
+                <label  id="labels"> Nuevo Horario </label>
+              </div>  
+              
+              <div  class=" col-md-1 SeccionBoton">
+                <button id="quitarMateria" class="icon-minus BotonOptions" type="button" onclick="">
+                </button>
+                <br/>
+                <label  id="labels"> Eliminar Materia </label>
+              </div>               
+            </div>
+          </div>  
         </div>        
-      </div>
-
-      <div class="col-md-3  align-self-center" >
-        <label  id="labels">Carrera: </label>
-        <select class="Listado" name="Carrera" required="required" placeholder="Seleccione carrera" id="Carrera" title="S">
-          <optgroup class="SeccionListado" label="Ingeniería">
-            <option class="ElementoListado" value="saab">Informática </option>
-            <option class="ElementoListado" value="saab">Civil</option>
-            <option class="ElementoListado" value="saab">Industrial </option>
-            <option class="ElementoListado" value="saab">Telecomunicaciones </option>      
-          </optgroup>
-          <optgroup class="SeccionListado" label="Humanidades y Educacion">
-            <option class="ElementoListado" value="saab">Comunicación Social </option>
-            <option class="ElementoListado" value="saab">Educación </option>
-            <option class="ElementoListado" value="saab">Filosofía </option>
-            <option class="ElementoListado" value="saab">Letras </option>
-            <option class="ElementoListado" value="saab">Psicología </option>
-          </optgroup>
-          <optgroup class="SeccionListado" label="Ciencias Económicas y Sociales">
-            <option class="ElementoListado" value="saab">Administración y contaduria</option>
-            <option class="ElementoListado" value="saab">Ciencias Sociales </option>
-            <option class="ElementoListado" value="saab">Economía </option>
-          </optgroup>
-          <option class="ElementoListado" value="saab">Derecho </option> 
-          <option class="ElementoListado" value="saab">Teología </option>
-          <option class="ElementoListado" selected="selected">Seleccione su carrera</option>
-        </select>
-      </div>
-      
-      <div class="col-md-2">
-        <button id="nextBoton" class="icon-circle-right BotonNext" type="button" onclick="siguientePaso();">
-        </button>
-      </div>
-
-    </div>    
-      
-  </div>
-    
-    
-    
-    
-   
-    
-    <label style="margin-left: 50px" id="labels"> Semestre: </label>
-    <select class="Listado" name="Semestre" required="required" id="Semestre">
-      <option class="ElementoListado" value="saab">Primero </option>
-      <option class="ElementoListado" value="saab">Segundo </option>
-      <option class="ElementoListado" value="saab">Tercero </option>
-      <option class="ElementoListado" value="saab">Cuarto </option>
-      <option class="ElementoListado" value="saab">Quinto</option>
-      <option class="ElementoListado" value="saab">Sexto </option>
-      <option class="ElementoListado" value="saab">Septimo </option>
-      <option class="ElementoListado" value="saab">Octavo </option>
-      <option class="ElementoListado" value="saab">Noveno </option>
-      <option class="ElementoListado" value="saab">Decimo </option>
-      <option class="ElementoListado" selected="selected">Semestre</option>
-    </select>
-    
-    <label style="margin-left: 50px" id="labels"> Materia: </label>
-	  <select class="Listado" name="Materia" required="required" id="Materia">
-		  <option class="ElementoListado" selected="selected">Seleccionar Materia </option>
-	  </select>
-
-    <label style="margin-left: 50px" id="labels"> Profesor: </label>
-    <select  class="Listado" name="Profesor" required="required" id="Profesor">
-		  <option class="ElementoListado" selected="selected"> Seleccionar Profesor </option>	  </select>
-
-    <label style="margin-left: 50px" id="labels"> Sección: </label>
-  	<select class="Listado" name="Seccion" required="required" id="Seccion">
-		  <option class="ElementoListado" selected="selected"> Sección</option>
-	  </select>
+      </div>      
+    </div>
   </div>	
+  
 
-	<hr/>
-	<img style="margin-left: 100px;" src="imagenes/icon.png" width="65" height="65" alt=""/>
-	<img style="margin-left: 130px;" src="imagenes/escoba.png" width="65" height="65" alt=""/>
-	<a href="index.html"><img style="margin-left: 130px;" src="imagenes/flecha-retroceso.png" width="65" height="65" alt=""/></a>
-	<img style="margin-left: 130px;" src="imagenes/verificacion-de-la-lista-de-entrega-simbolo-de-portapapeles.png" width="65" height="65" alt=""/>
-		<img style="margin-left: 130px;" src="imagenes/goma-de-doble-cara.png" width="65" height="65" alt=""/>
-	<img style="margin-left: 130px;" src="imagenes/cubo-de-basura-boton-borrar.png" width="65" height="65" alt=""/>
-	<br>
-<label style="margin-left: 70px;" id="labels"> Guardar Horario </label>
-	<label style="margin-left: 70px;" id="labels"> Limpiar Horario </label>
-	<label style="margin-left: 70px;" id="labels"> Volver sin Guardar </label>
-<label style="margin-left: 50px;" id="labels"> Guardar Materia </label>
-<label style="margin-left: 60px;" id="labels"> Limpiar Materia </label>
-	<label style="margin-left: 70px;" id="labels"> Eliminar Materia </label>
-	<br>
-	<br>
-	<table width="1100" border="5" align="center" cellpadding="10" cellspacing="10" id="tablahorario">
-  <tbody>
-    <tr>
-      <th width="100" bgcolor="#A2F524" scope="col">HORA</th>
-      <th  width="300" bgcolor="#A2F524" scope="col">LUNES</th>
-      <th  width="300" bgcolor="#A2F524" scope="col">MARTES</th>
-      <th  width="300" bgcolor="#A2F524" scope="col">MIERCOLES</th>
-      <th  width="300" bgcolor="#A2F524" scope="col">JUEVES</th>
-      <th  width="300" bgcolor="#A2F524" scope="col">VIENES</th>
-    </tr>
-    <tr>
-      <th  width="300" bgcolor="#A2F524" scope="col">7:00 am a 7:50 am</th>
-      <td >&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-    </tr>
-    <tr>
-      <th  width="300" bgcolor="#A2F524" scope="col">8:00 am a 8:50 am</th>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-    </tr>
-    <tr>
-      <th  width="300" bgcolor="#A2F524" scope="col">9:00 am a 9:50 am</th>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-    </tr>
-    <tr>
-      <th  width="300" bgcolor="#A2F524" scope="col">10:00 am a 10:50 am</th>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-    </tr>
-    <tr>
-      <th  width="300" bgcolor="#A2F524" scope="col">11:00 am a 11:50 am</th>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-    </tr>
-    <tr>
-      <th  width="300" bgcolor="#A2F524" scope="col">12:00 pm a 12:50 pm</th>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-    </tr>
-    <tr>
-      <th  width="300" bgcolor="#A2F524" scope="col">1:00 pm a 1:50 pm</th>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-    </tr>
-    <tr>
-      <th  width="300" bgcolor="#A2F524" scope="col">2:00 pm a 2:50 pm</th>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-    </tr>
-    <tr>
-      <th  width="300" bgcolor="#A2F524" scope="col">3:00 pm a 3:50 pm</th>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-    </tr>
-    <tr>
-      <th  width="300" bgcolor="#A2F524" scope="col">4:00 pm a 4:50 pm</th>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-    </tr>
-    <tr>
-      <th  width="300" bgcolor="#A2F524" scope="col">5:00 pm a 5:50 pm</th>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-    </tr>
-    <tr>
-      <th  width="300" bgcolor="#A2F524" scope="col">6:00 pm a 6:50 pm</th>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-    </tr>
-    <tr>
-      <th  width="300" bgcolor="#A2F524" scope="col">7:00 pm a 7:50 pm</th>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-    </tr>
-    <tr>
-      <th  width="300" bgcolor="#A2F524" scope="col">8:00 pm a 8:50 pm</th>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-    </tr>
-    <tr>
-      <th  width="300" bgcolor="#A2F524" scope="col">9:00 pm a 9:50 pm</th>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-    </tr>
-  </tbody>
-</table>
+  <div id="contenedorHorario" >
+    <table class="table table-striped table-bordered table-responsive-xl">
+      <thead class="thead-dark CabeceraTabla" > 
+         <tr>
+          <th  scope="col" width = "15%">Horas</th>
+          <th  scope="col">Lunes</th>
+          <th  scope="col">Martes</th>
+          <th  scope="col">Miercoles</th>
+          <th  scope="col">Jueves</th>
+          <th  scope="col">Viernes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="Fila">
+          <th scope="row">7:00 am a 7:50 am</th>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>          
+        </tr>
+        <tr class="Fila">
+          <th scope="row">8:00 am a 8:50 am</th>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>          
+        </tr>        
+        <tr class="Fila">
+          <th scope="row">9:00 am a 9:50 am</th>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>          
+        </tr>
+         <tr class="Fila">
+          <th scope="row">10:00 am a 10:50 am</th>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>          
+        </tr>
+        
+        <tr class="Fila">
+          <th scope="row">11:00 am a 11:50 am</th>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>          
+        </tr>
+        <tr class="Fila">
+          <th scope="row">12:00 pm a 12:50 pm</th>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>          
+        </tr>
+        <tr class="Fila">
+          <th scope="row">1:00 pm a 1:50 pm</th>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>          
+        </tr>
+        <tr class="Fila">
+          <th scope="row">2:00 pm a 2:50 pm</th>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>          
+        </tr>
+        <tr class="Fila">
+          <th scope="row">3:00 pm a 3:50 pm</th>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>          
+        </tr>
+        <tr class="Fila">
+          <th scope="row">4:00 pm a 4:50 pm</th>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>          
+        </tr>
+        <tr class="Fila">
+          <th scope="row">5:00 pm a 5:50 pm</th>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>          
+        </tr>
+        <tr class="Fila">
+          <th scope="row">6:00 pm a 6:50 pm</th>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>          
+        </tr>
+        <tr class="Fila">
+          <th scope="row">7:00 pm a 7:50 pm</th>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>          
+        </tr>
+        <tr class="Fila">
+          <th scope="row">8:00 pm a 8:50 pm</th>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>          
+        </tr>
+        <tr class="Fila">
+          <th scope="row">9:00 pm a 9:50 pm</th>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>          
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+	
 <br>
 <br>
 </body>
-	
-<footer id="footer">
-  <h4 style="display: inline;">Desing by: Griller Oliver, Martinez Armando, Correia Manuel </h4>
-  <h4 style="display: inline; margin-left: 500px">Escuela Ingeniería Informática</h4>
-	
-</footer>
+
 
 </html>
