@@ -1,4 +1,4 @@
-[
+var informatica = [
  {
    "term": 201825,
    "school": "IINF",

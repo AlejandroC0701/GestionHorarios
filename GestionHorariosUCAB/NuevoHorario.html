@@ -22,9 +22,11 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script> 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script> var __adobewebfontsappname__="dreamweaver"</script>
+  
   <script src="http://use.edgefonts.net/source-sans-pro:n2:default.js" type="text/javascript"></script>
   <script src="js/BotonNextHorario.js" type="text/javascript"></script>
+  <script src="js/IINF.js"> </script>
+  <script src="js/CrearHorario.js"></script>
 </head>
 
 <header class="container-fluid" id="headerSection" style="color: white;">
@@ -99,38 +101,34 @@
 
             <div id="siguientesDatos" class="col-md-8 align-self-center" style="transition: all 1s;">
 
-              <label style="margin-left: 14px;" id="labels"> Semestre: </label>
-              <select  class="Listado" name="Semestre" required="required" id="Semestre">
-                <option class="ElementoListado" value="saab">Primero </option>
-                <option class="ElementoListado" value="saab">Segundo </option>
-                <option class="ElementoListado" value="saab">Tercero </option>
-                <option class="ElementoListado" value="saab">Cuarto </option>
+              <label style="margin-left: 14px;" id="labels"  > Semestre: </label>
+              <select  class="Listado" name="Semestre" required="required"  id="semestreSelect">
+                <option class="ElementoListado" value="saab">Primero</option>
+                <option class="ElementoListado" value="saab">Segundo</option>
+                <option class="ElementoListado" value="saab">Tercero</option>
+                <option class="ElementoListado" value="saab">Cuarto</option>
                 <option class="ElementoListado" value="saab">Quinto</option>
-                <option class="ElementoListado" value="saab">Sexto </option>
-                <option class="ElementoListado" value="saab">Septimo </option>
-                <option class="ElementoListado" value="saab">Octavo </option>
-                <option class="ElementoListado" value="saab">Noveno </option>
-                <option class="ElementoListado" value="saab">Decimo </option>
+                <option class="ElementoListado" value="saab">Sexto</option>
+                <option class="ElementoListado" value="saab">Septimo</option>
+                <option class="ElementoListado" value="saab">Octavo</option>
+                <option class="ElementoListado" value="saab">Noveno</option>
+                <option class="ElementoListado" value="saab">Decimo</option>
                 <option class="ElementoListado" selected="selected">Semestre</option>
               </select> 
-
+             
+                            
               <label style="margin-left: 20px" id="labels"> Materia: </label>
-              <select class="Listado" name="Materia" required="required" id="Materia">
-                <option class="ElementoListado" selected="selected">Seleccionar Materia </option>
-              </select>
-              
-              <label style="margin-left: 20px" id="labels"> Materia: </label>
-              <select class="Listado" name="Materia" required="required" id="Materia">
+              <select class="Listado" name="Materia" required="required" id="materia">
                 <option class="ElementoListado" selected="selected">Seleccionar Materia </option>
               </select>
 
               <label style="margin-left: 20px" id="labels"> Profesor: </label>
-              <select  class="Listado" name="Profesor" required="required" id="Profesor">
+              <select  class="Listado" name="Profesor" required="required" id="profesor">
                 <option class="ElementoListado" selected="selected"> Seleccionar Profesor </option>	  
               </select>
 
               <label style="margin-left: 20px" id="labels"> Sección: </label>
-              <select class="Listado" name="Seccion" required="required" id="Seccion">
+              <select class="Listado" name="Seccion" required="required" id="seccion">
                 <option class="ElementoListado" selected="selected"> Sección</option>
               </select>
             </div>          
@@ -317,5 +315,15 @@
 <br>
 </body>
 
-
+<script type="text/javascript">                
+  $("#semestreSelect").change(function(){  
+    elegirSemestre(""+$("#semestreSelect option:selected").text());
+  });    
+  $("#materia").change(function(){  
+    seleccionDeMateria(""+$("#materia option:selected").text());
+  });    
+  $("#profesor").change(function(){  
+    seleccionarProfesor(""+$("#profesor option:selected").text(),""+$("#materia option:selected").text());
+  });         
+</script>
 </html>
