@@ -1,18 +1,26 @@
 body{
   background: white;
+  overflow-x:hidden;
+}
+#inputTitulo{
+  border-radius: 20px;
+  width: 30%;
+}
+#seleccionarCarrera{
+  margin-left: 10px;
 }
 #titulo1{ 
 	text-align: center; 
 	color: #FFCB16;	
 }
-#headerSection{
- 
-  background: rgb(28, 28, 28);
+#headerSection{ 
+  background: rgb(5, 5, 5);
   width: 100%;
 }
-#logoImagen{
-  width: 50%;  
-  height: auto;
+img[id="logoImagen"]{
+  border-radius: 30px;
+  width: 125px;  
+  height: 125px;
   background: rgba(0, 0, 0, 0);
   padding: 10px;
 }
@@ -36,15 +44,124 @@ button[id = "homeBoton"]:active{
   overflow: visible;
   padding-top: 10px;
   font-size: 50pt;
-  color: rgba(230, 153, 153, 0.508);
+  color: rgba(255, 255, 255, 0.57);
   outline:none;
   -webkit-user-select: none; /* for button */  
   -moz-user-select: none;
   -ms-user-select: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   transition: all 0.8s;  
 }
 .DatosHorario{
   background:black;
   color: white;
   transition: all 1s;
+}
+
+button[id = "nextBoton"]:hover{
+  color: rgb(235, 235, 235);
+}
+button[id = "nextBoton"]{
+  margin-top:1%;
+  margin-left: 250px;
+}
+.SeccionBoton{  
+  text-align: center;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+.Herramientas{
+  display: flex;
+  background: rgb(14, 14, 14);
+  height:  0;
+  transition: all 0.5s;
+}
+
+.BotonNext{ 
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  line-height: none;
+  overflow: visible;
+  padding: 0px;
+  font-size: 50pt;
+  color: rgba(76, 76, 77, 0.508);
+  outline:none;
+  -webkit-user-select: none; /* for button */  
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  transition: all 0.8s;  
+}
+
+.BotonOptions{ 
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  line-height: none;
+  overflow: visible;
+  padding: 0px;
+  font-size: 50pt;
+  color: rgba(253, 253, 255, 0.508);
+  outline:none;
+  -webkit-user-select: none; /* for button */  
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  transition: all 0.8s;  
+}
+
+button[id = "quitarMateria"]:hover{
+  color: rgb(240, 169, 170);
+}
+button[id = "horarioVacio"]:hover{
+  color: rgb(169, 180, 240);
+}
+button[id = "guardarMateria"]:hover{
+  color: rgb(183, 240, 169);
+}
+button[id = "guardarHorario"]:hover{
+  color: rgb(240, 220, 169);
+}
+
+button[id = "quitarMateria"]:active{
+  color: rgb(208, 110, 111);
+}
+button[id = "horarioVacio"]:active{
+  color: rgb(109, 122, 198);
+}
+button[id = "guardarMateria"]:active{
+  color: rgb(123, 181, 109);
+}
+button[id = "guardarHorario"]:active{
+  color: rgb(187, 163, 100);
+}
+#tablahorario{
+  width: 90%;
+  
+}
+#contenedorHorario{  
+  transition: all 0.4s;
+  width: 100%;
+  overflow-y: scroll;
+  height: 0px; 
+}
+#cuerpoTabla{
+  height: 0;
+}
+.CabeceraTabla{
+  opacity: 0;
+  display: none;
+  transition: all 0.5s;
+  
+}
+.Fila{
+  transition: all 0.5s;
+  opacity: 0;
+  display: none;  
 }
