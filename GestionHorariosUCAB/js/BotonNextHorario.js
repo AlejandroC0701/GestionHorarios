@@ -28,7 +28,7 @@ function siguientePaso(){
    
     setTimeout(function(){
       $('.SeccionBoton').css('display','none');
-      $('#siguientesDatos').css('margin-left','0px');
+      $('#siguientesDatos').css('margin-left','5px');
       $('.Deslizador').css('margin-left','-15px');
       $('#nextBoton').css('margin-left','250px');
       $('#nextBoton').addClass("icon-circle-right");
