@@ -1,6 +1,7 @@
 var MateriaActual = [];
 
 function elegirSemestre(semestre){
+  
   document.getElementById("materia").innerHTML = ""; 
   document.getElementById("profesor").innerHTML = "";
   document.getElementById("seccion").innerHTML = "";
@@ -196,9 +197,8 @@ function seleccionarSeccion(nombreSeccion,nombreProfesor,nombreMateria){
         break;
     }
   }
-  console.log(MateriaActual);
+  
   if(horaList[0] != null){
-
     if(horaList[0].indexOf("Lun") >= 0)
     console.log("Va pal lunes");
     else
@@ -253,26 +253,92 @@ function prepararElemento(nombreMateria,nombreProfesor,nombreSeccion,dia,horaIni
 }
 
 function cargarMateriaEnTabla(){
-  for(var i = 0; i < MateriaActual.length;i++){
-    
+  for(var i = 0; i < MateriaActual.length;i++){    
     switch (MateriaActual[i].dia) {
-      case "Lun":{ break;}
-      case "Mar":{ break;}
-      case "Mie":{ break;}
-      case "Jue":{ break;}
-      case "Vie":{ break;}    
-          
+      case "Lun":{ buscarHora(0,MateriaActual[i].inicio,MateriaActual[i].fin,i); break;}
+      case "Mar":{ buscarHora(1,MateriaActual[i].inicio,MateriaActual[i].fin,i); break;}
+      case "Mie":{ buscarHora(2,MateriaActual[i].inicio,MateriaActual[i].fin,i); break;}
+      case "Jue":{ buscarHora(3,MateriaActual[i].inicio,MateriaActual[i].fin,i); break;}
+      case "Vie":{ buscarHora(4,MateriaActual[i].inicio,MateriaActual[i].fin,i); break;}  
       default:
         break;
-    }
-
-    $(".Am7 td").each(function(num,dia){
-      if(num == dia){
-        console.log("Miercoles");
-      }
-      console.log($(this).text());
-      num++;
-      });
-  }
-  
+    }    
+  }  
 }
+
+function buscarHora(dia,inicio,fin,indice){ 
+  
+  horaInicio = ""; 
+  horaFinal  = "";
+  if(inicio.indexOf("07:00") >= 0){ horaInicio = ".Am7";}
+  if(inicio.indexOf("08:00") >= 0){ horaInicio = ".Am8"; }
+  if(inicio.indexOf("09:00") >= 0){ horaInicio = ".Am9";}
+  if(inicio.indexOf("10:00") >= 0){ horaInicio = ".Am10";}
+  if(inicio.indexOf("11:00") >= 0){ horaInicio = ".Am11";}
+  if(inicio.indexOf("12:00") >= 0){ horaInicio = ".Pm12";}
+  if(inicio.indexOf("13:00") >= 0){ horaInicio = ".Pm1";}
+  if(inicio.indexOf("14:00") >= 0){ horaInicio = ".Pm2";}
+  if(inicio.indexOf("15:00") >= 0){ horaInicio = ".Pm3";}
+  if(inicio.indexOf("16:00") >= 0){ horaInicio = ".Pm4";}
+  if(inicio.indexOf("17:00") >= 0){ horaInicio = ".Pm5";}
+  if(inicio.indexOf("18:00") >= 0){ horaInicio = ".Pm6";}
+  if(inicio.indexOf("19:00") >= 0){ horaInicio = ".Pm7";}
+  if(inicio.indexOf("20:00") >= 0){ horaInicio = ".Pm8";}
+
+  if(fin.indexOf("07:50") >= 0){ horaFinal = ".Am7";}
+  if(fin.indexOf("08:50") >= 0){ horaFinal = ".Am8"; }
+  if(fin.indexOf("09:50") >= 0){ horaFinal = ".Am9";}
+  if(fin.indexOf("10:50") >= 0){ horaFinal = ".Am10";}
+  if(fin.indexOf("11:50") >= 0){ horaFinal = ".Am11";}
+  if(fin.indexOf("12:50") >= 0){ horaFinal = ".Pm12";}
+  if(fin.indexOf("13:50") >= 0){ horaFinal = ".Pm1";}
+  if(fin.indexOf("14:50") >= 0){ horaFinal = ".Pm2";}
+  if(fin.indexOf("15:50") >= 0){ horaFinal = ".Pm3";}
+  if(fin.indexOf("16:50") >= 0){ horaFinal = ".Pm4";}
+  if(fin.indexOf("17:50") >= 0){ horaFinal = ".Pm5";}
+  if(fin.indexOf("18:50") >= 0){ horaFinal = ".Pm6";}
+  if(fin.indexOf("19:50") >= 0){ horaFinal = ".Pm7";}
+  if(fin.indexOf("20:50") >= 0){ horaFinal = ".Pm8";}
+  console.log(horaInicio+" "+horaFinal);
+  if(horaFinal === horaInicio){
+    cargarEnUnEspacio(dia,horaInicio,indice);
+  }else{
+    cargarEnMas(dia,horaInicio,horaFinal,indice);
+
+  }
+
+  
+
+}
+function cargarEnUnEspacio(dia,inicio,indice){
+  var diaSem = dia;
+  var num = 0;
+  $(inicio+" td").each(function(num){
+    if(num == parseInt(diaSem)){
+      $(this).append("<p>Materia:"+MateriaActual[indice].nombre+"<br>Profesor:"+MateriaActual[indice].profesor+"<br>Seccion:"+MateriaActual[indice].seccion+"</p>");
+      //document.getElementById((inicio).replace(".","")+num).innerHTML = 'Materia';
+    }   
+    num++;
+  });
+}
+function cargarEnMas(dia,inicio,fin,indice){
+  var diaSem = dia;
+  var num = 0;
+  $(inicio+" td").each(function(num){
+    console.log(num + " " + diaSem);
+    if(num == parseInt(diaSem)){
+      $(this).append("<p>Materia:"+MateriaActual[indice].nombre+"<br>Profesor:"+MateriaActual[indice].profesor+"<br>Seccion:"+MateriaActual[indice].seccion+"</p>");
+      //document.getElementById( (inicio).replace(".","") +num).innerHTML = 'Materia';
+    }   
+    num++;
+  });
+
+  $(fin+" td").each(function(num){
+    if(num == parseInt(diaSem)){
+      $(this).append("<p>Materia:"+MateriaActual[indice].nombre+"<br>Profesor:"+MateriaActual[indice].profesor+"<br>Seccion:"+MateriaActual[indice].seccion+"</p>");
+      //document.getElementById( (fin).replace(".","")+num).innerHTML = 'Materia';
+    }  
+    num++;
+  });
+}
+
