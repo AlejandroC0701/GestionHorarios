@@ -314,9 +314,9 @@ function rotarIdAlEliminar(idAEliminar){
       }else{
         var materia = $("#contenedorHorario").fullCalendar('clientEvents',index);
         for(var j = 0; j < materia.length;j++){
-          materia[j].id = ""+(parseInt(materia[j].id)-1);
+          materia[j].id = index-1;
         }
-        $("#contenedorHorario").fullCalendar('updateEvent',materia);
+        $("#contenedorHorario").fullCalendar('updateEvents',materia);
       }
     }
     idMateria--;
@@ -328,9 +328,9 @@ function rotarIdAlEliminar(idAEliminar){
       }else{
         var materia = $("#contenedorHorario").fullCalendar('clientEvents',index);
         for(var j = 0; j < materia.length;j++){
-          materia[j].id = ""+(parseInt(materia[j].id)-1);
+          materia[j].id = index-1;
         }
-        $("#contenedorHorario").fullCalendar('updateEvent',materia);
+        $("#contenedorHorario").fullCalendar('updateEvents',materia);
       }
     }
     idMateria--;
