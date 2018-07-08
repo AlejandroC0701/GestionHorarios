@@ -291,7 +291,7 @@ function cargarMateriaEnTabla(){
     for(var j = 0; j < horariosDeMateria.length; j++){
       $("#contenedorHorario").fullCalendar('renderEvent',horariosDeMateria[j]);
     }
-    notifica();
+    notifica("Materia agregada exitosamente!",'rgba(0, 0, 0, 0.7)');
     idMateria = idMateria+1;
   }else{
     opcionesDeConflicto(horariosDeMateria);  
@@ -335,10 +335,11 @@ function rotarIdAlEliminar(idAEliminar){
     }
     idMateria--;
   }
+  
 }
 function eliminarMateria(){ 
   rotarIdAlEliminar(usarId);
-  console.log(idMateria);
+  notifica("Materia eliminada exitosamente!!",'rgba(226, 133, 133, 0.844)'); 
 }
 function forzarCincuentaMinutos(formato){
   var formato_1 = formato.split(" ");
@@ -381,16 +382,15 @@ function verificarChoqueMateria(materiaActual){
   return false;
 }
 
-function notifica() {
-  // Get the snackbar DIV
-  var x = document.getElementById("snackbar");
-
-  // Add the "show" class to DIV
+function notifica(mensaje,color) {
+  document.getElementById("snackbar").innerHTML = "";
+  document.getElementById("snackbar").innerHTML = mensaje;
+  $('#snackbar').css("background",color);
+  var x = document.getElementById("snackbar");  
   x.className = "show";
-
-  // After 3 seconds, remove the show class from DIV
   setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
 } 
+
 
 function opcionesDeConflicto(){
   var materiaEnConflicto = materiaInvolucradaEnConflicto;
