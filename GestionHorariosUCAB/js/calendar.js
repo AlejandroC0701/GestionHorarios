@@ -11,7 +11,9 @@ function crearTabla(){
     maxTime: "21:00:00",
     columnHeaderFormat: "dddd",
     defaultDate: moment("2018-07-02"),
-    displayEventTime: false, 
+    displayEventTime: false,
+    timeFormat: 'h:mm', 
+    locale: "es-us",
     
       eventClick: function(calEvent, jsEvent, view) {
         console.log("Selected: " + selected);
