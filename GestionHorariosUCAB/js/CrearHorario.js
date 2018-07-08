@@ -366,8 +366,8 @@ function opcionesDeConflicto(){
   var materiaNueva = materiaNuevaEnConflicto;  
   var arregloMateriaConflicto = materiaEnConflicto.title.split("\n");
   var arregloMateriaNueva = materiaNueva.title.split("\n");
-  var horaInicio;
-  var horaFin;
+  var horario;
+
   document.getElementById("conflictoAgregar").innerHTML = "";
   document.getElementById("conflictoAgregarHora").innerHTML = "";
   document.getElementById("conflictoAgregarProfesor").innerHTML = "";
@@ -376,22 +376,51 @@ function opcionesDeConflicto(){
   document.getElementById("conflictoRemplazarHora").innerHTML = "";
   document.getElementById("conflictoRemplazarProfesor").innerHTML = "";
 
-  horaInicio = formatoSoloHoras(materiaNueva.start._i);
-  horaFin = formatoSoloHoras(materiaNueva.end._i);
+  horario = formatoSoloHoras(materiaNueva.start._i,materiaNueva.end._i);  
   $("#conflictoAgregar").append("Remplazo: "+arregloMateriaNueva[0]+"\n");
-  $("#conflictoAgregarHora").append("Horario: Lunes "+horaInicio+" y "+horaFin+"\n");
+  $("#conflictoAgregarHora").append("Horario: "+horario+"\n");
   $("#conflictoAgregarProfesor").append("Profesor: "+arregloMateriaNueva[1]);
 
-  horaInicio = formatoSoloHoras(materiaEnConflicto.start._i);
-  horaFin = formatoSoloHoras(materiaEnConflicto.end._i);
+  horario = formatoSoloHoras(materiaEnConflicto.start._i,materiaEnConflicto.end._i);  
   $("#conflictoRemplazar").append("Actual: "+arregloMateriaConflicto[0]+"\n");
-  $("#conflictoRemplazarHora").append("Horario: Lunes "+horaInicio+" y "+horaFin+"\n");
+  $("#conflictoRemplazarHora").append("Horario: "+horario+"\n");
   $("#conflictoRemplazarProfesor").append("Profesor: "+arregloMateriaConflicto[1]);
 
   $(".Warning").modal(); 
 }
-function formatoSoloHoras(hora){
-  console.log(hora);
-  var formato_1 = hora.split(" ");
-  return formato_1[1];  
+function formatoSoloHoras(horaIn,horaFin){  
+  var formato_1 = horaIn.split(" ");
+  var formato_2 = horaFin.split(" ");
+  var dia = formato_1[0].split("-");
+  var horaDelDiaInicio = formato_1[1].split(":");
+  var horaDelDiaFin = formato_2[1].split(":");
+
+  if(parseInt(horaDelDiaInicio[0]) < 12){
+    formato_1[1] = formato_1[1]+"am"
+  }else{
+    formato_1[1] = formato_1[1]+"pm"
+  }
+  if(parseInt(horaDelDiaFin[0]) < 12){
+    formato_2[1] = formato_2[1]+"am"
+  }else{
+    formato_2[1] = formato_2[1]+"pm"
+  }
+
+  var formatoCompleto;
+  switch (parseInt(dia[2])) {
+    case 2: formatoCompleto = "Lunes "+formato_1[1]+" y "+formato_2[1];      
+      break;
+    case 3: formatoCompleto = "Martes "+formato_1[1]+" y "+formato_2[1];   
+      break;
+    case 4: formatoCompleto = "Miercoles "+formato_1[1]+" y "+formato_2[1];   
+      break;
+    case 5: formatoCompleto = "jueves "+formato_1[1]+" y "+formato_2[1];   
+      break;
+    case 6: formatoCompleto = "Viernes "+formato_1[1]+" y "+formato_2[1];   
+      break;      
+    default:
+    formatoCompleto = "No se pudo obtener la fecha";
+      break;
+  }
+  return formatoCompleto;  
 }
