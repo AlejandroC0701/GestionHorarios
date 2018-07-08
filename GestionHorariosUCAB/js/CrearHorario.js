@@ -267,40 +267,42 @@ function prepararElemento(nombreMateria,nombreProfesor,nombreSeccion,dia,horaIni
 }
 
 function cargarMateriaEnTabla(){ 
-  console.log("Id: " + idMateria); 
-  var horariosDeMateria = [];
-  var choques = 0;
-  var data={};  
-  for(var i = 0; i < MateriaActual.length;i++){
-    data={
-      id: MateriaActual[i].id,
-      title: MateriaActual[i].nombre+"\n"+MateriaActual[i].profesor+"\n"+MateriaActual[i].salon+"\n"+MateriaActual[i].seccion,
-      start: moment(getDia(MateriaActual[i].dia)+MateriaActual[i].inicio, "YYYY-MM-DD HH:mm"),
-      end: moment(getDia(MateriaActual[i].dia)+MateriaActual[i].fin, "YYYY-MM-DD HH:mm"),
-      color: '#2a92ca',   // an option!
-      textColor: 'black', // an option!
-      borderColor:'#2a92ca'
+  if(MateriaActual.length > 0){
+    var horariosDeMateria = [];
+    var choques = 0;
+    var data={};  
+    for(var i = 0; i < MateriaActual.length;i++){
+      data={
+        id: MateriaActual[i].id,
+        title: MateriaActual[i].nombre+"\n"+MateriaActual[i].profesor+"\n"+MateriaActual[i].salon+"\n"+MateriaActual[i].seccion,
+        start: moment(getDia(MateriaActual[i].dia)+MateriaActual[i].inicio, "YYYY-MM-DD HH:mm"),
+        end: moment(getDia(MateriaActual[i].dia)+MateriaActual[i].fin, "YYYY-MM-DD HH:mm"),
+        color: '#2a92ca',   // an option!
+        textColor: 'black', // an option!
+        borderColor:'#2a92ca'
+      }
+      if(!verificarChoqueMateria(data)){
+        horariosDeMateria.push(data);   
+      }else{
+        choques++;
+      }
     }
-    if(!verificarChoqueMateria(data)){
-      horariosDeMateria.push(data);   
+    if(choques === 0 && horariosDeMateria.length > 0){ //Si no hay choques
+      for(var j = 0; j < horariosDeMateria.length; j++){
+        $("#contenedorHorario").fullCalendar('renderEvent',horariosDeMateria[j]);
+      }
+      notifica("Materia agregada exitosamente!",'rgba(0, 0, 0, 0.7)');
+      idMateria = idMateria+1;
     }else{
-      choques++;
+      opcionesDeConflicto(horariosDeMateria);  
     }
-  }
-  if(choques === 0){ //Si no hay choques
-    for(var j = 0; j < horariosDeMateria.length; j++){
-      $("#contenedorHorario").fullCalendar('renderEvent',horariosDeMateria[j]);
-    }
-    notifica("Materia agregada exitosamente!",'rgba(0, 0, 0, 0.7)');
-    idMateria = idMateria+1;
+   
   }else{
-    opcionesDeConflicto(horariosDeMateria);  
-  }  
-    
-  
-  console.log(idMateria);
-  
+    notifica("No a seleccionado una materia aun",'rgba(199, 201, 108, 0.844)');
+  }
+
 }
+  
 
 function rotarIdAlEliminar(idAEliminar){
   if(parseInt(idAEliminar) === idMateria-1){
