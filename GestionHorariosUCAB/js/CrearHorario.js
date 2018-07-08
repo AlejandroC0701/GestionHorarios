@@ -351,6 +351,12 @@ function botonEliminarMateria(){
     notifica('No se a seleccionado ninguna materia','rgba(226, 133, 133, 0.844)'); 
   }
 }
+function remplazarMateria(){
+  rotarIdAlEliminar(materiaInvolucradaEnConflicto.id);
+  cargarMateriaEnTabla();
+  $('.Warning').modal("hide");
+  notifica('La materia fue remplazada con exito!','rgba(206, 136, 230, 0.844)');
+}
 function forzarCincuentaMinutos(formato){
   var formato_1 = formato.split(" ");
   var hora = formato_1[1].split(":");
