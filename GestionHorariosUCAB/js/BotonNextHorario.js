@@ -4,10 +4,10 @@ function siguientePaso(){
   if(!siguiente){
     siguiente = true;
     $('.Deslizador').css('margin-left','-1060px');
-    $('#nextBoton').css('margin-left','50px');//icon-circle-right
+    $('#nextBoton').css('margin-left','100px');//icon-circle-right
     $('#nextBoton').removeClass("icon-circle-right");
     $('#nextBoton').addClass("icon-circle-left");
-    $('#siguientesDatos').css('margin-left','-100px');
+    $('#siguientesDatos').css('margin-left','');
     setTimeout(function(){ 
       $('.SeccionBoton').css('display','block');  
       $('.Herramientas').css('height','100px');        

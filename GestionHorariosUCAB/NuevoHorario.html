@@ -87,34 +87,42 @@
           </div>
 
           <div class="col-md-2  align-self-center">
- 
-              <label  id="labels">Titulo:</label>
-              <input id="inputTitulo"  name="titulo" type="text"  size="20px" placeholder="Titulo del horario"> 
-                
-              <label  id="seleccionarCarrera">Carrera: </label>
-              <select class="Listado" name="Carrera" required="required" placeholder="Seleccione carrera" id="Carrera" title="S">
-                <optgroup class="SeccionListado" label="Ingeniería">
-                  <option class="ElementoListado" value="saab">Informática </option>
-                  <option class="ElementoListado" value="saab">Civil</option>
-                  <option class="ElementoListado" value="saab">Industrial </option>
-                  <option class="ElementoListado" value="saab">Telecomunicaciones </option>      
-                </optgroup>
-                <optgroup class="SeccionListado" label="Humanidades y Educacion">
-                  <option class="ElementoListado" value="saab">Comunicación Social </option>
-                  <option class="ElementoListado" value="saab">Educación </option>
-                  <option class="ElementoListado" value="saab">Filosofía </option>
-                  <option class="ElementoListado" value="saab">Letras </option>
-                  <option class="ElementoListado" value="saab">Psicología </option>
-                </optgroup>
-                <optgroup class="SeccionListado" label="Ciencias Económicas y Sociales">
-                  <option class="ElementoListado" value="saab">Administración y contaduria</option>
-                  <option class="ElementoListado" value="saab">Ciencias Sociales </option>
-                  <option class="ElementoListado" value="saab">Economía </option>
-                </optgroup>
-                <option class="ElementoListado" value="saab">Derecho </option> 
-                <option class="ElementoListado" value="saab">Teología </option>
-                <option class="ElementoListado" selected="selected">Seleccione su carrera</option>
-              </select>              
+              <div class="input-group col-md-6 float-left">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">Titulo</span>
+                  </div>
+                  <input type="text" class="form-control" placeholder="Titulo del horario!" aria-label="Ponle un titulo a tu horario!" aria-describedby="basic-addon1">
+                </div>
+
+              <div class="input-group col-md-6 float-left">
+                  <div class="input-group-prepend">
+                    <label  class="input-group-text" for="Carrera">Carrera</label>
+                  </div>
+                  <select class="custom-select" id="Carrera">
+                      <optgroup class="SeccionListado" label="Ingeniería">
+                          <option class="ElementoListado" value="saab">Informática </option>
+                          <option class="ElementoListado" value="saab">Civil</option>
+                          <option class="ElementoListado" value="saab">Industrial </option>
+                          <option class="ElementoListado" value="saab">Telecomunicaciones </option>      
+                        </optgroup>
+                        <optgroup class="SeccionListado" label="Humanidades y Educacion">
+                          <option class="ElementoListado" value="saab">Comunicación Social </option>
+                          <option class="ElementoListado" value="saab">Educación </option>
+                          <option class="ElementoListado" value="saab">Filosofía </option>
+                          <option class="ElementoListado" value="saab">Letras </option>
+                          <option class="ElementoListado" value="saab">Psicología </option>
+                        </optgroup>
+                        <optgroup class="SeccionListado" label="Ciencias Económicas y Sociales">
+                          <option class="ElementoListado" value="saab">Administración y contaduria</option>
+                          <option class="ElementoListado" value="saab">Ciencias Sociales </option>
+                          <option class="ElementoListado" value="saab">Economía </option>
+                        </optgroup>
+                        <option class="ElementoListado" value="saab">Derecho </option> 
+                        <option class="ElementoListado" value="saab">Teología </option>
+                        <option class="ElementoListado" selected="selected">Seleccione su carrera</option>
+                  </select>
+                </div>
+     
             </div>            
                         
             <div class="col-md-1">
@@ -122,42 +130,70 @@
               </button>
             </div> 
 
-            <div id="siguientesDatos" class="form-group col-md-8 align-self-center" style="transition: all 1s;">
+            <div id="siguientesDatos" class="form-group col-md-8 align-self-center row mt-3 mb-5" style="transition: all 1s; margin-left: 5px;">
+                <div class="input-group input-group-sm col-md-1 float-left">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="semestreSelect">Semestre</label>
+                    </div>
+                    <select class="custom-select custom-select-sm" id="semestreSelect">
+                        <option class="ElementoListado" value="saab">Primero</option>
+                        <option class="ElementoListado" value="saab">Segundo</option>
+                        <option class="ElementoListado" value="saab">Tercero</option>
+                        <option class="ElementoListado" value="saab">Cuarto</option>
+                        <option class="ElementoListado" value="saab">Quinto</option>
+                        <option class="ElementoListado" value="saab">Sexto</option>
+                        <option class="ElementoListado" value="saab">Septimo</option>
+                        <option class="ElementoListado" value="saab">Octavo</option>
+                        <option class="ElementoListado" value="saab">Noveno</option>
+                        <option class="ElementoListado" value="saab">Decimo</option>
+                        <option class="ElementoListado" selected="selected">Semestre</option>
+                    </select>
+                  </div>
 
-              <label style="margin-left: 14px;" id="labels"  > Semestre: </label>
-              <select  class="selectpicker Listado" name="Semestre" required="required"  id="semestreSelect">
-                <option class="ElementoListado" value="saab">Primero</option>
-                <option class="ElementoListado" value="saab">Segundo</option>
-                <option class="ElementoListado" value="saab">Tercero</option>
-                <option class="ElementoListado" value="saab">Cuarto</option>
-                <option class="ElementoListado" value="saab">Quinto</option>
-                <option class="ElementoListado" value="saab">Sexto</option>
-                <option class="ElementoListado" value="saab">Septimo</option>
-                <option class="ElementoListado" value="saab">Octavo</option>
-                <option class="ElementoListado" value="saab">Noveno</option>
-                <option class="ElementoListado" value="saab">Decimo</option>
-                <option class="ElementoListado" selected="selected">Semestre</option>
-              </select> 
              
                             
-              <label style="margin-left: 20px" id="labels"> Materia: </label>
-              <select class="Listado" name="Materia" required="required" id="materia">
-                <option class="ElementoListado" selected="selected">Seleccionar Materia </option>
-              </select>
+              <div class="input-group input-group-sm col-md float-left">
+                <div class="input-group-prepend">
+                  <label id="labels" class="input-group-text" for="materia"> Materia: </label>
+                </div>
+              <select class="custom-select custom-select-sm" name="Materia" required="required" id="materia">
+                  <option class="ElementoListado" selected="selected">Seleccionar Materia </option>
+                </select>
+              </div>
 
-              <label style="margin-left: 20px" id="labels"> Profesor: </label>
-              <select  class="Listado" name="Profesor" required="required" id="profesor">
-                <option class="ElementoListado" selected="selected"> Seleccionar Profesor </option>	  
-              </select>
 
-              <label style="margin-left: 20px" id="labels"> Sección: </label>
-              <select class="Listado" name="Seccion" required="required" id="seccion">
-                <option class="ElementoListado" selected="selected"> Sección</option>
-              </select>
-              <br>              
-              <section id="hora" style="display: flex">
-                <label style="margin-left: 20px" id="labels">Horas:</label>                
-              </section>    
+
+              <div class="input-group input-group-sm col-md float-left">
+                <div class="input-group-prepend">
+                  
+                  <label id="labels" class="input-group-text" for="Profesor"> Profesor: </label>
+                </div>
+
+                <select  class="custom-select custom-select-sm" name="Profesor" required="required" id="profesor">
+                  <option class="ElementoListado" selected="selected"> Seleccionar Profesor </option>	  
+                </select>
+              </div>
+
+              
+
+              <div class="input-group input-group-sm col-md-1">
+                <div class="input-group-prepend">
+                  
+                  <label id="labels" class="input-group-text" for="seccion"> Sección: </label>
+                </div>
+
+                <select class="custom-select custom-select-sm" name="Seccion" required="required" id="seccion">
+                  <option class="ElementoListado" selected="selected"> Sección</option>
+                </select>
+              </div> 
+              <div class="col col-md-7"></div>
+                <br>          
+
+                <section id="hora" style="display: flex">
+                  <label style="margin-left: 20px" id="labels">Horas:</label>                
+                </section>
+                 
+                
 
             </div>          
           </div>
@@ -165,7 +201,7 @@
             <div class="col-lg-12 Herramientas" >
               <div class="col-md-3">
               </div>
-              <div   class="col-md-1 SeccionBoton">
+              <div   class="col-md-1 SeccionBoton" style="margin-left: 3%;" >
                 <button id="guardarHorario" class=" icon-clipboard BotonOptions" type="button" onclick="">
                 </button>
                 <br/>
