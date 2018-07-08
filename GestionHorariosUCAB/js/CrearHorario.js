@@ -265,6 +265,8 @@ function prepararElemento(nombreMateria,nombreProfesor,nombreSeccion,dia,horaIni
 
 function cargarMateriaEnTabla(){ 
   console.log("Id: " + idMateria); 
+  var horariosDeMateria = [];
+  var choques = 0;
   var data={};  
   for(var i = 0; i < MateriaActual.length;i++){
     data={
@@ -276,13 +278,26 @@ function cargarMateriaEnTabla(){
       textColor: 'black', // an option!
       borderColor:'#2a92ca'
     }
-    verificarChoqueMateria(data);
-    $("#contenedorHorario").fullCalendar('renderEvent', data );    
+    if(!verificarChoqueMateria(data)){
+      horariosDeMateria.push(data);   
+    }else{
+      choques++;
+    }
   }
+  if(choques === 0){ //Si no hay choques
+    for(var j = 0; j < horariosDeMateria.length; j++){
+      $("#contenedorHorario").fullCalendar('renderEvent',horariosDeMateria[j]);
+    }
+    notifica();
+  }else{
+    $(".warning").modal();    
+  }
+     
+  
   
   idMateria = idMateria+1;  
   MateriaActual=[];
-  notifica();
+  //notifica();
 }
 
 function buscarHora(dia,inicio,fin,indice){
@@ -361,12 +376,14 @@ function eliminarMateria(){
   $("#contenedorHorario").fullCalendar( 'removeEvents', usarId );
   idMateria--;
 }
-function verificarMateriasIguales(materiaActual,materiaVieja){
+function isMateriasIguales(materiaActual,materiaVieja){
   console.log(materiaActual);
-  if(materiaActual.nombre === materiaVieja.nombre){
-    alert("Misma materia");
+  if(materiaActual.title === materiaVieja.title){
+    return true;
   }
+  return false;
 }
+
 function verificarChoqueMateria(materiaActual){       
         var inicioNuevo = materiaActual.start._i;
         var finNuevo    = materiaActual.end._i;  
@@ -378,12 +395,17 @@ function verificarChoqueMateria(materiaActual){
         var inicioViejo = materiaEnHorario[index].start._i;
         var finViejo = materiaEnHorario[index].end._i;         
         if(inicioNuevo === inicioViejo || inicioNuevo === finViejo || finNuevo === inicioViejo || finNuevo === finViejo){
-          verificarMateriasIguales(materiaActual,materiaEnHorario[index]);
+          if(isMateriasIguales(materiaActual,materiaEnHorario[index])){
+            alert("Esta materia ya esta agregada");
+            return true;
+          }else{
+            return true;
+          }
         }                  
       }
     }
   }
-  //return 0;
+  return false;
 }
 
 
