@@ -30,7 +30,8 @@
   <script src="js/moment/moment.js" ></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"></script>
   <script src="js/calendar.js"></script>
-  <script src="js/dist/locale/es.js" ></script>  
+  <script src="js/dist/locale/es-us.js" ></script>
+  
   <script src="js/CrearHorario.js"></script>
 </head>
 <script>
@@ -73,27 +74,48 @@
 </header>	
 	
 <body id="body">
+
   
-  <div class="warning fade " tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Reemplazar Materia</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p>¿Esta Seguro que desea Reemplazar esta materia?.</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary">Reemplazar</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        </div>
+<div class=" Warning modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Conflicto de horario</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body col-sm-12 row" style="margin-left: 0.5%; display: flex;">
+          <div class="col-sm-6 p-3 mb-2 bg-danger text-black"> 
+              <div class="card text-center">
+                  <div class="card-header" id="conflictoAgregar">
+                    Agregar: Calculo 2
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title" id="conflictoAgregarHora">Lunes 9:00am y 10:50am</h5>
+                    <p class="card-text"id="conflictoAgregarProfesor">Profesor: tal <br>Seccion x</p>                    
+                  </div>                  
+                </div>                
+          </div>
+          <div class=" col-sm-6 p-3 mb-2 bg-danger text-black"> 
+              <div class="card text-center">
+                  <div class="card-header" id="conflictoRemplazar">
+                    Remplazar :Algoritmo y programacion 2
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title"id="conflictoRemplazarHora" >Lunes 9:00am y 10:50am</h5>
+                    <p class="card-text" id="conflictoRemplazarProfesor">Profesor: tal <br>Seccion x</p>                    
+                  </div>                  
+                </div>                
+          </div>          
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary">Remplazar</button>
       </div>
     </div>
   </div>
-
+</div>
 
   <div class="DatosHorario container-fluid">
 
@@ -233,8 +255,7 @@
 </body>
 
 <script type="text/javascript">                
-  $("#semestreSelect").change(function(){ 
-    
+  $("#semestreSelect").change(function(){    
     elegirSemestre(""+$("#semestreSelect option:selected").text());
   });    
   $("#materia").change(function(){  

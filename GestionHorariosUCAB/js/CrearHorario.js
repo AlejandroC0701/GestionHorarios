@@ -1,4 +1,6 @@
 var MateriaActual = [];
+var materiaInvolucradaEnConflicto;
+var materiaNuevaEnConflicto;
 var id=0;
 
 
@@ -290,94 +292,26 @@ function cargarMateriaEnTabla(){
     }
     notifica();
   }else{
-    $(".warning").modal();    
-  }
-     
-  
-  
+    opcionesDeConflicto(horariosDeMateria);  
+  }    
   idMateria = idMateria+1;  
   MateriaActual=[];
-  //notifica();
-}
-
-function buscarHora(dia,inicio,fin,indice){
   
-  horaInicio = ""; 
-  horaFinal  = "";
-  if(inicio.indexOf("07:00") >= 0){ horaInicio = ".Am7";}
-  if(inicio.indexOf("08:00") >= 0){ horaInicio = ".Am8"; }
-  if(inicio.indexOf("09:00") >= 0){ horaInicio = ".Am9";}
-  if(inicio.indexOf("10:00") >= 0){ horaInicio = ".Am10";}
-  if(inicio.indexOf("11:00") >= 0){ horaInicio = ".Am11";}
-  if(inicio.indexOf("12:00") >= 0){ horaInicio = ".Pm12";}
-  if(inicio.indexOf("13:00") >= 0){ horaInicio = ".Pm1";}
-  if(inicio.indexOf("14:00") >= 0){ horaInicio = ".Pm2";}
-  if(inicio.indexOf("15:00") >= 0){ horaInicio = ".Pm3";}
-  if(inicio.indexOf("16:00") >= 0){ horaInicio = ".Pm4";}
-  if(inicio.indexOf("17:00") >= 0){ horaInicio = ".Pm5";}
-  if(inicio.indexOf("18:00") >= 0){ horaInicio = ".Pm6";}
-  if(inicio.indexOf("19:00") >= 0){ horaInicio = ".Pm7";}
-  if(inicio.indexOf("20:00") >= 0){ horaInicio = ".Pm8";}
+}
 
-  if(fin.indexOf("07:50") >= 0){ horaFinal = ".Am7";}
-  if(fin.indexOf("08:50") >= 0){ horaFinal = ".Am8"; }
-  if(fin.indexOf("09:50") >= 0){ horaFinal = ".Am9";}
-  if(fin.indexOf("10:50") >= 0){ horaFinal = ".Am10";}
-  if(fin.indexOf("11:50") >= 0){ horaFinal = ".Am11";}
-  if(fin.indexOf("12:50") >= 0){ horaFinal = ".Pm12";}
-  if(fin.indexOf("13:50") >= 0){ horaFinal = ".Pm1";}
-  if(fin.indexOf("14:50") >= 0){ horaFinal = ".Pm2";}
-  if(fin.indexOf("15:50") >= 0){ horaFinal = ".Pm3";}
-  if(fin.indexOf("16:50") >= 0){ horaFinal = ".Pm4";}
-  if(fin.indexOf("17:50") >= 0){ horaFinal = ".Pm5";}
-  if(fin.indexOf("18:50") >= 0){ horaFinal = ".Pm6";}
-  if(fin.indexOf("19:50") >= 0){ horaFinal = ".Pm7";}
-  if(fin.indexOf("20:50") >= 0){ horaFinal = ".Pm8";}
-  
- 
-    if(horaFinal === horaInicio){
-      cargarEnUnEspacio(dia,horaInicio,indice);
-    }else{
-      cargarEnMas(dia,horaInicio,horaFinal,indice);  
-    }    
-}
-function cargarEnUnEspacio(dia,inicio,indice){
-  var diaSem = dia;
-  var num = 0;
-  $(inicio+" td").each(function(num){
-    if(num == parseInt(diaSem)){
-      $(this).append("<p>Materia:"+MateriaActual[indice].nombre+"<br>Profesor:"+MateriaActual[indice].profesor+"<br>Seccion:"+MateriaActual[indice].seccion+"</p>");
-      
-    }   
-    num++;
-  });
-}
-function cargarEnMas(dia,inicio,fin,indice){
-  var diaSem = dia;
-  var num = 0;
-  $(inicio+" td").each(function(num){
-    console.log(num + " " + diaSem);
-    if(num == parseInt(diaSem)){
-      $(this).append("<p>Materia:"+MateriaActual[indice].nombre+"<br>Profesor:"+MateriaActual[indice].profesor+"<br>Seccion:"+MateriaActual[indice].seccion+"</p>");     
-    }   
-    num++;
-  });
-
-  $(fin+" td").each(function(num){
-    if(num == parseInt(diaSem)){
-      $(this).append("<p>Materia:"+MateriaActual[indice].nombre+"<br>Profesor:"+MateriaActual[indice].profesor+"<br>Seccion:"+MateriaActual[indice].seccion+"</p>");  
-    }  
-    num++;
-  });
-}
 
 function eliminarMateria(){  
   
   $("#contenedorHorario").fullCalendar( 'removeEvents', usarId );
   idMateria--;
 }
-function isMateriasIguales(materiaActual,materiaVieja){
-  console.log(materiaActual);
+function forzarCincuentaMinutos(formato){
+  var formato_1 = formato.split(" ");
+  var hora = formato_1[1].split(":");
+  var horaCompuesta = formato_1[0]+" "+hora[0]+":50";
+  return horaCompuesta;
+}
+function isMateriasIguales(materiaActual,materiaVieja){  
   if(materiaActual.title === materiaVieja.title){
     return true;
   }
@@ -386,15 +320,20 @@ function isMateriasIguales(materiaActual,materiaVieja){
 
 function verificarChoqueMateria(materiaActual){       
         var inicioNuevo = materiaActual.start._i;
-        var finNuevo    = materiaActual.end._i;  
+        var finNuevo    = materiaActual.end._i; 
+        var inicioForzado = forzarCincuentaMinutos(inicioNuevo);
+        
   if(idMateria > 0){
     for (var i = 0; i < idMateria; i++) {
       var materiaEnHorario = $("#contenedorHorario").fullCalendar('clientEvents',i);
       //Ciclo para ver las horas de la materia
       for (let index = 0; index < materiaEnHorario.length; index++) {        
         var inicioViejo = materiaEnHorario[index].start._i;
-        var finViejo = materiaEnHorario[index].end._i;         
-        if(inicioNuevo === inicioViejo || inicioNuevo === finViejo || finNuevo === inicioViejo || finNuevo === finViejo){
+        var finViejo = materiaEnHorario[index].end._i; 
+        var inicioViejoForzado = forzarCincuentaMinutos(inicioViejo);              
+        if(inicioNuevo === inicioViejo || inicioNuevo === finViejo || finNuevo === inicioViejo || finNuevo === finViejo || finNuevo === inicioViejoForzado || inicioForzado === finViejo){
+          materiaInvolucradaEnConflicto = materiaEnHorario[index];
+          materiaNuevaEnConflicto =materiaActual;
           if(isMateriasIguales(materiaActual,materiaEnHorario[index])){
             alert("Esta materia ya esta agregada");
             return true;
@@ -422,5 +361,37 @@ function notifica() {
   setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
 } 
 
+function opcionesDeConflicto(){
+  var materiaEnConflicto = materiaInvolucradaEnConflicto;
+  var materiaNueva = materiaNuevaEnConflicto;  
+  var arregloMateriaConflicto = materiaEnConflicto.title.split("\n");
+  var arregloMateriaNueva = materiaNueva.title.split("\n");
+  var horaInicio;
+  var horaFin;
+  document.getElementById("conflictoAgregar").innerHTML = "";
+  document.getElementById("conflictoAgregarHora").innerHTML = "";
+  document.getElementById("conflictoAgregarProfesor").innerHTML = "";
 
+  document.getElementById("conflictoRemplazar").innerHTML = "";
+  document.getElementById("conflictoRemplazarHora").innerHTML = "";
+  document.getElementById("conflictoRemplazarProfesor").innerHTML = "";
 
+  horaInicio = formatoSoloHoras(materiaNueva.start._i);
+  horaFin = formatoSoloHoras(materiaNueva.end._i);
+  $("#conflictoAgregar").append("Remplazo: "+arregloMateriaNueva[0]+"\n");
+  $("#conflictoAgregarHora").append("Horario: Lunes "+horaInicio+" y "+horaFin+"\n");
+  $("#conflictoAgregarProfesor").append("Profesor: "+arregloMateriaNueva[1]);
+
+  horaInicio = formatoSoloHoras(materiaEnConflicto.start._i);
+  horaFin = formatoSoloHoras(materiaEnConflicto.end._i);
+  $("#conflictoRemplazar").append("Actual: "+arregloMateriaConflicto[0]+"\n");
+  $("#conflictoRemplazarHora").append("Horario: Lunes "+horaInicio+" y "+horaFin+"\n");
+  $("#conflictoRemplazarProfesor").append("Profesor: "+arregloMateriaConflicto[1]);
+
+  $(".Warning").modal(); 
+}
+function formatoSoloHoras(hora){
+  console.log(hora);
+  var formato_1 = hora.split(" ");
+  return formato_1[1];  
+}
