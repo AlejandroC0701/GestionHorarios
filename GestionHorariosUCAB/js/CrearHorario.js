@@ -341,7 +341,15 @@ function rotarIdAlEliminar(idAEliminar){
 }
 function eliminarMateria(){ 
   rotarIdAlEliminar(usarId);
+  selected = -1;
   notifica("Materia eliminada exitosamente!!",'rgba(226, 133, 133, 0.844)'); 
+}
+function botonEliminarMateria(){
+  if(MateriaActual.length > 0 && selected >= 0){
+    $('.Delete').modal();
+  }else{ 
+    notifica('No se a seleccionado ninguna materia','rgba(226, 133, 133, 0.844)'); 
+  }
 }
 function forzarCincuentaMinutos(formato){
   var formato_1 = formato.split(" ");
