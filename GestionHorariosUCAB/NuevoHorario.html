@@ -16,17 +16,19 @@
   </style>
   <link rel="shortcut icon" href=https://www.ucab.edu.ve/wp-content/uploads/sites/2/2017/06/favicon.png /> 
 
+  
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script> 
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="http://use.edgefonts.net/source-sans-pro:n2:default.js" type="text/javascript"></script>
   <script src="https://unpkg.com/popper.js"></script>
   <script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
   <script src="https://unpkg.com/tooltip.js"></script>
   <script src="https://unpkg.com/tooltip.js/dist/umd/tooltip.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-  <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script> 
- 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="http://use.edgefonts.net/source-sans-pro:n2:default.js" type="text/javascript"></script>
+
   <script src="js/BotonNextHorario.js" type="text/javascript"></script>
   <script src="js/IINF.js"> </script>
   <script src="js/CrearHorario.js"></script>
@@ -326,7 +328,8 @@
 </body>
 
 <script type="text/javascript">                
-  $("#semestreSelect").change(function(){  
+  $("#semestreSelect").change(function(){ 
+    
     elegirSemestre(""+$("#semestreSelect option:selected").text());
   });    
   $("#materia").change(function(){  
