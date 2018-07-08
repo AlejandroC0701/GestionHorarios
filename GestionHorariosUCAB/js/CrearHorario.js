@@ -1,4 +1,5 @@
 var MateriaActual = [];
+var MateriasGuardadas = [];
 
 function elegirSemestre(semestre){
   
@@ -198,12 +199,7 @@ function seleccionarSeccion(nombreSeccion,nombreProfesor,nombreMateria){
     }
   }
   
-  if(horaList[0] != null){
-    if(horaList[0].indexOf("Lun") >= 0)
-    console.log("Va pal lunes");
-    else
-    console.log("nada");
-  }
+  
 }
 function cargarHoras(horaList,nombreSeccion,nombreProfesor,nombreMateria){
   for(var i = 0; i < informatica.length; i++){
@@ -253,20 +249,34 @@ function prepararElemento(nombreMateria,nombreProfesor,nombreSeccion,dia,horaIni
 }
 
 function cargarMateriaEnTabla(){
-  for(var i = 0; i < MateriaActual.length;i++){    
-    switch (MateriaActual[i].dia) {
-      case "Lun":{ buscarHora(0,MateriaActual[i].inicio,MateriaActual[i].fin,i); break;}
-      case "Mar":{ buscarHora(1,MateriaActual[i].inicio,MateriaActual[i].fin,i); break;}
-      case "Mie":{ buscarHora(2,MateriaActual[i].inicio,MateriaActual[i].fin,i); break;}
-      case "Jue":{ buscarHora(3,MateriaActual[i].inicio,MateriaActual[i].fin,i); break;}
-      case "Vie":{ buscarHora(4,MateriaActual[i].inicio,MateriaActual[i].fin,i); break;}  
-      default:
-        break;
-    }    
-  }  
+    if(MateriasGuardadas.length === 0)
+      MateriasGuardadas.push(MateriaActual);
+
+    for (var index = 0; index < MateriasGuardadas.length; index++) {
+      if(compararMaterias(MateriaActual,MateriasGuardadas[index]) === 0){
+        for(var i = 0; i < MateriaActual.length;i++){    
+          switch (MateriaActual[i].dia) {
+            case "Lun":{ buscarHora(0,MateriaActual[i].inicio,MateriaActual[i].fin,i); break;}
+            case "Mar":{ buscarHora(1,MateriaActual[i].inicio,MateriaActual[i].fin,i); break;}
+            case "Mie":{ buscarHora(2,MateriaActual[i].inicio,MateriaActual[i].fin,i); break;}
+            case "Jue":{ buscarHora(3,MateriaActual[i].inicio,MateriaActual[i].fin,i); break;}
+            case "Vie":{ buscarHora(4,MateriaActual[i].inicio,MateriaActual[i].fin,i); break;}  
+            default:
+              break;
+          }    
+        } 
+        console.log("Guardando");
+      }else{
+        console.log("no");
+      }
+      
+    }
+    
+      
+ 
 }
 
-function buscarHora(dia,inicio,fin,indice){ 
+function buscarHora(dia,inicio,fin,indice){
   
   horaInicio = ""; 
   horaFinal  = "";
@@ -299,16 +309,13 @@ function buscarHora(dia,inicio,fin,indice){
   if(fin.indexOf("18:50") >= 0){ horaFinal = ".Pm6";}
   if(fin.indexOf("19:50") >= 0){ horaFinal = ".Pm7";}
   if(fin.indexOf("20:50") >= 0){ horaFinal = ".Pm8";}
-  console.log(horaInicio+" "+horaFinal);
-  if(horaFinal === horaInicio){
-    cargarEnUnEspacio(dia,horaInicio,indice);
-  }else{
-    cargarEnMas(dia,horaInicio,horaFinal,indice);
-
-  }
-
   
-
+ 
+    if(horaFinal === horaInicio){
+      cargarEnUnEspacio(dia,horaInicio,indice);
+    }else{
+      cargarEnMas(dia,horaInicio,horaFinal,indice);  
+    }    
 }
 function cargarEnUnEspacio(dia,inicio,indice){
   var diaSem = dia;
@@ -316,7 +323,7 @@ function cargarEnUnEspacio(dia,inicio,indice){
   $(inicio+" td").each(function(num){
     if(num == parseInt(diaSem)){
       $(this).append("<p>Materia:"+MateriaActual[indice].nombre+"<br>Profesor:"+MateriaActual[indice].profesor+"<br>Seccion:"+MateriaActual[indice].seccion+"</p>");
-      //document.getElementById((inicio).replace(".","")+num).innerHTML = 'Materia';
+      
     }   
     num++;
   });
@@ -328,7 +335,7 @@ function cargarEnMas(dia,inicio,fin,indice){
     console.log(num + " " + diaSem);
     if(num == parseInt(diaSem)){
       $(this).append("<p>Materia:"+MateriaActual[indice].nombre+"<br>Profesor:"+MateriaActual[indice].profesor+"<br>Seccion:"+MateriaActual[indice].seccion+"</p>");
-      //document.getElementById( (inicio).replace(".","") +num).innerHTML = 'Materia';
+      
     }   
     num++;
   });
@@ -336,9 +343,31 @@ function cargarEnMas(dia,inicio,fin,indice){
   $(fin+" td").each(function(num){
     if(num == parseInt(diaSem)){
       $(this).append("<p>Materia:"+MateriaActual[indice].nombre+"<br>Profesor:"+MateriaActual[indice].profesor+"<br>Seccion:"+MateriaActual[indice].seccion+"</p>");
-      //document.getElementById( (fin).replace(".","")+num).innerHTML = 'Materia';
+     
     }  
     num++;
   });
 }
 
+function compararMaterias(materiaActual,materiaGuardada){
+  for (var index = 0; index < materiaGuardada.length; index++) {
+    for (var index2  = 0;index2 < materiaActual.length; index2++) {
+        if(materiaGuardada[index].dia === materiaActual[index2].dia){
+          if(materiaGuardada[index].incio === materiaActual[index2].inicio){
+            return -1;
+          }else if(materiaGuardada[index].incio === materiaActual[index2].fin){
+            return -1;
+          }else if(materiaGuardada[index].fin === materiaActual[index2].fin){
+            return -1;
+          }else if(materiaGuardada[index].fin === materiaActual[index2].inicio){
+            return -1;
+          }else if(materiaGuardada[index].nombre === materiaActual[index2].nombre){
+            $("warning").modal();
+            return -1;
+          }
+        } 
+    }
+    
+  }
+  return 0;
+}
