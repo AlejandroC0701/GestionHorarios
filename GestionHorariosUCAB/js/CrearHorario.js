@@ -362,7 +362,10 @@ function eliminarMateria(){
   idMateria--;
 }
 function verificarMateriasIguales(materiaActual,materiaVieja){
-  
+  console.log(materiaActual);
+  if(materiaActual.nombre === materiaVieja.nombre){
+    alert("Misma materia");
+  }
 }
 function verificarChoqueMateria(materiaActual){       
         var inicioNuevo = materiaActual.start._i;
