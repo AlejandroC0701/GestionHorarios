@@ -1,5 +1,6 @@
 var MateriaActual = [];
-var MateriasGuardadas = [];
+var id=0;
+
 
 function elegirSemestre(semestre){
   
@@ -234,9 +235,22 @@ function cargarHoras(horaList,nombreSeccion,nombreProfesor,nombreMateria){
   }
 }
 
+function getDia(dia){
+  switch (dia) {
+    case "Lun":{ return "2018-07-2 "; break;}
+    case "Mar":{ return "2018-07-3 "; break;}
+    case "Mie":{ return "2018-07-4 "; break;}
+    case "Jue":{ return "2018-07-5 "; break;}
+    case "Vie":{ return "2018-07-6 "; break;}   
+      default:
+        break;
+    }
+}
 
-function prepararElemento(nombreMateria,nombreProfesor,nombreSeccion,dia,horaInicio,horaFin,salon){
+var idMateria = 0;
+function prepararElemento(nombreMateria,nombreProfesor,nombreSeccion,dia,horaInicio,horaFin,salon){  
   var materiaObject = {
+    "id": idMateria,
     "nombre":nombreMateria,
     "profesor":nombreProfesor,
     "seccion":nombreSeccion,
@@ -248,32 +262,23 @@ function prepararElemento(nombreMateria,nombreProfesor,nombreSeccion,dia,horaIni
   MateriaActual.push(materiaObject);
 }
 
-function cargarMateriaEnTabla(){
-    if(MateriasGuardadas.length === 0)
-      MateriasGuardadas.push(MateriaActual);
-
-    for (var index = 0; index < MateriasGuardadas.length; index++) {
-      if(compararMaterias(MateriaActual,MateriasGuardadas[index]) === 0){
-        for(var i = 0; i < MateriaActual.length;i++){    
-          switch (MateriaActual[i].dia) {
-            case "Lun":{ buscarHora(0,MateriaActual[i].inicio,MateriaActual[i].fin,i); break;}
-            case "Mar":{ buscarHora(1,MateriaActual[i].inicio,MateriaActual[i].fin,i); break;}
-            case "Mie":{ buscarHora(2,MateriaActual[i].inicio,MateriaActual[i].fin,i); break;}
-            case "Jue":{ buscarHora(3,MateriaActual[i].inicio,MateriaActual[i].fin,i); break;}
-            case "Vie":{ buscarHora(4,MateriaActual[i].inicio,MateriaActual[i].fin,i); break;}  
-            default:
-              break;
-          }    
-        } 
-        console.log("Guardando");
-      }else{
-        console.log("no");
-      }
-      
+function cargarMateriaEnTabla(){  
+  var data={};  
+  for(var i = 0; i < MateriaActual.length;i++){
+    data={
+      id: MateriaActual[i].id,
+      title: MateriaActual[i].nombre+"\n"+MateriaActual[i].profesor+"\n"+MateriaActual[i].salon+"\n"+MateriaActual[i].seccion,
+      start: moment(getDia(MateriaActual[i].dia)+MateriaActual[i].inicio, "YYYY-MM-DD HH:mm"),
+      end: moment(getDia(MateriaActual[i].dia)+MateriaActual[i].fin, "YYYY-MM-DD HH:mm"),
+      color: '#2a92ca',   // an option!
+      textColor: 'black', // an option!
+      borderColor:'#2a92ca'
     }
-    
-      
- 
+    $("#contenedorHorario").fullCalendar('renderEvent', data );    
+  }
+  idMateria = idMateria+1;
+  MateriaActual=[];
+  notifica();
 }
 
 function buscarHora(dia,inicio,fin,indice){
@@ -349,25 +354,23 @@ function cargarEnMas(dia,inicio,fin,indice){
   });
 }
 
-function compararMaterias(materiaActual,materiaGuardada){
-  for (var index = 0; index < materiaGuardada.length; index++) {
-    for (var index2  = 0;index2 < materiaActual.length; index2++) {
-        if(materiaGuardada[index].dia === materiaActual[index2].dia){
-          if(materiaGuardada[index].incio === materiaActual[index2].inicio){
-            return -1;
-          }else if(materiaGuardada[index].incio === materiaActual[index2].fin){
-            return -1;
-          }else if(materiaGuardada[index].fin === materiaActual[index2].fin){
-            return -1;
-          }else if(materiaGuardada[index].fin === materiaActual[index2].inicio){
-            return -1;
-          }else if(materiaGuardada[index].nombre === materiaActual[index2].nombre){
-            $("warning").modal();
-            return -1;
-          }
-        } 
-    }
-    
-  }
-  return 0;
+
+
+function eliminarMateria(){  
+  $("#contenedorHorario").fullCalendar( 'removeEvents', usarId );
+  idMateria--;
 }
+
+function notifica() {
+  // Get the snackbar DIV
+  var x = document.getElementById("snackbar");
+
+  // Add the "show" class to DIV
+  x.className = "show";
+
+  // After 3 seconds, remove the show class from DIV
+  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+} 
+
+
+

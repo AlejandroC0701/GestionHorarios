@@ -10,18 +10,18 @@ function siguientePaso(){
     $('#siguientesDatos').css('margin-left','-100px');
     setTimeout(function(){ 
       $('.SeccionBoton').css('display','block');  
-      $('.Herramientas').css('height','100px');  
-      $('.CabeceraTabla').css({'display':'table-header-group'});  
-      $('.Fila').css({'display':'table-row'}) }, 800);
-      $('#contenedorHorario').css('height','350px'); 
+      $('.Herramientas').css('height','100px');        
+       
 
     setTimeout(function(){ 
       $('.SeccionBoton').css({'opacity':'1'}); 
       $('.CabeceraTabla').css({'opacity':'1'});   
-      $('.Fila').css({'opacity':'1'}); }, 1300);
+      $('.Fila').css({'opacity':'1'}); }, 900);
+      $('#contenedorHorario').css('opacity','1');
+    },800);
   }else{
     siguiente = false;
-    setTimeout(function(){  $('#contenedorHorario').css('height','0px'); $('.CabeceraTabla').css({'display':'none'}); $('.SeccionBoton').css('display','none');  $('.Herramientas').css('height','0px'); $('.Fila').css({'display':'none'})}, 300);
+    setTimeout(function(){  $('#contenedorHorario').css('opacity','0'); $('.CabeceraTabla').css({'display':'none'}); $('.SeccionBoton').css('display','none');  $('.Herramientas').css('height','0px'); $('.Fila').css({'display':'none'})}, 300);
     $('.SeccionBoton').css({'opacity':'0'});
     $('.Fila').css({'opacity':'0'});
     $('.CabeceraTabla').css({'opacity':'0'});
