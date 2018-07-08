@@ -1,4 +1,6 @@
 var MateriaActual = [];
+var id=0;
+var MateriaSeleccionada=[];
 
 function elegirSemestre(semestre){
   
@@ -161,43 +163,44 @@ function seleccionarSeccion(nombreSeccion,nombreProfesor,nombreMateria){
       if(horaList[i] != null) { 
       $("#hora").append('<label style="margin-left: 20px" class="hora">'+horaList[i]+'</label>'); 
       var arregloMateria = horaList[i].split(" ");
-      prepararElemento(nombreMateria,nombreProfesor,nombreSeccion,arregloMateria[0],arregloMateria[1],arregloMateria[2],arregloMateria[3]);
+      prepararElemento(nombreMateria,nombreProfesor,nombreSeccion,arregloMateria[0],arregloMateria[1],arregloMateria[2],arregloMateria[3],id);
       }     
         break;}
       case 1:{
       if(horaList[i] != null){  
       $("#hora").append('<label style="margin-left: 20px" class="hora">'+horaList[i]+'</label>'); 
       var arregloMateria = horaList[i].split(" ");
-      prepararElemento(nombreMateria,nombreProfesor,nombreSeccion,arregloMateria[0],arregloMateria[1],arregloMateria[2],arregloMateria[3]); 
+      prepararElemento(nombreMateria,nombreProfesor,nombreSeccion,arregloMateria[0],arregloMateria[1],arregloMateria[2],arregloMateria[3],id); 
       }   
         break;}
       case 2:{
       if(horaList[i] != null){     
       $("#hora").append('<label style="margin-left: 20px" class="hora">'+horaList[i]+'</label>');
       var arregloMateria = horaList[i].split(" ");
-      prepararElemento(nombreMateria,nombreProfesor,nombreSeccion,arregloMateria[0],arregloMateria[1],arregloMateria[2],arregloMateria[3]); 
+      prepararElemento(nombreMateria,nombreProfesor,nombreSeccion,arregloMateria[0],arregloMateria[1],arregloMateria[2],arregloMateria[3],id); 
       }      
         break;}
       case 3:{
       if(horaList[i] != null){     
       $("#hora").append('<label style="margin-left: 20px" class="hora">'+horaList[i]+'</label>');
       var arregloMateria = horaList[i].split(" ");
-      prepararElemento(nombreMateria,nombreProfesor,nombreSeccion,arregloMateria[0],arregloMateria[1],arregloMateria[2],arregloMateria[3]);
+      prepararElemento(nombreMateria,nombreProfesor,nombreSeccion,arregloMateria[0],arregloMateria[1],arregloMateria[2],arregloMateria[3],id);
       }      
         break;}
       case 4:{
       if(horaList[i] != null){     
       $("#hora").append('<label style="margin-left: 20px" class="hora">'+horaList[i]+'</label>');
       var arregloMateria = horaList[i].split(" ");
-      prepararElemento(nombreMateria,nombreProfesor,nombreSeccion,arregloMateria[0],arregloMateria[1],arregloMateria[2],arregloMateria[3]);
+      prepararElemento(nombreMateria,nombreProfesor,nombreSeccion,arregloMateria[0],arregloMateria[1],arregloMateria[2],arregloMateria[3],id);
       }       
         break;}
     
       default:
         break;
     }
-  }
-  
+    
+  } 
+  id++;
   if(horaList[0] != null){
     if(horaList[0].indexOf("Lun") >= 0)
     console.log("Va pal lunes");
@@ -238,9 +241,22 @@ function cargarHoras(horaList,nombreSeccion,nombreProfesor,nombreMateria){
   }
 }
 
+function getDia(dia){
+  switch (dia) {
+    case "Lun":{ return "2018-07-2 "; break;}
+    case "Mar":{ return "2018-07-3 "; break;}
+    case "Mie":{ return "2018-07-4 "; break;}
+    case "Jue":{ return "2018-07-5 "; break;}
+    case "Vie":{ return "2018-07-6 "; break;}   
+      default:
+        break;
+    }
+}
 
-function prepararElemento(nombreMateria,nombreProfesor,nombreSeccion,dia,horaInicio,horaFin,salon){
+
+function prepararElemento(nombreMateria,nombreProfesor,nombreSeccion,dia,horaInicio,horaFin,salon,id){
   var materiaObject = {
+    "id": id,
     "nombre":nombreMateria,
     "profesor":nombreProfesor,
     "seccion":nombreSeccion,
@@ -249,10 +265,17 @@ function prepararElemento(nombreMateria,nombreProfesor,nombreSeccion,dia,horaIni
     "fin":horaFin,
     "salon":salon
   };
+  
+  
+
   MateriaActual.push(materiaObject);
+  MateriaSeleccionada.push(materiaObject);
+
 }
 
 function cargarMateriaEnTabla(){
+  console.log(MateriaActual[0]);
+  var data={};
   for(var i = 0; i < MateriaActual.length;i++){    
     switch (MateriaActual[i].dia) {
       case "Lun":{ buscarHora(0,MateriaActual[i].inicio,MateriaActual[i].fin,i); break;}
@@ -264,6 +287,17 @@ function cargarMateriaEnTabla(){
         break;
     }    
   }  
+  for(var i = 0; i < MateriaSeleccionada.length;i++){
+    data={
+      id: MateriaSeleccionada[i].id,
+      title: MateriaSeleccionada[i].nombre+"\n"+MateriaSeleccionada[i].profesor+"\n"+MateriaSeleccionada[i].salon+"\n"+MateriaSeleccionada[i].seccion,
+      start: moment(getDia(MateriaSeleccionada[i].dia)+MateriaSeleccionada[i].inicio, "YYYY-MM-DD HH:mm"),
+      end: moment(getDia(MateriaSeleccionada[i].dia)+MateriaSeleccionada[i].fin, "YYYY-MM-DD HH:mm")
+    }
+    $("#contenedorHorario").fullCalendar('renderEvent', data );
+  }
+  MateriaSeleccionada=[];
+  notifica();
 }
 
 function buscarHora(dia,inicio,fin,indice){ 
@@ -341,4 +375,34 @@ function cargarEnMas(dia,inicio,fin,indice){
     num++;
   });
 }
+
+$('#calendar').fullCalendar({
+  eventClick: function(calEvent, jsEvent, view) {
+
+    alert('Event: ' + calEvent.title);
+    alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+    alert('View: ' + view.name);
+
+    // change the border color just for fun
+    $(this).css('border-color', 'red');
+
+  }
+});
+
+function eliminarMateria(){
+  $("#contenedorHorario").fullCalendar( 'removeEvents', usarId );
+}
+
+function notifica() {
+  // Get the snackbar DIV
+  var x = document.getElementById("snackbar");
+
+  // Add the "show" class to DIV
+  x.className = "show";
+
+  // After 3 seconds, remove the show class from DIV
+  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+} 
+
+
 
