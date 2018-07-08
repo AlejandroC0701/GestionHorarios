@@ -340,8 +340,6 @@ function eliminarMateria(){
   rotarIdAlEliminar(usarId);
   console.log(idMateria);
 }
-
-
 function forzarCincuentaMinutos(formato){
   var formato_1 = formato.split(" ");
   var hora = formato_1[1].split(":");
