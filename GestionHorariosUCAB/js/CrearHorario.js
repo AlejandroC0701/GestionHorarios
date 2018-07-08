@@ -57,7 +57,6 @@ function elegirSemestre(semestre){
   }
   for(var numeMateria = 0; numeMateria < materiaSemestre.length;numeMateria++)
     $("#materia").append('<option class="ElementoListado" selected="selected">'+materiaSemestre[numeMateria]+'</option>');
-
     $("#materia").append('<option class="ElementoListado" selected="selected">Materia</option>');
     $("#profesor").append('<option class="ElementoListado" selected="selected">Profesor</option>');  
     $("#seccion").append('<option class="ElementoListado" selected="selected">Sección</option>');
@@ -156,6 +155,7 @@ function cargarSeccion(seccionList,nombreProfesor,nombreMateria){
 
 function seleccionarSeccion(nombreSeccion,nombreProfesor,nombreMateria){
   var horaList = [];
+  MateriaActual=[];
   cargarHoras(horaList,nombreSeccion,nombreProfesor,nombreMateria);
   document.getElementById("hora").innerHTML = "";
   $("#hora").append('<label style="margin-left: 20px" id="labels">Horas:</label>');
@@ -206,6 +206,7 @@ function seleccionarSeccion(nombreSeccion,nombreProfesor,nombreMateria){
   
 }
 function cargarHoras(horaList,nombreSeccion,nombreProfesor,nombreMateria){
+  MateriaActual=[];
   for(var i = 0; i < informatica.length; i++){
     if(nombreMateria === informatica[i].subject  && nombreProfesor === informatica[i].professor && nombreSeccion === informatica[i].section){
       if(informatica[i].mon != null)
@@ -291,20 +292,56 @@ function cargarMateriaEnTabla(){
       $("#contenedorHorario").fullCalendar('renderEvent',horariosDeMateria[j]);
     }
     notifica();
+    idMateria = idMateria+1;
   }else{
     opcionesDeConflicto(horariosDeMateria);  
-  }    
-  idMateria = idMateria+1;  
-  MateriaActual=[];
+  }  
+    
+  
+  console.log(idMateria);
   
 }
 
-
-function eliminarMateria(){  
-  
-  $("#contenedorHorario").fullCalendar( 'removeEvents', usarId );
-  idMateria--;
+function rotarIdAlEliminar(idAEliminar){
+  if(parseInt(idAEliminar) === idMateria-1){
+    $("#contenedorHorario").fullCalendar( 'removeEvents',idAEliminar);
+    idMateria--;
+  }else if(idAEliminar === 0){
+    $("#contenedorHorario").fullCalendar( 'removeEvents',idAEliminar);
+    for(var index = 0; index < idMateria; index++){
+      if(index === parseInt(idAEliminar)){
+        continue;
+      }else{
+        var materia = $("#contenedorHorario").fullCalendar('clientEvents',index);
+        for(var j = 0; j < materia.length;j++){
+          materia[j].id = ""+(parseInt(materia[j].id)-1);
+        }
+        $("#contenedorHorario").fullCalendar('updateEvent',materia);
+      }
+    }
+    idMateria--;
+  }else{
+    $("#contenedorHorario").fullCalendar( 'removeEvents',idAEliminar);
+    for(var index = parseInt(idAEliminar); index < idMateria; index++){
+      if(index === parseInt(idAEliminar)){
+        continue;
+      }else{
+        var materia = $("#contenedorHorario").fullCalendar('clientEvents',index);
+        for(var j = 0; j < materia.length;j++){
+          materia[j].id = ""+(parseInt(materia[j].id)-1);
+        }
+        $("#contenedorHorario").fullCalendar('updateEvent',materia);
+      }
+    }
+    idMateria--;
+  }
 }
+function eliminarMateria(){ 
+  rotarIdAlEliminar(usarId);
+  console.log(idMateria);
+}
+
+
 function forzarCincuentaMinutos(formato){
   var formato_1 = formato.split(" ");
   var hora = formato_1[1].split(":");
@@ -321,8 +358,7 @@ function isMateriasIguales(materiaActual,materiaVieja){
 function verificarChoqueMateria(materiaActual){       
         var inicioNuevo = materiaActual.start._i;
         var finNuevo    = materiaActual.end._i; 
-        var inicioForzado = forzarCincuentaMinutos(inicioNuevo);
-        
+        var inicioForzado = forzarCincuentaMinutos(inicioNuevo);        
   if(idMateria > 0){
     for (var i = 0; i < idMateria; i++) {
       var materiaEnHorario = $("#contenedorHorario").fullCalendar('clientEvents',i);
@@ -346,9 +382,6 @@ function verificarChoqueMateria(materiaActual){
   }
   return false;
 }
-
-
-
 
 function notifica() {
   // Get the snackbar DIV
