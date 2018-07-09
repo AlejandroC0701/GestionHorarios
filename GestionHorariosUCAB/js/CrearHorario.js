@@ -293,6 +293,7 @@ function cargarMateriaEnTabla(){
         horariosDeMateria.push(data);   
       }else{
         choques++;
+        break;
       }
     }
     if(choques === 0 && horariosDeMateria.length > 0){ //Si no hay choques
@@ -302,7 +303,8 @@ function cargarMateriaEnTabla(){
       notifica("Materia agregada exitosamente!",'rgba(0, 0, 0, 0.7)');
       idMateria = idMateria+1;
     }else{
-      opcionesDeConflicto(horariosDeMateria);  
+      if(!isMateriasIguales(materiaNuevaEnConflicto,materiaInvolucradaEnConflicto))
+        opcionesDeConflicto(horariosDeMateria);  
     }
    
   }else{
@@ -391,9 +393,9 @@ function verificarChoqueMateria(materiaActual){
         var inicioViejoForzado = forzarCincuentaMinutos(inicioViejo);              
         if(inicioNuevo === inicioViejo || inicioNuevo === finViejo || finNuevo === inicioViejo || finNuevo === finViejo || finNuevo === inicioViejoForzado || inicioForzado === finViejo){
           materiaInvolucradaEnConflicto = materiaEnHorario[index];
-          materiaNuevaEnConflicto =materiaActual;
+          materiaNuevaEnConflicto = materiaActual;
           if(isMateriasIguales(materiaActual,materiaEnHorario[index])){
-            alert("Esta materia ya esta agregada");
+            $(".MateriaRepetida").modal();
             return true;
           }else{
             return true;
@@ -419,8 +421,12 @@ function crearJsonConHorario(){
       borderColor:horario[i].borderColor
     });
   }
-  
-  var jsonHorario = JSON.stringify(materia);
+  var horarioConMaterias = {
+    "tituloHorario":$('#tituloHorario').val() || "horario",
+     materia
+  };
+  var jsonHorario = JSON.stringify(horarioConMaterias);
+  console.log(horarioConMaterias);
   localStorage.setItem("horario",jsonHorario);  
   localStorage.setItem("totalHorarios",numeroHorariosGuardados);
   return jsonHorario;
@@ -448,35 +454,31 @@ function remplazarHorarioAlmacenado(){
 function ventanaDescargar(){
   $('.DescargarHorario').modal("hide");
   var contenidoDeArchivo =  new Blob([crearJsonConHorario()],{type: "application/json"});
-  descargarArchivo(contenidoDeArchivo,"horario.json");
+  descargarArchivo(contenidoDeArchivo,$('#tituloHorario').val()+".json");
 }
+
 function descargarArchivo(contenidoEnBlob, nombreArchivo) {
-  //creamos un FileReader para leer el Blob
   var reader = new FileReader();
-  //Definimos la función que manejará el archivo
-  //una vez haya terminado de leerlo
-  reader.onload = function (event) {
-    //Usaremos un link para iniciar la descarga 
+  reader.onload = function (event) {   
     var save = document.createElement('a');
     save.href = event.target.result;
-    save.target = '_blank';
-    //Truco: así le damos el nombre al archivo 
-    save.download = nombreArchivo || 'archivo.json';
+    save.target = '_blank';  
+    if( $('#tituloHorario').val().length > 0 ){
+      save.download = nombreArchivo || 'horario.json';
+    }
+    else{
+      save.download = 'horario.json'; 
+    }
     var clicEvent = new MouseEvent('click', {
       'view': window,
       'bubbles': true,
       'cancelable': true
-    });
-    //Simulamos un clic del usuario
-    //no es necesario agregar el link al DOM.
+    });    
     save.dispatchEvent(clicEvent);
-    //Y liberamos recursos...
     (window.URL || window.webkitURL).revokeObjectURL(save.href);
-  };
-  //Leemos el blob y esperamos a que dispare el evento "load"
+  }; 
   reader.readAsDataURL(contenidoEnBlob);
-};
-
+}
 
 function notifica(mensaje,color) {
   document.getElementById("snackbar").innerHTML = "";
