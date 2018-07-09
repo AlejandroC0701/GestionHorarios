@@ -92,7 +92,7 @@ button[id = "nextBoton"]{
 .Herramientas{
   display: flex;
   background: rgb(14, 14, 14);
-  height:  0;
+  height:  100px;
   transition: all 0.5s;
 }
 

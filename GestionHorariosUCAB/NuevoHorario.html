@@ -346,20 +346,37 @@
                 <div class="alert alert-primary col-md-auto mt-3 pt-0 ml-3" style="height: 0px; opacity: 0; display: none; transition: all 1s ease 0s;" role="alert" id="hora" style="display: flex ">
                     <p id="horaText"><strong>Horas:</strong> &nbsp; </p>
                                  
-                </div>
-                 
-                
-
+                </div>            
             </div>          
           </div>
+
           <div class="row" style="background: rgb(16, 16, 16);">
             <div class="col-lg-12 Herramientas" >
-              <div class="col-md-3">
-              </div>
+               <div   class="col-md-2 SeccionBoton" id="prueba">                
+                <button id="prueba" class=" icon-pencil2 BotonOptions" type="button" >
+                </button>                
+                <br/>
+                <label  id="labels"> Editar </label>
+              </div> 
+
+              <div   class="col-md-0 SeccionBoton">                
+                  <button id="guardarHorario" class=" icon-upload2 BotonOptions" type="button">
+                  </button>                
+                  <br/>
+                  <label  id="labels">Cargar Horario</label>
+              </div> 
+
+              <div   class="col-md-2 SeccionBoton">                
+                  <button id="guardarHorario" class=" icon-bin2 BotonOptions" type="button" >
+                  </button>                
+                  <br/>
+                  <label  id="labels">Eliminar Horario</label>
+              </div> 
+                  
+              
               <div   class="col-md-1 SeccionBoton">                
                 <button id="guardarHorario" class=" icon-clipboard BotonOptions" type="button" onclick="botonGuardarHorario();">
-                </button>
-                
+                </button>                
                 <br/>
                 <label  id="labels"> Guardar Horario </label>
               </div> 
