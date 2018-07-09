@@ -93,7 +93,7 @@ function crearTablaVista(contenedor,titulo){
   
   console.log(titulo);
   if(titulo === undefined ){
-    titulo = "No hay album cargado";
+    titulo = "No hay Horario cargado";
   }
   $(contenedor+' .fc-left').append("<p><h2 class='text-success' >"+titulo+"</h2></p>");
   

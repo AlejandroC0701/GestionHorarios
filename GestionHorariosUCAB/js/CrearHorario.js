@@ -603,7 +603,6 @@ function botonEditar(){
     for(var i = 0; i < materias.length;i++){
       rotarIdAlEliminar(i);
     }
-
     var horario = JSON.parse(localStorage.getItem("horario"));
     MateriaActual = [];
     idMateria = 0;

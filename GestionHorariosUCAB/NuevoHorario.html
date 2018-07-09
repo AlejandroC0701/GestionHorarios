@@ -160,6 +160,26 @@
       </div>
     </div>
 
+    <div class="modal fade ElimHorario" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title text-danger">Eliminar Horario</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>¿Esta seguro que desea eliminar este horario?</p>          
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" onclick="eliminarHorario();">Eliminar</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="modal fade WarningClear" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -238,7 +258,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" onclick="eliminarMateria(); $('.Delete').modal('hide');">Eliminar</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
         </div>
       </div>
     </div>
@@ -384,7 +404,7 @@
               </div> 
 
               <div   class="col-md-2 SeccionBoton">                
-                  <button id="eliminarHorario" class=" icon-bin2 BotonOptions" type="button" >
+                  <button id="eliminarHorario" class=" icon-bin2 BotonOptions" type="button" onclick="verificarHorario();">
                   </button>                
                   <br/>
                   <label  id="labels">Eliminar Horario</label>
@@ -475,7 +495,7 @@
     }
   });  //onclick="siguientePaso();"
 
-  function verificarEditar(){
+function verificarEditar(){
 
     if( ($('#contenedorHorario2').fullCalendar('clientEvents')).length > 0 ){
     document.ready = document.getElementById("carrera").value ='1';
@@ -487,7 +507,30 @@
     }else{
       notifica("No exite horario el cual editar",'rgba(0, 0, 0, 0.7)');
     }
+}
+function verificarHorario(){
+  if( ($('#contenedorHorario2').fullCalendar('clientEvents')).length > 0 ){
+    $('.ElimHorario').modal();
+  }else{
+    notifica("No hay ningun horario cargado",'rgba(0, 0, 0, 0.7)');
   }
+}
+function eliminarHorario(){
+  localStorage.removeItem('horario');
+  var materias = $("#contenedorHorario2").fullCalendar('clientEvents');
+    for(var i = 0; i < materias.length;i++){
+      try{
+        $("#contenedorHorario2").fullCalendar( 'removeEvents',materias[i].id);
+      }catch(error){
+        continue;
+      }
+    }
+    $('#contenedorHorario2 .fc-left').empty();
+    $('#contenedorHorario2 .fc-left').append("<p><h2 class='text-success' >No hay Horario cargado</h2></p>");
+    $('.ElimHorario').modal('hide');
+    notifica("Horario eliminado exitosamente!",'rgba(230, 107, 107, 0.652)');
+  
+}
 </script>
 
 
