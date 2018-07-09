@@ -293,6 +293,7 @@ function cargarMateriaEnTabla(){
         horariosDeMateria.push(data);   
       }else{
         choques++;
+        break;
       }
     }
     if(choques === 0 && horariosDeMateria.length > 0){ //Si no hay choques
@@ -302,7 +303,8 @@ function cargarMateriaEnTabla(){
       notifica("Materia agregada exitosamente!",'rgba(0, 0, 0, 0.7)');
       idMateria = idMateria+1;
     }else{
-      opcionesDeConflicto(horariosDeMateria);  
+      if(!isMateriasIguales(materiaNuevaEnConflicto,materiaInvolucradaEnConflicto))
+        opcionesDeConflicto(horariosDeMateria);  
     }
    
   }else{
@@ -391,9 +393,9 @@ function verificarChoqueMateria(materiaActual){
         var inicioViejoForzado = forzarCincuentaMinutos(inicioViejo);              
         if(inicioNuevo === inicioViejo || inicioNuevo === finViejo || finNuevo === inicioViejo || finNuevo === finViejo || finNuevo === inicioViejoForzado || inicioForzado === finViejo){
           materiaInvolucradaEnConflicto = materiaEnHorario[index];
-          materiaNuevaEnConflicto =materiaActual;
+          materiaNuevaEnConflicto = materiaActual;
           if(isMateriasIguales(materiaActual,materiaEnHorario[index])){
-            alert("Esta materia ya esta agregada");
+            $(".MateriaRepetida").modal();
             return true;
           }else{
             return true;
@@ -450,6 +452,7 @@ function ventanaDescargar(){
   var contenidoDeArchivo =  new Blob([crearJsonConHorario()],{type: "application/json"});
   descargarArchivo(contenidoDeArchivo,$('#tituloHorario').val()+".json");
 }
+<<<<<<< HEAD
 function descargarArchivo(contenidoEnBlob, nombreArchivo) {
   var reader = new FileReader();
   reader.onload = function (event) {   
@@ -462,14 +465,30 @@ function descargarArchivo(contenidoEnBlob, nombreArchivo) {
     else{
       save.download = 'horario.json'; 
     }
+=======
+function descargarArchivo(contenidoEnBlob, nombreArchivo) {  
+  var reader = new FileReader();  
+  reader.onload = function (event) {    
+    var save = document.createElement('a');
+    save.href = event.target.result;
+    save.target = '_blank';    
+    save.download = nombreArchivo || 'archivo.json';
+>>>>>>> Acoplamiento
     var clicEvent = new MouseEvent('click', {
       'view': window,
       'bubbles': true,
       'cancelable': true
+<<<<<<< HEAD
     }); 
     save.dispatchEvent(clicEvent);
     (window.URL || window.webkitURL).revokeObjectURL(save.href);
   };
+=======
+    });    
+    save.dispatchEvent(clicEvent);
+    (window.URL || window.webkitURL).revokeObjectURL(save.href);
+  }; 
+>>>>>>> Acoplamiento
   reader.readAsDataURL(contenidoEnBlob);
 };
 
