@@ -3,6 +3,7 @@ var materiaInvolucradaEnConflicto;
 var materiaNuevaEnConflicto;
 var id=0;
 var numeroHorariosGuardados = 0;
+var horarioGuardado = false;
 
 function elegirSemestre(semestre){
   
@@ -449,6 +450,7 @@ function botonGuardarHorario(){
     if(localStorage.getItem("horario") == null){
       var contenidoDeArchivo =  new Blob([crearJsonConHorario()],{type: "application/json"});      
       notifica("El horario se a guardado!","rgba(240, 156, 125, 0.844)");
+      horarioGuardado = true;
       $('.DescargarHorario').modal();
     }else{
       $('.GuardarRemp').modal();
@@ -674,8 +676,10 @@ function botonEditar(){
   } 
 
 }
+
 function actualizarVista(){
-  var materias = $("#contenedorHorario2").fullCalendar('clientEvents');
+  if(horarioGuardado){
+    var materias = $("#contenedorHorario2").fullCalendar('clientEvents');
     for(var i = 0; i < materias.length;i++){
       try{
         $("#contenedorHorario2").fullCalendar( 'removeEvents',materias[i].id);
@@ -707,4 +711,6 @@ function actualizarVista(){
     $('#contenedorHorario2 .fc-left').empty();
     $('#contenedorHorario2 .fc-left').append("<p><h2 class='text-success' >"+JSON.parse(localStorage.getItem("horario")).tituloHorario+"</h2></p>");
     $('#contenedorHorario2').fullCalendar();
-  }
+    horarioGuardado = false;    
+  } 
+}

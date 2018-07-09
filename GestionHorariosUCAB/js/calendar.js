@@ -76,18 +76,8 @@ function crearTablaVista(contenedor,titulo){
     defaultDate: moment("2018-07-02"),
     displayEventTime: false,
     timeFormat: 'h:mm', 
-    locale: "es-us",
-    
-      eventClick: function(calEvent, jsEvent, view) {        
-            
-      },
-      eventMouseover: function(calEvent, jsEvent, view) {       
-        $(this).css("background","rgb(204, 220, 242)");                   
-      },
-      eventMouseout: function(calEvent, jsEvent, view) {        
-        $(this).css("background","#2a92ca");
-        $(contenedor).fullCalendar('updateEvent',calEvent);       
-      }     
+    locale: "es-us"   
+      
     });
   $(contenedor).fullCalendar('option', 'contentHeight',400);
   
