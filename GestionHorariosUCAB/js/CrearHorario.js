@@ -1,4 +1,6 @@
 var MateriaActual = [];
+var materiaInvolucradaEnConflicto;
+var materiaNuevaEnConflicto;
 var id=0;
 
 
@@ -56,7 +58,6 @@ function elegirSemestre(semestre){
   }
   for(var numeMateria = 0; numeMateria < materiaSemestre.length;numeMateria++)
     $("#materia").append('<option class="ElementoListado" selected="selected">'+materiaSemestre[numeMateria]+'</option>');
-
     $("#materia").append('<option class="ElementoListado" selected="selected">Materia</option>');
     $("#profesor").append('<option class="ElementoListado" selected="selected">Profesor</option>');  
     $("#seccion").append('<option class="ElementoListado" selected="selected">Sección</option>');
@@ -159,6 +160,7 @@ function seleccionarSeccion(nombreSeccion,nombreProfesor,nombreMateria){
   //closeHora();
   document.getElementById("hora").innerHTML=`<p id="horaText"><strong>Horas:</strong> &nbsp; </p>`;
   var horaList = [];
+  MateriaActual=[];
   cargarHoras(horaList,nombreSeccion,nombreProfesor,nombreMateria);
   // document.getElementById("hora").innerHTML = "";
   // $("#hora").append('<label style="margin-left: 20px" id="labels">Horas:</label>');
@@ -212,6 +214,7 @@ function seleccionarSeccion(nombreSeccion,nombreProfesor,nombreMateria){
   
 }
 function cargarHoras(horaList,nombreSeccion,nombreProfesor,nombreMateria){
+  MateriaActual=[];
   for(var i = 0; i < informatica.length; i++){
     if(nombreMateria === informatica[i].subject  && nombreProfesor === informatica[i].professor && nombreSeccion === informatica[i].section){
       if(informatica[i].mon != null)
@@ -272,139 +275,193 @@ function prepararElemento(nombreMateria,nombreProfesor,nombreSeccion,dia,horaIni
 }
 
 function cargarMateriaEnTabla(){ 
-  console.log("Id: " + idMateria); 
-  var data={};  
-  for(var i = 0; i < MateriaActual.length;i++){
-    data={
-      id: MateriaActual[i].id,
-      title: MateriaActual[i].nombre+"\n"+MateriaActual[i].profesor+"\n"+MateriaActual[i].salon+"\n"+MateriaActual[i].seccion,
-      start: moment(getDia(MateriaActual[i].dia)+MateriaActual[i].inicio, "YYYY-MM-DD HH:mm"),
-      end: moment(getDia(MateriaActual[i].dia)+MateriaActual[i].fin, "YYYY-MM-DD HH:mm"),
-      color: '#2a92ca',   // an option!
-      textColor: 'black', // an option!
-      borderColor:'#2a92ca'
+  if(MateriaActual.length > 0){
+    var horariosDeMateria = [];
+    var choques = 0;
+    var data={};  
+    for(var i = 0; i < MateriaActual.length;i++){
+      data={
+        id: MateriaActual[i].id,
+        title: MateriaActual[i].nombre+"\n"+MateriaActual[i].profesor+"\n"+MateriaActual[i].salon+"\n"+MateriaActual[i].seccion,
+        start: moment(getDia(MateriaActual[i].dia)+MateriaActual[i].inicio, "YYYY-MM-DD HH:mm"),
+        end: moment(getDia(MateriaActual[i].dia)+MateriaActual[i].fin, "YYYY-MM-DD HH:mm"),
+        color: '#2a92ca',   // an option!
+        textColor: 'black', // an option!
+        borderColor:'#2a92ca'
+      }
+      if(!verificarChoqueMateria(data)){
+        horariosDeMateria.push(data);   
+      }else{
+        choques++;
+      }
     }
-    verificarChoqueMateria(data);
-    $("#contenedorHorario").fullCalendar('renderEvent', data );    
-  }
-  
-  idMateria = idMateria+1;  
-  MateriaActual=[];
-  notifica();
-}
-
-function buscarHora(dia,inicio,fin,indice){
-  
-  horaInicio = ""; 
-  horaFinal  = "";
-  if(inicio.indexOf("07:00") >= 0){ horaInicio = ".Am7";}
-  if(inicio.indexOf("08:00") >= 0){ horaInicio = ".Am8"; }
-  if(inicio.indexOf("09:00") >= 0){ horaInicio = ".Am9";}
-  if(inicio.indexOf("10:00") >= 0){ horaInicio = ".Am10";}
-  if(inicio.indexOf("11:00") >= 0){ horaInicio = ".Am11";}
-  if(inicio.indexOf("12:00") >= 0){ horaInicio = ".Pm12";}
-  if(inicio.indexOf("13:00") >= 0){ horaInicio = ".Pm1";}
-  if(inicio.indexOf("14:00") >= 0){ horaInicio = ".Pm2";}
-  if(inicio.indexOf("15:00") >= 0){ horaInicio = ".Pm3";}
-  if(inicio.indexOf("16:00") >= 0){ horaInicio = ".Pm4";}
-  if(inicio.indexOf("17:00") >= 0){ horaInicio = ".Pm5";}
-  if(inicio.indexOf("18:00") >= 0){ horaInicio = ".Pm6";}
-  if(inicio.indexOf("19:00") >= 0){ horaInicio = ".Pm7";}
-  if(inicio.indexOf("20:00") >= 0){ horaInicio = ".Pm8";}
-
-  if(fin.indexOf("07:50") >= 0){ horaFinal = ".Am7";}
-  if(fin.indexOf("08:50") >= 0){ horaFinal = ".Am8"; }
-  if(fin.indexOf("09:50") >= 0){ horaFinal = ".Am9";}
-  if(fin.indexOf("10:50") >= 0){ horaFinal = ".Am10";}
-  if(fin.indexOf("11:50") >= 0){ horaFinal = ".Am11";}
-  if(fin.indexOf("12:50") >= 0){ horaFinal = ".Pm12";}
-  if(fin.indexOf("13:50") >= 0){ horaFinal = ".Pm1";}
-  if(fin.indexOf("14:50") >= 0){ horaFinal = ".Pm2";}
-  if(fin.indexOf("15:50") >= 0){ horaFinal = ".Pm3";}
-  if(fin.indexOf("16:50") >= 0){ horaFinal = ".Pm4";}
-  if(fin.indexOf("17:50") >= 0){ horaFinal = ".Pm5";}
-  if(fin.indexOf("18:50") >= 0){ horaFinal = ".Pm6";}
-  if(fin.indexOf("19:50") >= 0){ horaFinal = ".Pm7";}
-  if(fin.indexOf("20:50") >= 0){ horaFinal = ".Pm8";}
-  
- 
-    if(horaFinal === horaInicio){
-      cargarEnUnEspacio(dia,horaInicio,indice);
+    if(choques === 0 && horariosDeMateria.length > 0){ //Si no hay choques
+      for(var j = 0; j < horariosDeMateria.length; j++){
+        $("#contenedorHorario").fullCalendar('renderEvent',horariosDeMateria[j]);
+      }
+      notifica("Materia agregada exitosamente!",'rgba(0, 0, 0, 0.7)');
+      idMateria = idMateria+1;
     }else{
-      cargarEnMas(dia,horaInicio,horaFinal,indice);  
-    }    
-}
-function cargarEnUnEspacio(dia,inicio,indice){
-  var diaSem = dia;
-  var num = 0;
-  $(inicio+" td").each(function(num){
-    if(num == parseInt(diaSem)){
-      $(this).append("<p>Materia:"+MateriaActual[indice].nombre+"<br>Profesor:"+MateriaActual[indice].profesor+"<br>Seccion:"+MateriaActual[indice].seccion+"</p>");
-      
-    }   
-    num++;
-  });
-}
-function cargarEnMas(dia,inicio,fin,indice){
-  var diaSem = dia;
-  var num = 0;
-  $(inicio+" td").each(function(num){
-    console.log(num + " " + diaSem);
-    if(num == parseInt(diaSem)){
-      $(this).append("<p>Materia:"+MateriaActual[indice].nombre+"<br>Profesor:"+MateriaActual[indice].profesor+"<br>Seccion:"+MateriaActual[indice].seccion+"</p>");     
-    }   
-    num++;
-  });
-
-  $(fin+" td").each(function(num){
-    if(num == parseInt(diaSem)){
-      $(this).append("<p>Materia:"+MateriaActual[indice].nombre+"<br>Profesor:"+MateriaActual[indice].profesor+"<br>Seccion:"+MateriaActual[indice].seccion+"</p>");  
-    }  
-    num++;
-  });
-}
-
-function eliminarMateria(){  
-  
-  $("#contenedorHorario").fullCalendar( 'removeEvents', usarId );
-  idMateria--;
-}
-function verificarMateriasIguales(materiaActual,materiaVieja){
-  console.log(materiaActual);
-  if(materiaActual.nombre === materiaVieja.nombre){
-    alert("Misma materia");
+      opcionesDeConflicto(horariosDeMateria);  
+    }
+   
+  }else{
+    notifica("No a seleccionado una materia aun",'rgba(199, 201, 108, 0.844)');
   }
+
+}
+  
+
+function rotarIdAlEliminar(idAEliminar){
+  if(parseInt(idAEliminar) === idMateria-1){
+    $("#contenedorHorario").fullCalendar( 'removeEvents',idAEliminar);
+    idMateria--;
+  }else if(idAEliminar === 0){
+    $("#contenedorHorario").fullCalendar( 'removeEvents',idAEliminar);
+    for(var index = 0; index < idMateria; index++){
+      if(index === parseInt(idAEliminar)){
+        continue;
+      }else{
+        var materia = $("#contenedorHorario").fullCalendar('clientEvents',index);
+        for(var j = 0; j < materia.length;j++){
+          materia[j].id = index-1;
+        }
+        $("#contenedorHorario").fullCalendar('updateEvents',materia);
+      }
+    }
+    idMateria--;
+  }else{
+    $("#contenedorHorario").fullCalendar( 'removeEvents',idAEliminar);
+    for(var index = parseInt(idAEliminar); index < idMateria; index++){
+      if(index === parseInt(idAEliminar)){
+        continue;
+      }else{
+        var materia = $("#contenedorHorario").fullCalendar('clientEvents',index);
+        for(var j = 0; j < materia.length;j++){
+          materia[j].id = index-1;
+        }
+        $("#contenedorHorario").fullCalendar('updateEvents',materia);
+      }
+    }
+    idMateria--;
+  }
+  
+}
+function eliminarMateria(){ 
+  rotarIdAlEliminar(usarId);
+  selected = -1;
+  notifica("Materia eliminada exitosamente!!",'rgba(226, 133, 133, 0.844)'); 
+}
+function botonEliminarMateria(){
+  if(MateriaActual.length > 0 && selected >= 0){
+    $('.Delete').modal();
+  }else{ 
+    notifica('No se a seleccionado ninguna materia','rgba(226, 133, 133, 0.844)'); 
+  }
+}
+function remplazarMateria(){
+  rotarIdAlEliminar(materiaInvolucradaEnConflicto.id);
+  cargarMateriaEnTabla();
+  $('.Warning').modal("hide");
+  notifica('La materia fue remplazada con exito!','rgba(206, 136, 230, 0.844)');
+}
+function forzarCincuentaMinutos(formato){
+  var formato_1 = formato.split(" ");
+  var hora = formato_1[1].split(":");
+  var horaCompuesta = formato_1[0]+" "+hora[0]+":50";
+  return horaCompuesta;
+}
+function isMateriasIguales(materiaActual,materiaVieja){  
+  if(materiaActual.title === materiaVieja.title){
+    return true;
+  }
+  return false;
 }
 function verificarChoqueMateria(materiaActual){       
         var inicioNuevo = materiaActual.start._i;
-        var finNuevo    = materiaActual.end._i;  
+        var finNuevo    = materiaActual.end._i; 
+        var inicioForzado = forzarCincuentaMinutos(inicioNuevo);        
   if(idMateria > 0){
     for (var i = 0; i < idMateria; i++) {
       var materiaEnHorario = $("#contenedorHorario").fullCalendar('clientEvents',i);
       //Ciclo para ver las horas de la materia
       for (let index = 0; index < materiaEnHorario.length; index++) {        
         var inicioViejo = materiaEnHorario[index].start._i;
-        var finViejo = materiaEnHorario[index].end._i;         
-        if(inicioNuevo === inicioViejo || inicioNuevo === finViejo || finNuevo === inicioViejo || finNuevo === finViejo){
-          verificarMateriasIguales(materiaActual,materiaEnHorario[index]);
+        var finViejo = materiaEnHorario[index].end._i; 
+        var inicioViejoForzado = forzarCincuentaMinutos(inicioViejo);              
+        if(inicioNuevo === inicioViejo || inicioNuevo === finViejo || finNuevo === inicioViejo || finNuevo === finViejo || finNuevo === inicioViejoForzado || inicioForzado === finViejo){
+          materiaInvolucradaEnConflicto = materiaEnHorario[index];
+          materiaNuevaEnConflicto =materiaActual;
+          if(isMateriasIguales(materiaActual,materiaEnHorario[index])){
+            alert("Esta materia ya esta agregada");
+            return true;
+          }else{
+            return true;
+          }
         }                  
       }
     }
   }
-  //return 0;
+  return false;
+}
+function crearJsonConHorario(){
+  var horario = $("#contenedorHorario").fullCalendar('clientEvents');
+  var arreglo = [];
+  var materia = [];
+  for(var i = 0; i < horario.length;i++){
+    materia.push({
+      id: horario[i].id,
+      title: horario[i].title,
+      start: horario[i].start,
+      end: horario[i].end,
+      color: horario[i].color,   // an option!
+      textColor: horario[i].textColor, // an option!
+      borderColor:horario[i].borderColor
+    });
+  }
+  var jsonHorario = JSON.stringify(materia);
+  localStorage.setItem("horario",jsonHorario);
+  return jsonHorario;
+}
+function botonGuardarHorario(){  
+  var contenidoDeArchivo =  new Blob([crearJsonConHorario()],{type: "application/json"});
+   descargarArchivo(contenidoDeArchivo,"horario.json");
 }
 
+function descargarArchivo(contenidoEnBlob, nombreArchivo) {
+  //creamos un FileReader para leer el Blob
+  var reader = new FileReader();
+  //Definimos la función que manejará el archivo
+  //una vez haya terminado de leerlo
+  reader.onload = function (event) {
+    //Usaremos un link para iniciar la descarga 
+    var save = document.createElement('a');
+    save.href = event.target.result;
+    save.target = '_blank';
+    //Truco: así le damos el nombre al archivo 
+    save.download = nombreArchivo || 'archivo.json';
+    var clicEvent = new MouseEvent('click', {
+      'view': window,
+      'bubbles': true,
+      'cancelable': true
+    });
+    //Simulamos un clic del usuario
+    //no es necesario agregar el link al DOM.
+    save.dispatchEvent(clicEvent);
+    //Y liberamos recursos...
+    (window.URL || window.webkitURL).revokeObjectURL(save.href);
+  };
+  //Leemos el blob y esperamos a que dispare el evento "load"
+  reader.readAsDataURL(contenidoEnBlob);
+};
 
 
-
-function notifica() {
-  // Get the snackbar DIV
-  var x = document.getElementById("snackbar");
-
-  // Add the "show" class to DIV
+function notifica(mensaje,color) {
+  document.getElementById("snackbar").innerHTML = "";
+  document.getElementById("snackbar").innerHTML = mensaje;
+  $('#snackbar').css("background",color);
+  var x = document.getElementById("snackbar");  
   x.className = "show";
-
-  // After 3 seconds, remove the show class from DIV
   setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
 } 
 
@@ -424,4 +481,66 @@ function closeHora(){
   },1000);
 }
 
+function opcionesDeConflicto(){
+  var materiaEnConflicto = materiaInvolucradaEnConflicto;
+  var materiaNueva = materiaNuevaEnConflicto;  
+  var arregloMateriaConflicto = materiaEnConflicto.title.split("\n");
+  var arregloMateriaNueva = materiaNueva.title.split("\n");
+  var horario;
 
+  document.getElementById("conflictoAgregar").innerHTML = "";
+  document.getElementById("conflictoAgregarHora").innerHTML = "";
+  document.getElementById("conflictoAgregarProfesor").innerHTML = "";
+
+  document.getElementById("conflictoRemplazar").innerHTML = "";
+  document.getElementById("conflictoRemplazarHora").innerHTML = "";
+  document.getElementById("conflictoRemplazarProfesor").innerHTML = "";
+
+  horario = formatoSoloHoras(materiaNueva.start._i,materiaNueva.end._i);  
+  $("#conflictoAgregar").append("Remplazo: "+arregloMateriaNueva[0]+"\n");
+  $("#conflictoAgregarHora").append("Horario: "+horario+"\n");
+  $("#conflictoAgregarProfesor").append("Profesor: "+arregloMateriaNueva[1]);
+
+  horario = formatoSoloHoras(materiaEnConflicto.start._i,materiaEnConflicto.end._i);  
+  $("#conflictoRemplazar").append("Actual: "+arregloMateriaConflicto[0]+"\n");
+  $("#conflictoRemplazarHora").append("Horario: "+horario+"\n");
+  $("#conflictoRemplazarProfesor").append("Profesor: "+arregloMateriaConflicto[1]);
+
+  $(".Warning").modal(); 
+}
+function formatoSoloHoras(horaIn,horaFin){  
+  var formato_1 = horaIn.split(" ");
+  var formato_2 = horaFin.split(" ");
+  var dia = formato_1[0].split("-");
+  var horaDelDiaInicio = formato_1[1].split(":");
+  var horaDelDiaFin = formato_2[1].split(":");
+
+  if(parseInt(horaDelDiaInicio[0]) < 12){
+    formato_1[1] = formato_1[1]+"am"
+  }else{
+    formato_1[1] = formato_1[1]+"pm"
+  }
+  if(parseInt(horaDelDiaFin[0]) < 12){
+    formato_2[1] = formato_2[1]+"am"
+  }else{
+    formato_2[1] = formato_2[1]+"pm"
+  }
+
+  var formatoCompleto;
+  switch (parseInt(dia[2])) {
+    case 2: formatoCompleto = "Lunes "+formato_1[1]+" y "+formato_2[1];      
+      break;
+    case 3: formatoCompleto = "Martes "+formato_1[1]+" y "+formato_2[1];   
+      break;
+    case 4: formatoCompleto = "Miercoles "+formato_1[1]+" y "+formato_2[1];   
+      break;
+    case 5: formatoCompleto = "jueves "+formato_1[1]+" y "+formato_2[1];   
+      break;
+    case 6: formatoCompleto = "Viernes "+formato_1[1]+" y "+formato_2[1];   
+      break;      
+    default:
+    formatoCompleto = "No se pudo obtener la fecha";
+      break;
+  }
+  return formatoCompleto;  
+}

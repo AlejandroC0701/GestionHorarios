@@ -2,6 +2,7 @@
 <html lang=es-VE>
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0, width=device-width">
   <title>Nuevo Horario</title>
   <link rel="shortcut icon" href=https://www.ucab.edu.ve/wp-content/uploads/sites/2/2017/06/favicon.png />
 
@@ -74,6 +75,68 @@
 </header>	
 	
 <body id="body">
+
+  
+<div class=" Warning modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Conflicto de horario</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body col-sm-12 row" style="margin-left: 0.5%; display: flex;">
+          <div class="col-sm-6 p-3 mb-2 bg-danger text-black"> 
+              <div class="card text-center">
+                  <div class="card-header" id="conflictoAgregar">
+                   
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title" id="conflictoAgregarHora"></h5>
+                    <p class="card-text"id="conflictoAgregarProfesor"><br></p>                    
+                  </div>                  
+                </div>                
+          </div>
+          <div class=" col-sm-6 p-3 mb-2 bg-danger text-black"> 
+              <div class="card text-center">
+                  <div class="card-header" id="conflictoRemplazar">
+                    
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title"id="conflictoRemplazarHora" ></h5>
+                    <p class="card-text" id="conflictoRemplazarProfesor"><br></p>                    
+                  </div>                  
+                </div>                
+          </div>          
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" onclick="remplazarMateria();">Remplazar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade Delete" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-warning">Advertencia</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Esta apundo de eliminar una materia.¿Esta usted seguro?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" onclick="eliminarMateria(); $('.Delete').modal('hide');">Eliminar</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="DatosHorario container-fluid">
 
@@ -204,9 +267,10 @@
             <div class="col-lg-12 Herramientas" >
               <div class="col-md-3">
               </div>
-              <div   class="col-md-1 SeccionBoton" style="margin-left: 3%;" >
-                <button id="guardarHorario" class=" icon-clipboard BotonOptions" type="button" onclick="">
+              <div   class="col-md-1 SeccionBoton">                
+                <button id="guardarHorario" class=" icon-clipboard BotonOptions" type="button" onclick="botonGuardarHorario();">
                 </button>
+                
                 <br/>
                 <label  id="labels"> Guardar Horario </label>
               </div> 
@@ -226,7 +290,7 @@
               </div>  
               
               <div  class=" col-md-1 SeccionBoton">
-                <button id="quitarMateria" class="icon-minus BotonOptions" type="button" onclick="eliminarMateria()">
+                <button id="quitarMateria" class="icon-minus BotonOptions" type="button" onclick="botonEliminarMateria();">
                 </button>
                 <br/>
                 <label  id="labels"> Eliminar Materia </label>
@@ -245,14 +309,14 @@
     crearTabla();
   </script>
   <!-- The actual snackbar -->
-<div id="snackbar">Materia Agregada Exitosamente!!</div>
+<div id="snackbar" calss="text-center"></div>
 <br>
 <br>
+
 </body>
 
 <script type="text/javascript">                
-  $("#semestreSelect").change(function(){ 
-    
+  $("#semestreSelect").change(function(){    
     elegirSemestre(""+$("#semestreSelect option:selected").text());
   });    
   $("#materia").change(function(){  
@@ -266,24 +330,6 @@
   });    
 </script>
 
-<div class="warning fade " tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Reemplazar Materia</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p>¿Esta Seguro que desea Reemplazar esta materia?.</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary">Reemplazar</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        </div>
-      </div>
-    </div>
-  </div>
+
 
 </html>
