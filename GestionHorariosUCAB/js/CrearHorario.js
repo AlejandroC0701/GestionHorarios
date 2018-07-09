@@ -8,8 +8,7 @@ function elegirSemestre(semestre){
   
   document.getElementById("materia").innerHTML = ""; 
   document.getElementById("profesor").innerHTML = "";
-  document.getElementById("seccion").innerHTML = "";
-  //document.getElementById("hora").innerHTML = "";
+  document.getElementById("seccion").innerHTML = ""; 
   closeHora();
   var materiaSemestre = [];
   switch (semestre) {    
@@ -93,8 +92,7 @@ function cargarMaterias(materiaSemestre,numeroSemestre){
 function seleccionDeMateria(nombreMateria){
   var profesores = [];
   document.getElementById("profesor").innerHTML = ""; 
-  document.getElementById("seccion").innerHTML = "";
-  //document.getElementById("hora").innerHTML = "";
+  document.getElementById("seccion").innerHTML = ""; 
   closeHora();
   
   cargarProfesores(profesores,nombreMateria);
@@ -107,8 +105,7 @@ function seleccionDeMateria(nombreMateria){
     }
   }
   $("#profesor").append('<option class="ElementoListado" selected="selected">Profesor</option>'); 
-  $("#seccion").append('<option class="ElementoListado" selected="selected">Sección</option>');  
-  //$("#hora").append(''); 
+  $("#seccion").append('<option class="ElementoListado" selected="selected">Sección</option>'); 
 }
 function cargarProfesores(profesores,materia){
   
@@ -138,7 +135,7 @@ function seleccionarProfesor(nombreProfesor,nombreMateria){
   var seccionList = [];
   MateriaActual=[];
   document.getElementById("seccion").innerHTML = "";
-  //document.getElementById("hora").innerHTML = "";
+  //document.getElementById("hora").innerHTML = "";  
   closeHora();
   cargarSeccion(seccionList,nombreProfesor,nombreMateria);
 
@@ -157,61 +154,61 @@ function cargarSeccion(seccionList,nombreProfesor,nombreMateria){
 }
 
 function seleccionarSeccion(nombreSeccion,nombreProfesor,nombreMateria){
-  //closeHora();
-  document.getElementById("hora").innerHTML=`<p id="horaText"><strong>Horas:</strong> &nbsp; </p>`;
-  var horaList = [];
-  MateriaActual=[];
-  cargarHoras(horaList,nombreSeccion,nombreProfesor,nombreMateria);
-  // document.getElementById("hora").innerHTML = "";
-  // $("#hora").append('<label style="margin-left: 20px" id="labels">Horas:</label>');
-  console.log("pasa")
-  for(var i = 0; i < horaList.length;i++){
-    switch (i) {
-      case 0:{ 
-      if(horaList[i] != null) { 
-      $("#horaText").append(horaList[i]+"&nbsp;&nbsp; "); 
-      var arregloMateria = horaList[i].split(" ");
-      prepararElemento(nombreMateria,nombreProfesor,nombreSeccion,arregloMateria[0],arregloMateria[1],arregloMateria[2],arregloMateria[3]);
-      }     
-        break;}
-      case 1:{
-      if(horaList[i] != null){  
-      $("#horaText").append(horaList[i]+"&nbsp;&nbsp; "); 
-      var arregloMateria = horaList[i].split(" ");
-      prepararElemento(nombreMateria,nombreProfesor,nombreSeccion,arregloMateria[0],arregloMateria[1],arregloMateria[2],arregloMateria[3]); 
-      }   
-        break;}
-      case 2:{
-      if(horaList[i] != null){     
-      $("#horaText").append(horaList[i]+"&nbsp;&nbsp; ");
-      var arregloMateria = horaList[i].split(" ");
-      prepararElemento(nombreMateria,nombreProfesor,nombreSeccion,arregloMateria[0],arregloMateria[1],arregloMateria[2],arregloMateria[3]); 
-      }      
-        break;}
-      case 3:{
-      if(horaList[i] != null){     
-      $("#horaText").append(horaList[i]+"&nbsp;&nbsp; ");
-      var arregloMateria = horaList[i].split(" ");
-      prepararElemento(nombreMateria,nombreProfesor,nombreSeccion,arregloMateria[0],arregloMateria[1],arregloMateria[2],arregloMateria[3]);
-      }      
-        break;}
-      case 4:{
-      if(horaList[i] != null){     
-      $("#horaText").append(horaList[i]+"&nbsp;&nbsp; ");
-      var arregloMateria = horaList[i].split(" ");
-      prepararElemento(nombreMateria,nombreProfesor,nombreSeccion,arregloMateria[0],arregloMateria[1],arregloMateria[2],arregloMateria[3]);
-      }       
-        break;}
-    
-      default:
-        break;
+  if(nombreSeccion === "Sección"){
+    closeHora();
+  }else{
+    var horaList = [];
+    MateriaActual=[];
+    cargarHoras(horaList,nombreSeccion,nombreProfesor,nombreMateria);
+    // document.getElementById("hora").innerHTML = "";
+    $("#horaText").empty();
+    $("#horaText").append('<strong>Horas:</strong> ');
+    console.log("pasa")
+    for(var i = 0; i < horaList.length;i++){
+      switch (i) {
+        case 0:{ 
+        if(horaList[i] != null) { 
+          $("#horaText").append(horaList[i]+"&nbsp;&nbsp; ");
+        var arregloMateria = horaList[i].split(" ");
+        prepararElemento(nombreMateria,nombreProfesor,nombreSeccion,arregloMateria[0],arregloMateria[1],arregloMateria[2],arregloMateria[3]);
+        }     
+          break;}
+        case 1:{
+        if(horaList[i] != null){  
+        $("#horaText").append(horaList[i]+"&nbsp;&nbsp; ");
+        var arregloMateria = horaList[i].split(" ");
+        prepararElemento(nombreMateria,nombreProfesor,nombreSeccion,arregloMateria[0],arregloMateria[1],arregloMateria[2],arregloMateria[3]); 
+        }   
+          break;}
+        case 2:{
+        if(horaList[i] != null){     
+          $("#horaText").append(horaList[i]+"&nbsp;&nbsp; ");
+        var arregloMateria = horaList[i].split(" ");
+        prepararElemento(nombreMateria,nombreProfesor,nombreSeccion,arregloMateria[0],arregloMateria[1],arregloMateria[2],arregloMateria[3]); 
+        }      
+          break;}
+        case 3:{
+        if(horaList[i] != null){     
+          $("#horaText").append(horaList[i]+"&nbsp;&nbsp; ");
+        var arregloMateria = horaList[i].split(" ");
+        prepararElemento(nombreMateria,nombreProfesor,nombreSeccion,arregloMateria[0],arregloMateria[1],arregloMateria[2],arregloMateria[3]);
+        }      
+          break;}
+        case 4:{
+        if(horaList[i] != null){     
+        $("#horaText").append(horaList[i]+"&nbsp;&nbsp; ");
+        var arregloMateria = horaList[i].split(" ");
+        prepararElemento(nombreMateria,nombreProfesor,nombreSeccion,arregloMateria[0],arregloMateria[1],arregloMateria[2],arregloMateria[3]);
+        }       
+          break;}
+      
+        default:
+          break;
+      }
     }
-  }
-  openHora();
-  
-
-
-  
+    openHora();
+  }  
+    
 }
 function cargarHoras(horaList,nombreSeccion,nombreProfesor,nombreMateria){
   MateriaActual=[];
@@ -503,19 +500,17 @@ function notifica(mensaje,color) {
 } 
 
 function openHora(){
-  $("#hora").css("display","block");
-  $("#hora").css("height","30px");
-  setTimeout(function(){
-    $("#hora").css("opacity","1");
-  },1000);
+  $("#hora").animate({"height":"30px"});
+  $('#hora').animate({'opacity':'1'});  
 }
 
 function closeHora(){
-  $("#hora").css("opacity","0"); 
-  $("#hora").css("height","0");
+  $('#hora').animate({'opacity':'0'});
+  $("#hora").animate({"height":"0px"});   
   setTimeout(function(){
-    $("#hora").css("display","none");
-  },1000);
+   $("#horaText").empty();  
+  },500); 
+  
 }
 
 function opcionesDeConflicto(){
