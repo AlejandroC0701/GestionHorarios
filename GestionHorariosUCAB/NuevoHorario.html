@@ -409,7 +409,7 @@
   </div> 
 
   <div id="contenedorHorario2" >
-    
+    <span>Titulo</span>
   </div>
   <div id="contenedorHorario" >
     
@@ -417,7 +417,8 @@
   
   <script>
     crearTabla('#contenedorHorario');
-    crearTabla('#contenedorHorario2');
+    var horario = JSON.parse(localStorage.getItem("horario"));
+    crearTablaVista('#contenedorHorario2',horario.tituloHorario);
   </script>
   <!-- The actual snackbar -->
 <div id="snackbar" calss="text-center"></div>
