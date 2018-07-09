@@ -452,7 +452,7 @@ function ventanaDescargar(){
   var contenidoDeArchivo =  new Blob([crearJsonConHorario()],{type: "application/json"});
   descargarArchivo(contenidoDeArchivo,$('#tituloHorario').val()+".json");
 }
-<<<<<<< HEAD
+
 function descargarArchivo(contenidoEnBlob, nombreArchivo) {
   var reader = new FileReader();
   reader.onload = function (event) {   
@@ -465,33 +465,16 @@ function descargarArchivo(contenidoEnBlob, nombreArchivo) {
     else{
       save.download = 'horario.json'; 
     }
-=======
-function descargarArchivo(contenidoEnBlob, nombreArchivo) {  
-  var reader = new FileReader();  
-  reader.onload = function (event) {    
-    var save = document.createElement('a');
-    save.href = event.target.result;
-    save.target = '_blank';    
-    save.download = nombreArchivo || 'archivo.json';
->>>>>>> Acoplamiento
     var clicEvent = new MouseEvent('click', {
       'view': window,
       'bubbles': true,
       'cancelable': true
-<<<<<<< HEAD
-    }); 
-    save.dispatchEvent(clicEvent);
-    (window.URL || window.webkitURL).revokeObjectURL(save.href);
-  };
-=======
     });    
     save.dispatchEvent(clicEvent);
     (window.URL || window.webkitURL).revokeObjectURL(save.href);
   }; 
->>>>>>> Acoplamiento
   reader.readAsDataURL(contenidoEnBlob);
-};
-
+}
 
 function notifica(mensaje,color) {
   document.getElementById("snackbar").innerHTML = "";
