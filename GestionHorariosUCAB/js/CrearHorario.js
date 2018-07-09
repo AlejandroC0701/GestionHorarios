@@ -548,3 +548,17 @@ function formatoSoloHoras(horaIn,horaFin){
   }
   return formatoCompleto;  
 }
+function nuevoDocumentoHorario(){
+  if( ($("#contenedorHorario").fullCalendar('clientEvents')).length > 0 ){    
+    $('.WarningClear').modal();    
+  }else{
+    notifica("Nuevo documento de horario listo","rgba(240, 156, 125, 0.844)");
+  }
+}
+function vaciarHorario(){
+  var materias = $("#contenedorHorario").fullCalendar('clientEvents');
+    for(var i = 0; i < materias.length;i++){
+      rotarIdAlEliminar(i);
+    }
+    notifica("Nuevo documento de horario listo","rgba(240, 156, 125, 0.844)");
+}
