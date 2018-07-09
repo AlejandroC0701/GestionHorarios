@@ -1,6 +1,6 @@
 body{
   background: white;
-  /* overflow-x:hidden; */
+   overflow-x:hidden;
 }
 
 #inputTitulo{
@@ -195,8 +195,12 @@ button[id = "guardarHorario"]:active{
   color: rgb(187, 163, 100);
 }
 #tablahorario{
-  width: 90%;
-  
+  width: 90%;  
+}
+#contenedorHorario2{  
+  transition: all 0.4s;
+  width: 100%;
+  opacity: 1;  
 }
 #contenedorHorario{  
   transition: all 0.4s;

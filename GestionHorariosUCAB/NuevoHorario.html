@@ -133,8 +133,8 @@
               <p>¿Desea Descargar el horario?</p>          
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-success"  onclick="ventanaDescargar();actualizarVista();">Descargar</button>
-              <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="actualizarVista();">Cancelar</button>
+              <button type="button" class="btn btn-success"  onclick="ventanaDescargar();">Descargar</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" >Cancelar</button>
           </div>
         </div>
       </div>
@@ -153,7 +153,7 @@
               <p>¿Desea remplazar el horario que ya esta almacenado?</p>          
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary" onclick="remplazarHorarioAlmacenado();actualizarVista();">Remplazar</button>
+              <button type="button" class="btn btn-primary" onclick="remplazarHorarioAlmacenado(); horarioGuardado = true;">Remplazar</button>
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
           </div>
         </div>
@@ -320,28 +320,46 @@
             </div> 
 
             <div id="siguientesDatos" class="form-group col-md-8 align-self-center row mt-3 mb-2" style="transition: all 1s; margin-left: 5px;">
-                <div class="input-group input-group-sm col-md-1 float-left">
-                    <div class="input-group-prepend">
+                
+              <div class="input-group input-group-sm col-md-1 float-left">
+                    
+                  <div class="input-group-prepend">
+                      
                       <label class="input-group-text" for="semestreSelect">Semestre</label>
+                    
                     </div>
+                    
                     <select class="custom-select custom-select-sm" id="semestreSelect">
-                        <option class="ElementoListado" value="saab">Primero</option>
+                        
+                      <option class="ElementoListado" value="saab">Primero</option>
+                        
                         <option class="ElementoListado" value="saab">Segundo</option>
+                        
                         <option class="ElementoListado" value="saab">Tercero</option>
+                        
                         <option class="ElementoListado" value="saab">Cuarto</option>
+                        
                         <option class="ElementoListado" value="saab">Quinto</option>
+                        
                         <option class="ElementoListado" value="saab">Sexto</option>
+                        
                         <option class="ElementoListado" value="saab">Septimo</option>
+                        
                         <option class="ElementoListado" value="saab">Octavo</option>
+                        
                         <option class="ElementoListado" value="saab">Noveno</option>
+                        
                         <option class="ElementoListado" value="saab">Decimo</option>
+                        
                         <option class="ElementoListado" selected="selected">Semestre</option>
-                    </select>
-                  </div>
+                    
+                      </select>
+                  
+                </div>
 
              
                             
-              <div class="input-group input-group-sm col-md float-left">
+              <div class="input-group input-group-sm col-md-1 float-left">
                 <div class="input-group-prepend">
                   <label id="labels" class="input-group-text" for="materia"> Materia: </label>
                 </div>
@@ -352,7 +370,7 @@
 
 
 
-              <div class="input-group input-group-sm col-md float-left">
+              <div class="input-group input-group-sm col-md-1 float-left">
                 <div class="input-group-prepend">
                   
                   <label id="labels" class="input-group-text" for="Profesor"> Profesor: </label>
@@ -376,15 +394,17 @@
                 </select>
               </div> 
               <div class="col col-md-7"></div>
+              
                 
-              <div class="col-md-1"></div>
-                
+              <div class="col-md-1" ></div>               
 
-                <div class="alert alert-primary col-md-auto mt-3 pt-0 ml-3" style="height: 0px; opacity: 0; display: none; transition: all 1s ease 0s;" role="alert" id="hora" style="display: flex ">
-                    <p id="horaText"><strong>Horas:</strong> &nbsp; </p>
+                <div  class="alert alert-primary col-md-auto mt-3 pt-0 ml-3" style="height:0px; opacity: 0; margin-top: 20px;" role="alert" id="hora">
+                  
+                  <p id="horaText"><strong>Horas:</strong>&nbsp; </p>
                                  
                 </div>            
-            </div>          
+            </div>  
+
           </div>
 
           <div class="row" style="background: rgb(16, 16, 16);">
@@ -397,7 +417,7 @@
               </div> 
 
               <div   class="col-md-0 SeccionBoton">                
-                  <button id="cargarHorario" class=" icon-upload2 BotonOptions" type="button">
+                  <button id="cargarHorario" class=" icon-upload2 BotonOptions" type="button" onclick="testear();">
                   </button>                
                   <br/>
                   <label  id="labels">Cargar Horario</label>
@@ -446,9 +466,7 @@
   </div> 
 
   <div id="contenedorHorario2" ></div>
-  <div id="contenedorHorario" >
-    
-  </div>
+  <div id="contenedorHorario"></div>
   
   <script>
     crearTabla('#contenedorHorario');    
@@ -530,6 +548,24 @@ function eliminarHorario(){
     $('.ElimHorario').modal('hide');
     notifica("Horario eliminado exitosamente!",'rgba(230, 107, 107, 0.652)');
   
+}
+var bandera = false;
+function testear(){
+  if(!bandera){
+    $('#contenedorHorario2').animate({'opacity':'0'});
+    $('#contenedorHorario2').animate({'display':'none'});
+
+    $('#contenedorHorario').animate({'opacity':'1'});
+    $('#contenedorHorario').animate({'display':'flex'});
+    bandera = true;
+  }else{
+    $('#contenedorHorario2').animate({'opacity':'1'});
+    $('#contenedorHorario2').animate({'display':'flex'});
+
+    $('#contenedorHorario').animate({'opacity':'0'});
+    $('#contenedorHorario').animate({'display':'none'});
+    bandera = false;
+  }
 }
 </script>
 

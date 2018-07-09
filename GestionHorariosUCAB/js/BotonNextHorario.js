@@ -1,6 +1,7 @@
 var siguiente = false;
 
 function siguientePaso(){
+  console.log(idMateria);
   if(!siguiente){
     siguiente = true;
 
@@ -63,8 +64,11 @@ function siguientePaso(){
       $('#contenedorHorario2').animate({'opacity':'1'}); 
       $('.Herramientas').css('height','100px');
       $('.SeccionBoton').css('display','block');  
-      setTimeout(function(){ $('#tituloVistaPrev').animate({'opacity':'1'}); $('.SeccionBoton').css('opacity','1'); },500);    
+      setTimeout(function(){ $('#tituloVistaPrev').animate({'opacity':'1'}); $('.SeccionBoton').css('opacity','1'); },500); 
+      $(document).ready(function(){
+        actualizarVista();
+      });       
     },1300);
-    
+   
   }  
 }
