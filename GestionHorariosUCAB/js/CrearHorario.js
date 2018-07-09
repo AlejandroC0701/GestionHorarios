@@ -451,17 +451,11 @@ function ventanaDescargar(){
   descargarArchivo(contenidoDeArchivo,$('#tituloHorario').val()+".json");
 }
 function descargarArchivo(contenidoEnBlob, nombreArchivo) {
-  //creamos un FileReader para leer el Blob
   var reader = new FileReader();
-  //Definimos la función que manejará el archivo
-  //una vez haya terminado de leerlo
-  reader.onload = function (event) {
-    //Usaremos un link para iniciar la descarga 
+  reader.onload = function (event) {   
     var save = document.createElement('a');
     save.href = event.target.result;
-    save.target = '_blank';
-    //Truco: así le damos el nombre al archivo 
-   
+    save.target = '_blank';  
     if( $('#tituloHorario').val().length > 0 ){
       save.download = nombreArchivo || 'horario.json';
     }
@@ -472,14 +466,10 @@ function descargarArchivo(contenidoEnBlob, nombreArchivo) {
       'view': window,
       'bubbles': true,
       'cancelable': true
-    });
-    //Simulamos un clic del usuario
-    //no es necesario agregar el link al DOM.
+    }); 
     save.dispatchEvent(clicEvent);
-    //Y liberamos recursos...
     (window.URL || window.webkitURL).revokeObjectURL(save.href);
   };
-  //Leemos el blob y esperamos a que dispare el evento "load"
   reader.readAsDataURL(contenidoEnBlob);
 };
 
