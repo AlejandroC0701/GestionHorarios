@@ -116,3 +116,8 @@ button[id = "nextBoton"]{
   width: 100%;
   opacity: 0;  
 }
+#contenedorHorario2{  
+  transition: all 0.4s;
+  width: 100%;
+  opacity: 1;  
+}

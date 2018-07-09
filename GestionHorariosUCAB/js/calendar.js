@@ -1,7 +1,7 @@
 var selected = "-1";
-function crearTabla(){
+function crearTabla(contenedor){
   
-  $("#contenedorHorario").fullCalendar({
+  $(contenedor).fullCalendar({
     weekends: false,
     themeSystem: 'bootstrap4',
     header: false,
@@ -21,8 +21,8 @@ function crearTabla(){
           var idViejo = selected;
           usarId=calEvent.id; 
           selected = calEvent.id;
-          var materiaCompleta = $("#contenedorHorario").fullCalendar('clientEvents',calEvent.id); 
-          var materiaViejaSelect = $("#contenedorHorario").fullCalendar('clientEvents',idViejo);          
+          var materiaCompleta = $(contenedor).fullCalendar('clientEvents',calEvent.id); 
+          var materiaViejaSelect = $(contenedor).fullCalendar('clientEvents',idViejo);          
           if(idViejo != selected){
             console.log("Viejo: " + idViejo + " Nuevo: " + selected);
             for(var i = 0; i < materiaCompleta.length; i++){
@@ -31,8 +31,8 @@ function crearTabla(){
             for(var i = 0; i < materiaViejaSelect.length; i++){
               materiaViejaSelect[i].color = "#2a92ca"; 
             }                 
-             $('#contenedorHorario').fullCalendar('updateEvents',materiaCompleta); 
-             $('#contenedorHorario').fullCalendar('updateEvents',materiaViejaSelect); 
+             $(contenedor).fullCalendar('updateEvents',materiaCompleta); 
+             $(contenedor).fullCalendar('updateEvents',materiaViejaSelect); 
           }else{
           calEvent.color = "rgb(238, 222, 164)";
           $('#contenedorHorario').fullCalendar('updateEvent', calEvent); 
@@ -42,7 +42,7 @@ function crearTabla(){
           usarId=calEvent.id;  
           selected = calEvent.id;      
           calEvent.color = "rgb(238, 222, 164)";
-          $('#contenedorHorario').fullCalendar('updateEvent', calEvent); 
+          $(contenedor).fullCalendar('updateEvent', calEvent); 
         }        
             
             
@@ -52,8 +52,8 @@ function crearTabla(){
       },
       eventMouseout: function(calEvent, jsEvent, view) {        
         $(this).css("background","#2a92ca");
-        $('#contenedorHorario').fullCalendar('updateEvent',calEvent);       
+        $(contenedor).fullCalendar('updateEvent',calEvent);       
       }  
     });
-  $('#contenedorHorario').fullCalendar('option', 'contentHeight', 400);
+  $(contenedor).fullCalendar('option', 'contentHeight', 400);
 }
