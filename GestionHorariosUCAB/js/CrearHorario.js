@@ -423,9 +423,13 @@ function crearJsonConHorario(){
   localStorage.setItem("horario",jsonHorario);
   return jsonHorario;
 }
-function botonGuardarHorario(){  
-  var contenidoDeArchivo =  new Blob([crearJsonConHorario()],{type: "application/json"});
-   descargarArchivo(contenidoDeArchivo,"horario.json");
+function botonGuardarHorario(){ 
+  if( ($("#contenedorHorario").fullCalendar('clientEvents')).length > 0 ){ 
+    var contenidoDeArchivo =  new Blob([crearJsonConHorario()],{type: "application/json"});
+    descargarArchivo(contenidoDeArchivo,"horario.json");
+  }else{
+    notifica("El horario esta Vacio!","rgba(240, 156, 125, 0.844)");
+  }
 }
 
 function descargarArchivo(contenidoEnBlob, nombreArchivo) {
