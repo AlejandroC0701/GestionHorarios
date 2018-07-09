@@ -269,25 +269,25 @@
                   </div>
                   <select class="custom-select" id="carrera">
                       <optgroup class="SeccionListado" label="Ingeniería">
-                          <option class="ElementoListado" value="saab">Informática</option>
-                          <option class="ElementoListado" value="saab">Civil</option>
-                          <option class="ElementoListado" value="saab">Industrial </option>
-                          <option class="ElementoListado" value="saab">Telecomunicaciones </option>      
+                          <option class="ElementoListado" value="1">Informática</option>
+                          <option class="ElementoListado" value="2">Civil</option>
+                          <option class="ElementoListado" value="3">Industrial </option>
+                          <option class="ElementoListado" value="4">Telecomunicaciones </option>      
                         </optgroup>
                         <optgroup class="SeccionListado" label="Humanidades y Educacion">
-                          <option class="ElementoListado" value="saab">Comunicación Social </option>
-                          <option class="ElementoListado" value="saab">Educación </option>
-                          <option class="ElementoListado" value="saab">Filosofía </option>
-                          <option class="ElementoListado" value="saab">Letras </option>
-                          <option class="ElementoListado" value="saab">Psicología </option>
+                          <option class="ElementoListado" value="5">Comunicación Social </option>
+                          <option class="ElementoListado" value="6">Educación </option>
+                          <option class="ElementoListado" value="7">Filosofía </option>
+                          <option class="ElementoListado" value="8">Letras </option>
+                          <option class="ElementoListado" value="9">Psicología </option>
                         </optgroup>
                         <optgroup class="SeccionListado" label="Ciencias Económicas y Sociales">
-                          <option class="ElementoListado" value="saab">Administración y contaduria</option>
-                          <option class="ElementoListado" value="saab">Ciencias Sociales </option>
-                          <option class="ElementoListado" value="saab">Economía </option>
+                          <option class="ElementoListado" value="10">Administración y contaduria</option>
+                          <option class="ElementoListado" value="11">Ciencias Sociales </option>
+                          <option class="ElementoListado" value="12">Economía </option>
                         </optgroup>
-                        <option class="ElementoListado" value="saab">Derecho </option> 
-                        <option class="ElementoListado" value="saab">Teología </option>
+                        <option class="ElementoListado" value="13">Derecho </option> 
+                        <option class="ElementoListado" value="14">Teología </option>
                         <option class="ElementoListado" selected="selected">Seleccione su carrera</option>
                   </select>
                 </div>
@@ -370,7 +370,7 @@
           <div class="row" style="background: rgb(16, 16, 16);">
             <div class="col-lg-12 Herramientas" >
                <div   class="col-md-2 SeccionBoton" id="prueba">                
-                <button id="editarHorario" class=" icon-pencil2 BotonOptions" type="button" onclick="botonEditar();">
+                <button id="editarHorario" class=" icon-pencil2 BotonOptions" type="button" onclick="verificarEditar();">
                 </button>                
                 <br/>
                 <label  id="labels"> Editar </label>
@@ -474,6 +474,20 @@
       notifica($("#carrera option:selected").text() +" no disponible",'rgba(0, 0, 0, 0.7)');
     }
   });  //onclick="siguientePaso();"
+
+  function verificarEditar(){
+
+    if( ($('#contenedorHorario2').fullCalendar('clientEvents')).length > 0 ){
+    document.ready = document.getElementById("carrera").value ='1';
+    $("#unableBoton").attr("onclick","siguientePaso();");
+    $("#unableBoton").attr("id","nextBoton");
+    $("#nextBoton").removeClass("BotonNextUn");
+    $("#nextBoton").addClass("BotonNext");
+    botonEditar();
+    }else{
+      notifica("No exite horario el cual editar",'rgba(0, 0, 0, 0.7)');
+    }
+  }
 </script>
 
 
