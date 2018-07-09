@@ -7,7 +7,8 @@ function elegirSemestre(semestre){
   document.getElementById("materia").innerHTML = ""; 
   document.getElementById("profesor").innerHTML = "";
   document.getElementById("seccion").innerHTML = "";
-  document.getElementById("hora").innerHTML = "";
+  //document.getElementById("hora").innerHTML = "";
+  closeHora();
   var materiaSemestre = [];
   switch (semestre) {    
     case "Primero": { 
@@ -59,7 +60,7 @@ function elegirSemestre(semestre){
     $("#materia").append('<option class="ElementoListado" selected="selected">Materia</option>');
     $("#profesor").append('<option class="ElementoListado" selected="selected">Profesor</option>');  
     $("#seccion").append('<option class="ElementoListado" selected="selected">Sección</option>');
-    $("#hora").append('<label style="margin-left: 20px" id="labels">Horas:</label>');
+    //$("#hora").append("");
      
   console.log(informatica.length);
   console.log(informatica.length);
@@ -92,7 +93,8 @@ function seleccionDeMateria(nombreMateria){
   var profesores = [];
   document.getElementById("profesor").innerHTML = ""; 
   document.getElementById("seccion").innerHTML = "";
-  document.getElementById("hora").innerHTML = "";
+  //document.getElementById("hora").innerHTML = "";
+  closeHora();
   
   cargarProfesores(profesores,nombreMateria);
   
@@ -105,7 +107,7 @@ function seleccionDeMateria(nombreMateria){
   }
   $("#profesor").append('<option class="ElementoListado" selected="selected">Profesor</option>'); 
   $("#seccion").append('<option class="ElementoListado" selected="selected">Sección</option>');  
-  $("#hora").append('<label style="margin-left: 20px" id="labels">Horas:</label>'); 
+  //$("#hora").append(''); 
 }
 function cargarProfesores(profesores,materia){
   
@@ -135,7 +137,8 @@ function seleccionarProfesor(nombreProfesor,nombreMateria){
   var seccionList = [];
   MateriaActual=[];
   document.getElementById("seccion").innerHTML = "";
-  document.getElementById("hora").innerHTML = "";
+  //document.getElementById("hora").innerHTML = "";
+  closeHora();
   cargarSeccion(seccionList,nombreProfesor,nombreMateria);
 
   for(var i = 0; i < seccionList.length; i++){
@@ -143,7 +146,7 @@ function seleccionarProfesor(nombreProfesor,nombreMateria){
   }
 
   $("#seccion").append('<option class="ElementoListado" selected="selected">Sección</option>');
-  $("#hora").append('<label style="margin-left: 20px" id="labels">Horas:</label>'); 
+  //$("#hora").append(''); 
 }
 function cargarSeccion(seccionList,nombreProfesor,nombreMateria){
   for(var i = 0; i < informatica.length; i++){
@@ -153,44 +156,46 @@ function cargarSeccion(seccionList,nombreProfesor,nombreMateria){
 }
 
 function seleccionarSeccion(nombreSeccion,nombreProfesor,nombreMateria){
+  //closeHora();
+  document.getElementById("hora").innerHTML=`<p id="horaText"><strong>Horas:</strong> &nbsp; </p>`;
   var horaList = [];
   cargarHoras(horaList,nombreSeccion,nombreProfesor,nombreMateria);
-  document.getElementById("hora").innerHTML = "";
-  $("#hora").append('<label style="margin-left: 20px" id="labels">Horas:</label>');
-
+  // document.getElementById("hora").innerHTML = "";
+  // $("#hora").append('<label style="margin-left: 20px" id="labels">Horas:</label>');
+  console.log("pasa")
   for(var i = 0; i < horaList.length;i++){
     switch (i) {
       case 0:{ 
       if(horaList[i] != null) { 
-      $("#hora").append('<label style="margin-left: 20px" class="hora">'+horaList[i]+'</label>'); 
+      $("#horaText").append(horaList[i]+"&nbsp;&nbsp; "); 
       var arregloMateria = horaList[i].split(" ");
       prepararElemento(nombreMateria,nombreProfesor,nombreSeccion,arregloMateria[0],arregloMateria[1],arregloMateria[2],arregloMateria[3]);
       }     
         break;}
       case 1:{
       if(horaList[i] != null){  
-      $("#hora").append('<label style="margin-left: 20px" class="hora">'+horaList[i]+'</label>'); 
+      $("#horaText").append(horaList[i]+"&nbsp;&nbsp; "); 
       var arregloMateria = horaList[i].split(" ");
       prepararElemento(nombreMateria,nombreProfesor,nombreSeccion,arregloMateria[0],arregloMateria[1],arregloMateria[2],arregloMateria[3]); 
       }   
         break;}
       case 2:{
       if(horaList[i] != null){     
-      $("#hora").append('<label style="margin-left: 20px" class="hora">'+horaList[i]+'</label>');
+      $("#horaText").append(horaList[i]+"&nbsp;&nbsp; ");
       var arregloMateria = horaList[i].split(" ");
       prepararElemento(nombreMateria,nombreProfesor,nombreSeccion,arregloMateria[0],arregloMateria[1],arregloMateria[2],arregloMateria[3]); 
       }      
         break;}
       case 3:{
       if(horaList[i] != null){     
-      $("#hora").append('<label style="margin-left: 20px" class="hora">'+horaList[i]+'</label>');
+      $("#horaText").append(horaList[i]+"&nbsp;&nbsp; ");
       var arregloMateria = horaList[i].split(" ");
       prepararElemento(nombreMateria,nombreProfesor,nombreSeccion,arregloMateria[0],arregloMateria[1],arregloMateria[2],arregloMateria[3]);
       }      
         break;}
       case 4:{
       if(horaList[i] != null){     
-      $("#hora").append('<label style="margin-left: 20px" class="hora">'+horaList[i]+'</label>');
+      $("#horaText").append(horaList[i]+"&nbsp;&nbsp; ");
       var arregloMateria = horaList[i].split(" ");
       prepararElemento(nombreMateria,nombreProfesor,nombreSeccion,arregloMateria[0],arregloMateria[1],arregloMateria[2],arregloMateria[3]);
       }       
@@ -200,7 +205,10 @@ function seleccionarSeccion(nombreSeccion,nombreProfesor,nombreMateria){
         break;
     }
   }
+  openHora();
   
+
+
   
 }
 function cargarHoras(horaList,nombreSeccion,nombreProfesor,nombreMateria){
@@ -400,5 +408,20 @@ function notifica() {
   setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
 } 
 
+function openHora(){
+  $("#hora").css("display","block");
+  $("#hora").css("height","30px");
+  setTimeout(function(){
+    $("#hora").css("opacity","1");
+  },1000);
+}
+
+function closeHora(){
+  $("#hora").css("opacity","0"); 
+  $("#hora").css("height","0");
+  setTimeout(function(){
+    $("#hora").css("display","none");
+  },1000);
+}
 
 
