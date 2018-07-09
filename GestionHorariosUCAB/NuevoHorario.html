@@ -279,7 +279,7 @@
             </div>            
                         
             <div class="col-md-1">
-              <button id="unableBoton" class="icon-tools BotonNextUn" type="button" onclick="">
+              <button id="unableBoton" class="icon-tools BotonNextUn" type="button" onclick="notifica('Seleccione una carrera','rgba(0, 0, 0, 0.7)');">
               </button>
             </div> 
 
@@ -452,7 +452,7 @@
       
     }else{
       $("#nextBoton").attr("id","unableBoton");
-      $("#unableBoton").attr("onclick","");
+      $("#unableBoton").attr("onclick","notifica('Seleccione una carrera','rgba(0, 0, 0, 0.7)');");
       $("#unableBoton").removeClass("BotonNext");
       $("#unableBoton").addClass("BotonNextUn");
       notifica($("#carrera option:selected").text() +" no disponible",'rgba(0, 0, 0, 0.7)');
