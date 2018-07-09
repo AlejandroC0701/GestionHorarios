@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
   <link rel="stylesheet" href="js/dist/fullcalendar.css">
-
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
     <!--Java Scripts  -->
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -74,7 +74,8 @@
     </div>
     <div class="col-md-8">
       <i  class="material-icons arrowLogo">arrow_forward_ios</i>
-      <h2  style="float: left;" class="tituloLogo">Creación de Horarios</h2>
+      <h2  style="float: left;" id="tituloCreacion" class="tituloLogo">Creación de Horarios</h2>
+      <h2  style="float: left;" id="tituloVistaPrev" class="tituloLogo">Gestión de Horarios</h2>
     </div>
     <div id="opciones" class="col align-self-center" >
   
@@ -217,7 +218,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <p>Esta apunto de eliminar una materia. ¿Esta usted seguro?</p>
+          <p>Esta a punto de eliminar una materia. ¿Esta usted seguro?</p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" onclick="eliminarMateria(); $('.Delete').modal('hide');">Eliminar</button>
@@ -250,9 +251,9 @@
                   <div class="input-group-prepend">
                     <label  class="input-group-text" for="Carrera">Carrera</label>
                   </div>
-                  <select class="custom-select" id="Carrera">
+                  <select class="custom-select" id="carrera">
                       <optgroup class="SeccionListado" label="Ingeniería">
-                          <option class="ElementoListado" value="saab">Informática </option>
+                          <option class="ElementoListado" value="saab">Informática</option>
                           <option class="ElementoListado" value="saab">Civil</option>
                           <option class="ElementoListado" value="saab">Industrial </option>
                           <option class="ElementoListado" value="saab">Telecomunicaciones </option>      
@@ -278,7 +279,7 @@
             </div>            
                         
             <div class="col-md-1">
-              <button id="nextBoton" class="icon-circle-right BotonNext" type="button" onclick="siguientePaso();">
+              <button id="unableBoton" class="icon-tools BotonNextUn" type="button" onclick="">
               </button>
             </div> 
 
@@ -408,17 +409,19 @@
     </div>
   </div> 
 
-  <div id="contenedorHorario2" >
-    <span>Titulo</span>
-  </div>
+  <div id="contenedorHorario2" ></div>
   <div id="contenedorHorario" >
     
   </div>
   
   <script>
-    crearTabla('#contenedorHorario');
+    crearTabla('#contenedorHorario');    
     var horario = JSON.parse(localStorage.getItem("horario"));
-    crearTablaVista('#contenedorHorario2',horario.tituloHorario);
+    if(horario != null)
+      crearTablaVista('#contenedorHorario2',horario.tituloHorario);
+    else{
+      crearTablaVista('#contenedorHorario2');  
+    }
   </script>
   <!-- The actual snackbar -->
 <div id="snackbar" calss="text-center"></div>
@@ -440,6 +443,21 @@
   $("#seccion").change(function(){  
     seleccionarSeccion(""+$("#seccion option:selected").text(),""+$("#profesor option:selected").text(),""+$("#materia option:selected").text());
   });    
+  $("#carrera").change(function(){  
+    if($("#carrera option:selected").text() === "Informática"){
+      $("#unableBoton").attr("onclick","siguientePaso();");
+      $("#unableBoton").attr("id","nextBoton");
+      $("#nextBoton").removeClass("BotonNextUn");
+      $("#nextBoton").addClass("BotonNext");
+      
+    }else{
+      $("#nextBoton").attr("id","unableBoton");
+      $("#unableBoton").attr("onclick","");
+      $("#unableBoton").removeClass("BotonNext");
+      $("#unableBoton").addClass("BotonNextUn");
+      notifica($("#carrera option:selected").text() +" no disponible",'rgba(0, 0, 0, 0.7)');
+    }
+  });  //onclick="siguientePaso();"
 </script>
 
 

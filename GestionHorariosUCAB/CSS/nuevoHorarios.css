@@ -79,7 +79,7 @@ button[id = "homeBoton"]:active{
 button[id = "nextBoton"]:hover{
   color: rgb(235, 235, 235);
 }
-button[id = "nextBoton"]{
+button[id = "nextBoton"],button[id = "unableBoton"]{
   margin-top:1%;
   margin-left: 250px;
 }
@@ -95,8 +95,7 @@ button[id = "nextBoton"]{
   height:  100px;
   transition: all 0.5s;
 }
-
-.BotonNext{ 
+.BotonNextUn{
   background: none;
   border: none;
   color: inherit;
@@ -107,6 +106,24 @@ button[id = "nextBoton"]{
   padding: 0px;
   font-size: 50pt;
   color: rgba(76, 76, 77, 0.508);
+  outline:none;
+  -webkit-user-select: none; /* for button */  
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  transition: all 0.8s;  
+}
+.BotonNext{ 
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  line-height: none;
+  overflow: visible;
+  padding: 0px;
+  font-size: 50pt;
+  color: rgba(225, 225, 225, 0.508);
   outline:none;
   -webkit-user-select: none; /* for button */  
   -moz-user-select: none;
@@ -205,6 +222,16 @@ button[id = "guardarHorario"]:active{
   font-size: 15px;
   text-align: center;
   vertical-align: middle;
+}
+#tituloCreacion{
+  opacity: 0;
+  display: none;
+  transition: all 0.7;
+}
+#tituloVistaPrev{
+  opacity: 1;
+  display: block;
+  transition: all 0.7;
 }
 
  /* The snackbar - position it at the bottom and in the middle of the screen */
