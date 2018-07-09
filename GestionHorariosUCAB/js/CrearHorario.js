@@ -448,7 +448,7 @@ function remplazarHorarioAlmacenado(){
 function ventanaDescargar(){
   $('.DescargarHorario').modal("hide");
   var contenidoDeArchivo =  new Blob([crearJsonConHorario()],{type: "application/json"});
-  descargarArchivo(contenidoDeArchivo,"horario.json");
+  descargarArchivo(contenidoDeArchivo,$('#tituloHorario').val()+".json");
 }
 function descargarArchivo(contenidoEnBlob, nombreArchivo) {
   //creamos un FileReader para leer el Blob
@@ -461,7 +461,13 @@ function descargarArchivo(contenidoEnBlob, nombreArchivo) {
     save.href = event.target.result;
     save.target = '_blank';
     //Truco: así le damos el nombre al archivo 
-    save.download = nombreArchivo || 'archivo.json';
+   
+    if( $('#tituloHorario').val().length > 0 ){
+      save.download = nombreArchivo || 'horario.json';
+    }
+    else{
+      save.download = 'horario.json'; 
+    }
     var clicEvent = new MouseEvent('click', {
       'view': window,
       'bubbles': true,
