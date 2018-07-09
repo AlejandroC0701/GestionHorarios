@@ -2,7 +2,7 @@ var MateriaActual = [];
 var materiaInvolucradaEnConflicto;
 var materiaNuevaEnConflicto;
 var id=0;
-
+var numeroHorariosGuardados = 0;
 
 function elegirSemestre(semestre){
   
@@ -419,19 +419,37 @@ function crearJsonConHorario(){
       borderColor:horario[i].borderColor
     });
   }
+  
   var jsonHorario = JSON.stringify(materia);
-  localStorage.setItem("horario",jsonHorario);
+  localStorage.setItem("horario",jsonHorario);  
+  localStorage.setItem("totalHorarios",numeroHorariosGuardados);
   return jsonHorario;
 }
 function botonGuardarHorario(){ 
-  if( ($("#contenedorHorario").fullCalendar('clientEvents')).length > 0 ){ 
-    var contenidoDeArchivo =  new Blob([crearJsonConHorario()],{type: "application/json"});
-    descargarArchivo(contenidoDeArchivo,"horario.json");
+  if( ($("#contenedorHorario").fullCalendar('clientEvents')).length > 0 ){
+    if(localStorage.getItem("horario") == null){
+      var contenidoDeArchivo =  new Blob([crearJsonConHorario()],{type: "application/json"});
+      notifica("El horario se a guardado!","rgba(240, 156, 125, 0.844)");
+      $('.DescargarHorario').modal();
+    }else{
+      $('.GuardarRemp').modal();
+    }
   }else{
     notifica("El horario esta Vacio!","rgba(240, 156, 125, 0.844)");
   }
 }
+function remplazarHorarioAlmacenado(){
+  $('.GuardarRemp').modal("hide");
+  var contenidoDeArchivo =  new Blob([crearJsonConHorario()],{type: "application/json"});
+  notifica("El horario se a guardado!","rgba(240, 156, 125, 0.844)");
+  $('.DescargarHorario').modal();
+}
 
+function ventanaDescargar(){
+  $('.DescargarHorario').modal("hide");
+  var contenidoDeArchivo =  new Blob([crearJsonConHorario()],{type: "application/json"});
+  descargarArchivo(contenidoDeArchivo,"horario.json");
+}
 function descargarArchivo(contenidoEnBlob, nombreArchivo) {
   //creamos un FileReader para leer el Blob
   var reader = new FileReader();
@@ -556,6 +574,7 @@ function nuevoDocumentoHorario(){
   }
 }
 function vaciarHorario(){
+  $('.WarningClear').modal("hide"); 
   var materias = $("#contenedorHorario").fullCalendar('clientEvents');
     for(var i = 0; i < materias.length;i++){
       rotarIdAlEliminar(i);

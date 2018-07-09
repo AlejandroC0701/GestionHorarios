@@ -73,9 +73,71 @@
     </div>   
   </div>	  	
 </header>	
-	
+
 <body id="body">
 
+    <div class="modal fade DescargarHorario" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title text-success">Descargar Horario</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>¿Desea Descargar el horario?</p>          
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-success"  onclick="ventanaDescargar();">Descargar</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </div>    
+
+    <div class="modal fade GuardarRemp" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title text-primary">Remplazar horario</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>¿Desea remplazar el horario que ya esta almacenado?</p>          
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" onclick="remplazarHorarioAlmacenado()">Remplazar</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade WarningClear" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title text-warning">Advertencia</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p class="text-center" >El horario se vaciara por completo, asegúrese de haber guardado antes</p>
+              <hr>
+              <p class="text-center">¿Desea continuar de todos modos?</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" onclick="vaciarHorario()">Continuar</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            </div>
+          </div>
+        </div>
+    </div>
+    
   
 <div class=" Warning modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
@@ -117,27 +179,6 @@
     </div>
   </div>
 </div>
-<div class="WarningClear modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title text-warning">Advertencia</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p class="text-center">El horario se vaciara por completo, asegúrese de haber guardado antes</p>
-          <p class="text-center">¿Desea continuar de todos modos?</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" onclick="vaciarHorario();">Continuar</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</body>
 
 <div class="modal fade Delete" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
