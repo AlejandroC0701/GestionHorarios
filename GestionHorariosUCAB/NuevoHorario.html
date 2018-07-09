@@ -417,7 +417,7 @@
               </div> 
 
               <div   class="col-md-0 SeccionBoton">                
-                  <button id="cargarHorario" class=" icon-upload2 BotonOptions" type="button">
+                  <button id="cargarHorario" class=" icon-upload2 BotonOptions" type="button" onclick="testear();">
                   </button>                
                   <br/>
                   <label  id="labels">Cargar Horario</label>
@@ -466,9 +466,7 @@
   </div> 
 
   <div id="contenedorHorario2" ></div>
-  <div id="contenedorHorario" >
-    
-  </div>
+  <div id="contenedorHorario"></div>
   
   <script>
     crearTabla('#contenedorHorario');    
@@ -550,6 +548,24 @@ function eliminarHorario(){
     $('.ElimHorario').modal('hide');
     notifica("Horario eliminado exitosamente!",'rgba(230, 107, 107, 0.652)');
   
+}
+var bandera = false;
+function testear(){
+  if(!bandera){
+    $('#contenedorHorario2').animate({'opacity':'0'});
+    $('#contenedorHorario2').animate({'display':'none'});
+
+    $('#contenedorHorario').animate({'opacity':'1'});
+    $('#contenedorHorario').animate({'display':'flex'});
+    bandera = true;
+  }else{
+    $('#contenedorHorario2').animate({'opacity':'1'});
+    $('#contenedorHorario2').animate({'display':'flex'});
+
+    $('#contenedorHorario').animate({'opacity':'0'});
+    $('#contenedorHorario').animate({'display':'none'});
+    bandera = false;
+  }
 }
 </script>
 

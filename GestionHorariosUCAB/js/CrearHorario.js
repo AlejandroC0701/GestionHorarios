@@ -381,7 +381,8 @@ function isMateriasIguales(materiaActual,materiaVieja){
   }
   return false;
 }
-function verificarChoqueMateria(materiaActual){       
+function verificarChoqueMateria(materiaActual){ 
+             
         var inicioNuevo = materiaActual.start._i;
         var finNuevo    = materiaActual.end._i; 
         var inicioForzado = forzarCincuentaMinutos(inicioNuevo);        
@@ -392,8 +393,10 @@ function verificarChoqueMateria(materiaActual){
       for (let index = 0; index < materiaEnHorario.length; index++) {        
         var inicioViejo = materiaEnHorario[index].start._i;
         var finViejo = materiaEnHorario[index].end._i; 
-        var inicioViejoForzado = forzarCincuentaMinutos(inicioViejo);              
+        var inicioViejoForzado = forzarCincuentaMinutos(inicioViejo); 
+                 
         if(inicioNuevo === inicioViejo || inicioNuevo === finViejo || finNuevo === inicioViejo || finNuevo === finViejo || finNuevo === inicioViejoForzado || inicioForzado === finViejo){
+          
           materiaInvolucradaEnConflicto = materiaEnHorario[index];
           materiaNuevaEnConflicto = materiaActual;
           if(isMateriasIguales(materiaActual,materiaEnHorario[index])){
@@ -595,16 +598,21 @@ function vaciarHorario(){
 function botonEditar(){
   if(localStorage.getItem("horario") != null){
     var materias = $("#contenedorHorario").fullCalendar('clientEvents');
-    for(var i = 0; i < materias.length;i++){
-      rotarIdAlEliminar(i);
-    }
+    if(materias.length > 0){
+      for(var i = 0; i < materias.length;i++){
+        rotarIdAlEliminar(i);
+      }
+    }    
     var horario = JSON.parse(localStorage.getItem("horario"));
     MateriaActual = [];
     idMateria = 0;
+    selected = '-1';
+
     var idAnt = -1;
     
     for (var index = 0; index < horario.materia.length; index++) {
-      console.log("ID: " +  horario.materia[index].id );
+
+      
       if(idAnt === -1){
         idAnt = horario.materia[index].id;
       }
@@ -612,6 +620,8 @@ function botonEditar(){
       if(idAnt === horario.materia[index].id){
         MateriaActual.push(horario.materia[index]);
       }else{
+        idMateria++;
+        
         var horariosDeMateria = [];
         for(var j = 0; j <MateriaActual.length;j++){
           var inicio = (MateriaActual[j].start._i).split(" ");
@@ -656,8 +666,10 @@ function botonEditar(){
           $("#contenedorHorario").fullCalendar('renderEvent',horariosDeMateria[index]);			
         }        
         MateriaActual = [];        
-       } 		
-    }    
+       } 
+       console.log(idMateria);		
+    }   
+    idMateria++; 
     siguientePaso();
   } 
 
@@ -692,5 +704,7 @@ function actualizarVista(){
         $("#contenedorHorario2").fullCalendar('renderEvent',horariosDeMateria[index]);			
       }    			
     }
+    $('#contenedorHorario2 .fc-left').empty();
     $('#contenedorHorario2 .fc-left').append("<p><h2 class='text-success' >"+JSON.parse(localStorage.getItem("horario")).tituloHorario+"</h2></p>");
-}
+    $('#contenedorHorario2').fullCalendar();
+  }

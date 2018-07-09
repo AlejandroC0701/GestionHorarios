@@ -1,6 +1,7 @@
 var siguiente = false;
 
 function siguientePaso(){
+  console.log(idMateria);
   if(!siguiente){
     siguiente = true;
 

@@ -14,7 +14,7 @@ function crearTabla(contenedor){
     displayEventTime: false,
     timeFormat: 'h:mm', 
     locale: "es-us",
-    
+
       eventClick: function(calEvent, jsEvent, view) {
         console.log("Selected: " + selected);
         if(parseInt(selected) >= 0){
@@ -87,11 +87,11 @@ function crearTablaVista(contenedor,titulo){
       eventMouseout: function(calEvent, jsEvent, view) {        
         $(this).css("background","#2a92ca");
         $(contenedor).fullCalendar('updateEvent',calEvent);       
-      }  
+      }     
     });
-  $(contenedor).fullCalendar('option', 'contentHeight', 400);
+  $(contenedor).fullCalendar('option', 'contentHeight',400);
   
-  console.log(titulo);
+ 
   if(titulo === undefined ){
     titulo = "No hay Horario cargado";
   }
