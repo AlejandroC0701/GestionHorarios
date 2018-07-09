@@ -279,6 +279,10 @@ function cargarMateriaEnTabla(){
     var horariosDeMateria = [];
     var choques = 0;
     var data={};  
+    console.log("dia: "+getDia(MateriaActual[0].dia));
+    console.log("Inicio: "+MateriaActual[0].inicio);
+    console.log("Fin: "+MateriaActual[0].fin);
+
     for(var i = 0; i < MateriaActual.length;i++){
       data={
         id: MateriaActual[i].id,
@@ -308,7 +312,7 @@ function cargarMateriaEnTabla(){
     }
    
   }else{
-    notifica("No a seleccionado una materia aun",'rgba(199, 201, 108, 0.844)');
+    notifica("No a seleccionado una materia aun",'rgba(226, 112, 112, 0.604)');
   }
 
 }
@@ -366,7 +370,7 @@ function remplazarMateria(){
   rotarIdAlEliminar(materiaInvolucradaEnConflicto.id);
   cargarMateriaEnTabla();
   $('.Warning').modal("hide");
-  notifica('La materia fue remplazada con exito!','rgba(206, 136, 230, 0.844)');
+  notifica('La materia fue remplazada con éxito!','rgba(206, 136, 230, 0.844)');
 }
 function forzarCincuentaMinutos(formato){
   var formato_1 = formato.split(" ");
@@ -412,15 +416,22 @@ function crearJsonConHorario(){
   var horario = $("#contenedorHorario").fullCalendar('clientEvents');
   var arreglo = [];
   var materia = [];
+  
   for(var i = 0; i < horario.length;i++){
+    var inicio = (horario[i].start._i).split(" ");
+    var fin = (horario[i].end._i).split(" ");
+    
+    console.log(inicio);
+    console.log(fin);
+
     materia.push({
       id: horario[i].id,
       title: horario[i].title,
-      start: horario[i].start,
-      end: horario[i].end,
-      color: horario[i].color,   // an option!
-      textColor: horario[i].textColor, // an option!
-      borderColor:horario[i].borderColor
+      start:""+(horario[i].start._i),
+      end: ""+(horario[i].end._i),
+      color: '#2a92ca',   // an option!
+      textColor: 'black', // an option!
+      borderColor:'#2a92ca'
     });
   }
   var horarioConMaterias = {
@@ -436,8 +447,7 @@ function crearJsonConHorario(){
 function botonGuardarHorario(){ 
   if( ($("#contenedorHorario").fullCalendar('clientEvents')).length > 0 ){
     if(localStorage.getItem("horario") == null){
-      var contenidoDeArchivo =  new Blob([crearJsonConHorario()],{type: "application/json"});
-      actualizarVista();
+      var contenidoDeArchivo =  new Blob([crearJsonConHorario()],{type: "application/json"});      
       notifica("El horario se a guardado!","rgba(240, 156, 125, 0.844)");
       $('.DescargarHorario').modal();
     }else{
@@ -449,16 +459,14 @@ function botonGuardarHorario(){
 }
 function remplazarHorarioAlmacenado(){
   $('.GuardarRemp').modal("hide");
-  var contenidoDeArchivo =  new Blob([crearJsonConHorario()],{type: "application/json"});
-  actualizarVista();
+  var contenidoDeArchivo =  new Blob([crearJsonConHorario()],{type: "application/json"}); 
   notifica("El horario se a guardado!","rgba(240, 156, 125, 0.844)");
   $('.DescargarHorario').modal();
 }
 
 function ventanaDescargar(){
   $('.DescargarHorario').modal("hide");
-  var contenidoDeArchivo =  new Blob([crearJsonConHorario()],{type: "application/json"});
-  actualizarVista();
+  var contenidoDeArchivo =  new Blob([crearJsonConHorario()],{type: "application/json"});  
   descargarArchivo(contenidoDeArchivo,$('#tituloHorario').val()+".json");
 }
 
@@ -612,11 +620,13 @@ function botonEditar(){
       }else{
         var horariosDeMateria = [];
         for(var j = 0; j <MateriaActual.length;j++){
+          var inicio = (MateriaActual[j].start._i).split(" ");
+          var fin = (MateriaActual[j].end._i).split(" ");
           data={
             id: MateriaActual[j].id,
             title: MateriaActual[j].title,
-            start: MateriaActual[j].start,            
-            end: MateriaActual[j].end,
+            start: moment(inicio[0]+" "+inicio[1],"YYYY-MM-DD HH:mm"),            
+            end:   moment(fin[0]+" "+fin[1],"YYYY-MM-DD HH:mm"),
             color: '#2a92ca',   // an option!
             textColor: 'black', // an option!
             borderColor:'#2a92ca'
@@ -631,22 +641,25 @@ function botonEditar(){
         MateriaActual.push(horario.materia[index]);
       } 
       idAnt =  horario.materia[index].id; 
-       if(index ===horario.materia.length-1 ){
+
+       if(index === horario.materia.length-1 ){
         var horariosDeMateria = [];
         for(var j = 0; j <MateriaActual.length;j++){
+          var inicio = (MateriaActual[j].start).split(" ");
+          var fin = (MateriaActual[j].end).split(" ");
           data={
             id: MateriaActual[j].id,
             title: MateriaActual[j].title,
-            start: MateriaActual[j].start,            
-            end: MateriaActual[j].end,
+            start: moment(inicio[0]+" "+inicio[1],"YYYY-MM-DD HH:mm"),            
+            end:   moment(fin[0]+" "+fin[1], "YYYY-MM-DD HH:mm"),
             color: '#2a92ca',   // an option!
             textColor: 'black', // an option!
             borderColor:'#2a92ca'
           }
           horariosDeMateria.push(data);          
         }
-        for(var x = 0; x < horariosDeMateria.length; x++){
-          $("#contenedorHorario").fullCalendar('renderEvent',horariosDeMateria[x]);
+        for (var index = 0; index < horariosDeMateria.length; index++) {
+          $("#contenedorHorario").fullCalendar('renderEvent',horariosDeMateria[index]);			
         }        
         MateriaActual = [];        
        } 		
@@ -666,9 +679,24 @@ function actualizarVista(){
     }
     if(localStorage.getItem("horario") != null){
       var horario = JSON.parse(localStorage.getItem("horario"));
-      for (var index = 0; index < horario.materia.length; index++) {
-        $("#contenedorHorario2").fullCalendar('renderEvent',horario.materia[index]);			
+      var horariosDeMateria = [];
+      for(var j = 0; j <horario.materia.length;j++){
+        var inicio = (horario.materia[j].start).split(" ");
+        var fin = (horario.materia[j].end).split(" ");
+        data={
+          id: horario.materia[j].id,
+          title: horario.materia[j].title,
+          start: moment(inicio[0]+" "+inicio[1],"YYYY-MM-DD HH:mm"),            
+          end:   moment(fin[0]+" "+fin[1], "YYYY-MM-DD HH:mm"),
+          color: '#2a92ca',   // an option!
+          textColor: 'black', // an option!
+          borderColor:'#2a92ca'
+        }
+        horariosDeMateria.push(data);          
       }
+      for (var index = 0; index < horariosDeMateria.length; index++) {
+        $("#contenedorHorario2").fullCalendar('renderEvent',horariosDeMateria[index]);			
+      }    			
     }
     $('#contenedorHorario2 .fc-left').append("<p><h2 class='text-success' >"+JSON.parse(localStorage.getItem("horario")).tituloHorario+"</h2></p>");
 }

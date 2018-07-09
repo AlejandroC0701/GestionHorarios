@@ -44,10 +44,25 @@
 </script>
 <script>
     $(document).ready(function(){
-      if(localStorage.getItem("horario") != null){
+      if(localStorage.getItem("horario") != null){        
         var horario = JSON.parse(localStorage.getItem("horario"));
-        for (var index = 0; index < horario.materia.length; index++) {
-          $("#contenedorHorario2").fullCalendar('renderEvent',horario.materia[index]);			
+        var horariosDeMateria = [];
+        for(var j = 0; j <horario.materia.length;j++){
+          var inicio = (horario.materia[j].start).split(" ");
+          var fin = (horario.materia[j].end).split(" ");
+          data={
+            id: horario.materia[j].id,
+            title: horario.materia[j].title,
+            start: moment(inicio[0]+" "+inicio[1],"YYYY-MM-DD HH:mm"),            
+            end:   moment(fin[0]+" "+fin[1], "YYYY-MM-DD HH:mm"),
+            color: '#2a92ca',   // an option!
+            textColor: 'black', // an option!
+            borderColor:'#2a92ca'
+          }
+          horariosDeMateria.push(data);          
+        }
+        for (var index = 0; index < horariosDeMateria.length; index++) {
+          $("#contenedorHorario2").fullCalendar('renderEvent',horariosDeMateria[index]);			
         }
       }
     });
@@ -114,11 +129,12 @@
               </button>
             </div>
             <div class="modal-body">
+                <p>El horario se a guardado con éxito.</p> 
               <p>¿Desea Descargar el horario?</p>          
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-success"  onclick="ventanaDescargar();">Descargar</button>
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+              <button type="button" class="btn btn-success"  onclick="ventanaDescargar();actualizarVista();">Descargar</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="actualizarVista();">Cancelar</button>
           </div>
         </div>
       </div>
@@ -137,7 +153,7 @@
               <p>¿Desea remplazar el horario que ya esta almacenado?</p>          
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary" onclick="remplazarHorarioAlmacenado()">Remplazar</button>
+              <button type="button" class="btn btn-primary" onclick="remplazarHorarioAlmacenado();actualizarVista();">Remplazar</button>
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
           </div>
         </div>
