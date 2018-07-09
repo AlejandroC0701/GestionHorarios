@@ -583,3 +583,23 @@ function vaciarHorario(){
     }
     notifica("Nuevo documento de horario listo","rgba(240, 156, 125, 0.844)");
 }
+
+function botonEditar(){
+  if(localStorage.getItem("horario") != null){
+    var materias = $("#contenedorHorario").fullCalendar('clientEvents');
+    for(var i = 0; i < materias.length;i++){
+      rotarIdAlEliminar(i);
+    }
+
+    var horario = JSON.parse(localStorage.getItem("horario"));
+    MateriaActual = [];
+    idMateria = 0;
+    for (var index = 0; index < horario.materia.length; index++) {
+      MateriaActual.push(horario.materia[index]);      		
+    }
+    cargarMateriaEnTabla();
+    siguientePaso();
+  }
+  
+
+}

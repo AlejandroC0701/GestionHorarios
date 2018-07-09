@@ -134,6 +134,15 @@ button[id = "nextBoton"]{
   transition: all 0.8s;  
 }
 
+button[id = "eliminarHorario"]:hover{
+  color: rgb(240, 194, 169);
+}
+button[id = "cargarHorario"]:hover{
+  color: rgb(169, 223, 240);
+}
+button[id = "editarHorario"]:hover{
+  color: rgb(232, 169, 240);
+}
 button[id = "quitarMateria"]:hover{
   color: rgb(240, 169, 170);
 }
@@ -147,6 +156,15 @@ button[id = "guardarHorario"]:hover{
   color: rgb(240, 220, 169);
 }
 
+button[id = "eliminarHorario"]:active{
+  color: rgb(208, 136, 110);
+}
+button[id = "cargarHorario"]:active{
+  color: rgb(110, 202, 208);
+}
+button[id = "editarHorario"]:active{
+  color: rgb(208, 110, 208);
+}
 button[id = "quitarMateria"]:active{
   color: rgb(208, 110, 111);
 }
