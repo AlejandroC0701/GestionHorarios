@@ -421,8 +421,12 @@ function crearJsonConHorario(){
       borderColor:horario[i].borderColor
     });
   }
-  
-  var jsonHorario = JSON.stringify(materia);
+  var horarioConMaterias = {
+    "tituloHorario":$('#tituloHorario').val() || "horario",
+     materia
+  };
+  var jsonHorario = JSON.stringify(horarioConMaterias);
+  console.log(horarioConMaterias);
   localStorage.setItem("horario",jsonHorario);  
   localStorage.setItem("totalHorarios",numeroHorariosGuardados);
   return jsonHorario;
