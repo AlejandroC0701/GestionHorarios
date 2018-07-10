@@ -2,6 +2,7 @@ var siguiente = false;
 
 function siguientePaso(){
   console.log(idMateria);
+  console.log("sale");
   if(!siguiente){
     siguiente = true;
 
