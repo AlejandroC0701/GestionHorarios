@@ -133,24 +133,17 @@
     input.addEventListener("change", function () {
       $('#carga').animate({"width":"50%"});
     if (this.files && this.files[0]) {
-      var myFile = this.files[0];
-      console.log(myFile);
+      var myFile = this.files[0];      
       if(myFile.type === "application/json"){
       var reader = new FileReader();
       var nombre = myFile.name.split(".");
-      console.log(nombre);
+     
       reader.addEventListener('load', function (e) {
         console.log(e);
         var objeto = JSON.parse(e.target.result);
-        var lista = [];
-        for(var i = 0; i < objeto.length; i++){
-          lista.push(objeto[i]);
-        }
-        var materia={
-          'materia':lista,
-          'tituloHorario':""+nombre[0]
-        };
-       localStorage.setItem("horario",JSON.stringify(materia));
+        console.log(objeto);
+        
+       localStorage.setItem("horario",JSON.stringify(objeto));
        $('#carga').animate({"width":"100%"},1000,
         finCarga()
         );
