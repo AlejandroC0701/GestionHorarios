@@ -2,9 +2,8 @@
 		
 *{
   margin: 0;
-  padding: 0;
-  /* background-color: black; */
-  color: black;
+  padding: 0;  
+  color: white;
   /* width: 100%; */
 }
 
@@ -31,7 +30,7 @@ body{
     margin: 0;
     padding: 0;
     overflow: hidden;         
-    
+    view
 }
 
 li{
@@ -53,5 +52,10 @@ img[class = "OpcionImagen"]:hover {
  
 }
 
-
+footer{
+  position: absolute; 
+  bottom: 0%; 
+  width: 99%;
+  background: rgba(133, 133, 193, 0.666);
+}
 
