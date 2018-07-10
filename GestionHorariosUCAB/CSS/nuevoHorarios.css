@@ -105,7 +105,7 @@ button[id = "nextBoton"],button[id = "unableBoton"]{
   overflow: visible;
   padding: 0px;
   font-size: 50pt;
-  color: rgba(76, 76, 77, 0.508);
+  color: rgba(111, 111, 111, 0.508);
   outline:none;
   -webkit-user-select: none; /* for button */  
   -moz-user-select: none;
