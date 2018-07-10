@@ -9,16 +9,20 @@
 
 header{
   height: 50%;
-  background: black;
+  /* background: black; */
 }
 
 body{
   height: 50%;
-  font-family: source-sans-pro;
+  /* font-family: source-sans-pro; */
   font-style: normal;
-  font-weight: 200;
-  background: black; 
+  font-weight: 100;
+  /* background: black;  */
   font: normal "source-sans-pro";	
+  background-image: url("../imagenes/fondoUcab.jpg");
+  background-size: 2000px 180%;                    /* <------ */
+    background-repeat:   no-repeat;
+    background-position:  center; 
 }
 
 .ListaHerramientas{
@@ -26,6 +30,7 @@ body{
     margin: 0;
     padding: 0;
     overflow: hidden;         
+    view
 }
 
 li{
