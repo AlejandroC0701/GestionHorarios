@@ -47,7 +47,7 @@
       if(localStorage.getItem("horario") != null){        
         var horario = JSON.parse(localStorage.getItem("horario"));
         var horariosDeMateria = [];
-        for(var j = 0; j <horario.materia.length;j++){
+        for(var j = 0; j < horario.materia.length;j++){
           var inicio = (horario.materia[j].start).split(" ");
           var fin = (horario.materia[j].end).split(" ");
           data={
@@ -100,6 +100,81 @@
 </header>	
 
 <body id="body">
+
+    <div class="modal fade" id="CargarJson" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Cargar Horario</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <form action=""  id="formulario">
+              <div class="modal-body">              
+                  <p>Seleccione el archivo .json</p></br>
+                  <input id="files" type="file" name="files"> <span id="finCarga" class=""></span>               
+                </br></br>                
+                  <div class="progress">
+                      <div id="carga" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+                  </div>         
+              </div>
+              <div class="modal-footer">                
+                <button id="cancelarCarga" type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>  
+              </div>
+          </form>
+          </div>
+        </div>
+      </div>
+  
+  
+  <script>
+    var input = document.getElementById("files");  
+    input.addEventListener("change", function () {
+      $('#carga').animate({"width":"50%"});
+    if (this.files && this.files[0]) {
+      var myFile = this.files[0];
+      console.log(myFile);
+      if(myFile.type === "application/json"){
+      var reader = new FileReader();
+      var nombre = myFile.name.split(".");
+      console.log(nombre);
+      reader.addEventListener('load', function (e) {
+        console.log(e);
+        var objeto = JSON.parse(e.target.result);
+        var lista = [];
+        for(var i = 0; i < objeto.length; i++){
+          lista.push(objeto[i]);
+        }
+        var materia={
+          'materia':lista,
+          'tituloHorario':nombre
+        };
+       localStorage.setItem("horario",JSON.stringify(materia));
+       $('#carga').animate({"width":"100%"},1000,
+        finCarga()
+        );
+       
+      });    
+      reader.readAsBinaryString(myFile);
+      } 
+    }  
+  });
+  function finCarga(){
+    setTimeout(function(){
+      $('#finCarga').addClass("icon-checkmark");
+      $('#carga').removeClass('progress-bar-animated');
+      $('#carga').addClass('bg-success');
+    },2000);  
+  }
+  function errorCarga(){
+    $('#finCarga').addClass("icon-checkmark")
+  }
+  </script>
+  
+
+
+
     <div class="modal fade MateriaRepetida" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -417,7 +492,7 @@
               </div> 
 
               <div   class="col-md-0 SeccionBoton">                
-                  <button id="cargarHorario" class=" icon-upload2 BotonOptions" type="button" onclick="testear();">
+                  <button id="cargarHorario" class=" icon-upload2 BotonOptions" type="button" onclick="$('#CargarJson').modal();">
                   </button>                
                   <br/>
                   <label  id="labels">Cargar Horario</label>
