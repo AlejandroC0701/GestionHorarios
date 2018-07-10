@@ -448,7 +448,7 @@ function crearJsonConHorario(){
 function botonGuardarHorario(){ 
   if( ($("#contenedorHorario").fullCalendar('clientEvents')).length > 0 ){
     if(localStorage.getItem("horario") == null){
-      var contenidoDeArchivo =  new Blob([crearJsonConHorario()],{type: "application/json"});      
+      var contenidoDeArchivo =  new Blob([(crearJsonConHorario())],{encoding: 'utf8',type: "application/json"});      
       notifica("El horario se a guardado!","rgba(240, 156, 125, 0.844)");
       horarioGuardado = true;
       $('.DescargarHorario').modal();
@@ -461,14 +461,14 @@ function botonGuardarHorario(){
 }
 function remplazarHorarioAlmacenado(){
   $('.GuardarRemp').modal("hide");
-  var contenidoDeArchivo =  new Blob([crearJsonConHorario()],{type: "application/json"}); 
+  var contenidoDeArchivo =  new Blob([(crearJsonConHorario())],{encoding: 'utf8',type: "application/json"}); 
   notifica("El horario se a guardado!","rgba(240, 156, 125, 0.844)");
   $('.DescargarHorario').modal();
 }
 
 function ventanaDescargar(){
   $('.DescargarHorario').modal("hide");
-  var contenidoDeArchivo =  new Blob([crearJsonConHorario()],{type: "application/json"});  
+  var contenidoDeArchivo =  new Blob([(crearJsonConHorario())],{encoding: 'utf8',type: "application/json"});  
   descargarArchivo(contenidoDeArchivo,$('#tituloHorario').val()+".json");
 }
 
