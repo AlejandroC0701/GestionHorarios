@@ -158,10 +158,17 @@
       $('#finCarga').addClass("icon-checkmark");
       $('#carga').removeClass('progress-bar-animated');
       $('#carga').addClass('bg-success');
+      
     },2000);  
   }
   function errorCarga(){
     $('#finCarga').addClass("icon-checkmark")
+  }
+  function reiniciarBarra(){
+      $('#finCarga').removeClass("icon-checkmark");
+      $('#carga').addClass('progress-bar-animated');
+      $('#carga').removeClass('bg-success');
+      $('#carga').css('width','0%');
   }
   </script>
   
@@ -616,24 +623,6 @@ function eliminarHorario(){
     $('.ElimHorario').modal('hide');
     notifica("Horario eliminado exitosamente!",'rgba(230, 107, 107, 0.652)');
   
-}
-var bandera = false;
-function testear(){
-  if(!bandera){
-    $('#contenedorHorario2').animate({'opacity':'0'});
-    $('#contenedorHorario2').animate({'display':'none'});
-
-    $('#contenedorHorario').animate({'opacity':'1'});
-    $('#contenedorHorario').animate({'display':'flex'});
-    bandera = true;
-  }else{
-    $('#contenedorHorario2').animate({'opacity':'1'});
-    $('#contenedorHorario2').animate({'display':'flex'});
-
-    $('#contenedorHorario').animate({'opacity':'0'});
-    $('#contenedorHorario').animate({'display':'none'});
-    bandera = false;
-  }
 }
 </script>
 
