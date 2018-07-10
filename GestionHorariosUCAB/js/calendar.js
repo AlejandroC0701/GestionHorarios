@@ -1,7 +1,7 @@
 var selected = "-1";
-function crearTabla(){
+function crearTabla(contenedor){
   
-  $("#contenedorHorario").fullCalendar({
+  $(contenedor).fullCalendar({
     weekends: false,
     themeSystem: 'bootstrap4',
     header: false,
@@ -14,15 +14,15 @@ function crearTabla(){
     displayEventTime: false,
     timeFormat: 'h:mm', 
     locale: "es-us",
-    
+
       eventClick: function(calEvent, jsEvent, view) {
         console.log("Selected: " + selected);
         if(parseInt(selected) >= 0){
           var idViejo = selected;
           usarId=calEvent.id; 
           selected = calEvent.id;
-          var materiaCompleta = $("#contenedorHorario").fullCalendar('clientEvents',calEvent.id); 
-          var materiaViejaSelect = $("#contenedorHorario").fullCalendar('clientEvents',idViejo);          
+          var materiaCompleta = $(contenedor).fullCalendar('clientEvents',calEvent.id); 
+          var materiaViejaSelect = $(contenedor).fullCalendar('clientEvents',idViejo);          
           if(idViejo != selected){
             console.log("Viejo: " + idViejo + " Nuevo: " + selected);
             for(var i = 0; i < materiaCompleta.length; i++){
@@ -31,8 +31,8 @@ function crearTabla(){
             for(var i = 0; i < materiaViejaSelect.length; i++){
               materiaViejaSelect[i].color = "#2a92ca"; 
             }                 
-             $('#contenedorHorario').fullCalendar('updateEvents',materiaCompleta); 
-             $('#contenedorHorario').fullCalendar('updateEvents',materiaViejaSelect); 
+             $(contenedor).fullCalendar('updateEvents',materiaCompleta); 
+             $(contenedor).fullCalendar('updateEvents',materiaViejaSelect); 
           }else{
           calEvent.color = "rgb(238, 222, 164)";
           $('#contenedorHorario').fullCalendar('updateEvent', calEvent); 
@@ -42,7 +42,7 @@ function crearTabla(){
           usarId=calEvent.id;  
           selected = calEvent.id;      
           calEvent.color = "rgb(238, 222, 164)";
-          $('#contenedorHorario').fullCalendar('updateEvent', calEvent); 
+          $(contenedor).fullCalendar('updateEvent', calEvent); 
         }        
             
             
@@ -52,8 +52,39 @@ function crearTabla(){
       },
       eventMouseout: function(calEvent, jsEvent, view) {        
         $(this).css("background","#2a92ca");
-        $('#contenedorHorario').fullCalendar('updateEvent',calEvent);       
+        $(contenedor).fullCalendar('updateEvent',calEvent);       
       }  
     });
-  $('#contenedorHorario').fullCalendar('option', 'contentHeight', 400);
+  $(contenedor).fullCalendar('option', 'contentHeight', 400);
+}
+
+function crearTablaVista(contenedor,titulo){
+  
+  $(contenedor).fullCalendar({
+    weekends: false,
+    themeSystem: 'bootstrap4',
+    header: {
+      left:false,
+      right:false,
+      center:""
+    },       
+    defaultView: 'agendaWeek',
+    allDaySlot: false,
+    minTime: "7:00:00",
+    maxTime: "21:00:00",
+    columnHeaderFormat: "dddd",
+    defaultDate: moment("2018-07-02"),
+    displayEventTime: false,
+    timeFormat: 'h:mm', 
+    locale: "es-us"   
+      
+    });
+  $(contenedor).fullCalendar('option', 'contentHeight',400);
+  
+ 
+  if(titulo === undefined ){
+    titulo = "No hay Horario cargado";
+  }
+  $(contenedor+' .fc-left').append("<p><h2 class='text-success' >"+titulo+"</h2></p>");
+  
 }

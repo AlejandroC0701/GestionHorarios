@@ -1,6 +1,6 @@
 body{
   background: white;
-  /* overflow-x:hidden; */
+   overflow-x:hidden;
 }
 
 #inputTitulo{
@@ -79,23 +79,40 @@ button[id = "homeBoton"]:active{
 button[id = "nextBoton"]:hover{
   color: rgb(235, 235, 235);
 }
-button[id = "nextBoton"]{
+button[id = "nextBoton"],button[id = "unableBoton"]{
   margin-top:1%;
   margin-left: 250px;
 }
 .SeccionBoton{  
   text-align: center;
-  display: none;
-  opacity: 0;
+  display: block;
+  opacity: 1;
   transition: opacity 0.5s;
 }
 .Herramientas{
   display: flex;
   background: rgb(14, 14, 14);
-  height:  0;
+  height:  100px;
   transition: all 0.5s;
 }
-
+.BotonNextUn{
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  line-height: none;
+  overflow: visible;
+  padding: 0px;
+  font-size: 50pt;
+  color: rgba(111, 111, 111, 0.508);
+  outline:none;
+  -webkit-user-select: none; /* for button */  
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  transition: all 0.8s;  
+}
 .BotonNext{ 
   background: none;
   border: none;
@@ -106,7 +123,7 @@ button[id = "nextBoton"]{
   overflow: visible;
   padding: 0px;
   font-size: 50pt;
-  color: rgba(76, 76, 77, 0.508);
+  color: rgba(225, 225, 225, 0.508);
   outline:none;
   -webkit-user-select: none; /* for button */  
   -moz-user-select: none;
@@ -134,6 +151,15 @@ button[id = "nextBoton"]{
   transition: all 0.8s;  
 }
 
+button[id = "eliminarHorario"]:hover{
+  color: rgb(240, 194, 169);
+}
+button[id = "cargarHorario"]:hover{
+  color: rgb(169, 223, 240);
+}
+button[id = "editarHorario"]:hover{
+  color: rgb(232, 169, 240);
+}
 button[id = "quitarMateria"]:hover{
   color: rgb(240, 169, 170);
 }
@@ -147,6 +173,15 @@ button[id = "guardarHorario"]:hover{
   color: rgb(240, 220, 169);
 }
 
+button[id = "eliminarHorario"]:active{
+  color: rgb(208, 136, 110);
+}
+button[id = "cargarHorario"]:active{
+  color: rgb(110, 202, 208);
+}
+button[id = "editarHorario"]:active{
+  color: rgb(208, 110, 208);
+}
 button[id = "quitarMateria"]:active{
   color: rgb(208, 110, 111);
 }
@@ -160,8 +195,12 @@ button[id = "guardarHorario"]:active{
   color: rgb(187, 163, 100);
 }
 #tablahorario{
-  width: 90%;
-  
+  width: 90%;  
+}
+#contenedorHorario2{  
+  transition: all 0.4s;
+  width: 100%;
+  opacity: 1;  
 }
 #contenedorHorario{  
   transition: all 0.4s;
@@ -187,6 +226,16 @@ button[id = "guardarHorario"]:active{
   font-size: 15px;
   text-align: center;
   vertical-align: middle;
+}
+#tituloCreacion{
+  opacity: 0;
+  display: none;
+  transition: all 0.7;
+}
+#tituloVistaPrev{
+  opacity: 1;
+  display: block;
+  transition: all 0.7;
 }
 
  /* The snackbar - position it at the bottom and in the middle of the screen */

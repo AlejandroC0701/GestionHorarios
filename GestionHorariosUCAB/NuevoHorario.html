@@ -2,6 +2,7 @@
 <html lang=es-VE>
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0, width=device-width">
   <title>Nuevo Horario</title>
   <link rel="shortcut icon" href=https://www.ucab.edu.ve/wp-content/uploads/sites/2/2017/06/favicon.png />
@@ -13,12 +14,11 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
   <link rel="stylesheet" href="js/dist/fullcalendar.css">
-
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
     <!--Java Scripts  -->
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script> 
-
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="http://use.edgefonts.net/source-sans-pro:n2:default.js" type="text/javascript"></script>
   <script src="https://unpkg.com/popper.js"></script>
@@ -31,17 +31,42 @@
   <script src="js/moment/moment.js" ></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"></script>
   <script src="js/calendar.js"></script>
-  <script src="js/dist/locale/es-us.js" ></script>
-  
+  <script src="js/dist/locale/es-us.js" ></script>  
   <script src="js/CrearHorario.js"></script>
 </head>
 <script>
+  
   $(document).ready(function(){
     $('html, body').css({
     'overflow': 'hidden',
     'height': '100%'
     });
   });
+</script>
+<script>
+    $(document).ready(function(){
+      if(localStorage.getItem("horario") != null){        
+        var horario = JSON.parse(localStorage.getItem("horario"));
+        var horariosDeMateria = [];
+        for(var j = 0; j < horario.materia.length;j++){
+          var inicio = (horario.materia[j].start).split(" ");
+          var fin = (horario.materia[j].end).split(" ");
+          data={
+            id: horario.materia[j].id,
+            title: horario.materia[j].title,
+            start: moment(inicio[0]+" "+inicio[1],"YYYY-MM-DD HH:mm"),            
+            end:   moment(fin[0]+" "+fin[1], "YYYY-MM-DD HH:mm"),
+            color: '#2a92ca',   // an option!
+            textColor: 'black', // an option!
+            borderColor:'#2a92ca'
+          }
+          horariosDeMateria.push(data);          
+        }
+        for (var index = 0; index < horariosDeMateria.length; index++) {
+          $("#contenedorHorario2").fullCalendar('renderEvent',horariosDeMateria[index]);			
+        }
+      }
+    });
 </script>
 <header class="container-fluid" id="headerSection" style="color: white;">
   <div class ="row">
@@ -65,7 +90,8 @@
     </div>
     <div class="col-md-8">
       <i  class="material-icons arrowLogo">arrow_forward_ios</i>
-      <h2  style="float: left;" class="tituloLogo">Creación de Horarios</h2>
+      <h2  style="float: left;" id="tituloCreacion" class="tituloLogo">Creación de Horarios</h2>
+      <h2  style="float: left;" id="tituloVistaPrev" class="tituloLogo">Gestión de Horarios</h2>
     </div>
     <div id="opciones" class="col align-self-center" >
   
@@ -75,6 +101,82 @@
 </header>	
 
 <body id="body">
+
+    <div class="modal fade" id="CargarJson" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Cargar Horario</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <form action=""  id="formulario">
+              <div class="modal-body">              
+                  <p>Seleccione el archivo .json</p></br>
+                  <input id="files" type="file" name="files"> <span id="finCarga" class=""></span>               
+                </br></br>                
+                  <div class="progress">
+                      <div id="carga" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+                  </div>         
+              </div>
+              <div class="modal-footer">                
+                <button id="cancelarCarga" type="button" class="btn btn-danger" data-dismiss="modal" onclick="reiniciarBarra();">Cerrar</button>  
+              </div>
+          </form>
+          </div>
+        </div>
+      </div>
+  
+  
+  <script>
+    var input = document.getElementById("files");  
+    input.addEventListener("change", function () {
+      $('#carga').animate({"width":"50%"});
+    if (this.files && this.files[0]) {
+      var myFile = this.files[0];      
+      if(myFile.type === "application/json"){
+      var reader = new FileReader();
+      reader.readAsText(myFile, 'UTF-8');
+      var nombre = myFile.name.split(".");
+     
+      reader.addEventListener('load', function (e) {
+        console.log(e);
+        var objeto = JSON.parse(e.target.result);
+        console.log(objeto);
+           
+       localStorage.setItem("horario",JSON.stringify(objeto));
+       $('#carga').animate({"width":"100%"},1000,
+        finCarga()
+        );
+       
+      });    
+      reader.readAsBinaryString(myFile);
+      } 
+    }  
+  });
+  function finCarga(){
+    setTimeout(function(){
+      $('#finCarga').addClass("icon-checkmark");
+      $('#carga').removeClass('progress-bar-animated');
+      $('#carga').addClass('bg-success');
+      
+    },2000);  
+  }
+  function errorCarga(){
+    $('#finCarga').addClass("icon-checkmark")
+  }
+  function reiniciarBarra(){
+      $('#finCarga').removeClass("icon-checkmark");
+      $('#carga').addClass('progress-bar-animated');
+      $('#carga').removeClass('bg-success');
+      $('#carga').css('width','0%');
+  }
+  </script>
+  
+
+
+
     <div class="modal fade MateriaRepetida" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -104,11 +206,12 @@
               </button>
             </div>
             <div class="modal-body">
+                <p>El horario se a guardado con éxito.</p> 
               <p>¿Desea Descargar el horario?</p>          
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-success"  onclick="ventanaDescargar();">Descargar</button>
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" >Cancelar</button>
           </div>
         </div>
       </div>
@@ -127,7 +230,27 @@
               <p>¿Desea remplazar el horario que ya esta almacenado?</p>          
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary" onclick="remplazarHorarioAlmacenado()">Remplazar</button>
+              <button type="button" class="btn btn-primary" onclick="remplazarHorarioAlmacenado(); horarioGuardado = true;">Remplazar</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade ElimHorario" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title text-danger">Eliminar Horario</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>¿Esta seguro que desea eliminar este horario?</p>          
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" onclick="eliminarHorario();">Eliminar</button>
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
           </div>
         </div>
@@ -208,11 +331,11 @@
           </button>
         </div>
         <div class="modal-body">
-          <p>Esta apunto de eliminar una materia. ¿Esta usted seguro?</p>
+          <p>Esta a punto de eliminar una materia. ¿Esta usted seguro?</p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" onclick="eliminarMateria(); $('.Delete').modal('hide');">Eliminar</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
         </div>
       </div>
     </div>
@@ -241,27 +364,27 @@
                   <div class="input-group-prepend">
                     <label  class="input-group-text" for="Carrera">Carrera</label>
                   </div>
-                  <select class="custom-select" id="Carrera">
+                  <select class="custom-select" id="carrera">
                       <optgroup class="SeccionListado" label="Ingeniería">
-                          <option class="ElementoListado" value="saab">Informática </option>
-                          <option class="ElementoListado" value="saab">Civil</option>
-                          <option class="ElementoListado" value="saab">Industrial </option>
-                          <option class="ElementoListado" value="saab">Telecomunicaciones </option>      
+                          <option class="ElementoListado" value="1">Informática</option>
+                          <option class="ElementoListado" value="2">Civil</option>
+                          <option class="ElementoListado" value="3">Industrial </option>
+                          <option class="ElementoListado" value="4">Telecomunicaciones </option>      
                         </optgroup>
                         <optgroup class="SeccionListado" label="Humanidades y Educacion">
-                          <option class="ElementoListado" value="saab">Comunicación Social </option>
-                          <option class="ElementoListado" value="saab">Educación </option>
-                          <option class="ElementoListado" value="saab">Filosofía </option>
-                          <option class="ElementoListado" value="saab">Letras </option>
-                          <option class="ElementoListado" value="saab">Psicología </option>
+                          <option class="ElementoListado" value="5">Comunicación Social </option>
+                          <option class="ElementoListado" value="6">Educación </option>
+                          <option class="ElementoListado" value="7">Filosofía </option>
+                          <option class="ElementoListado" value="8">Letras </option>
+                          <option class="ElementoListado" value="9">Psicología </option>
                         </optgroup>
                         <optgroup class="SeccionListado" label="Ciencias Económicas y Sociales">
-                          <option class="ElementoListado" value="saab">Administración y contaduria</option>
-                          <option class="ElementoListado" value="saab">Ciencias Sociales </option>
-                          <option class="ElementoListado" value="saab">Economía </option>
+                          <option class="ElementoListado" value="10">Administración y contaduria</option>
+                          <option class="ElementoListado" value="11">Ciencias Sociales </option>
+                          <option class="ElementoListado" value="12">Economía </option>
                         </optgroup>
-                        <option class="ElementoListado" value="saab">Derecho </option> 
-                        <option class="ElementoListado" value="saab">Teología </option>
+                        <option class="ElementoListado" value="13">Derecho </option> 
+                        <option class="ElementoListado" value="14">Teología </option>
                         <option class="ElementoListado" selected="selected">Seleccione su carrera</option>
                   </select>
                 </div>
@@ -269,33 +392,51 @@
             </div>            
                         
             <div class="col-md-1">
-              <button id="nextBoton" class="icon-circle-right BotonNext" type="button" onclick="siguientePaso();">
+              <button id="unableBoton" class="icon-tools BotonNextUn" type="button" onclick="notifica('Seleccione una carrera','rgba(0, 0, 0, 0.7)');">
               </button>
             </div> 
 
             <div id="siguientesDatos" class="form-group col-md-8 align-self-center row mt-3 mb-2" style="transition: all 1s; margin-left: 5px;">
-                <div class="input-group input-group-sm col-md-1 float-left">
-                    <div class="input-group-prepend">
+                
+              <div class="input-group input-group-sm col-md-1 float-left">
+                    
+                  <div class="input-group-prepend">
+                      
                       <label class="input-group-text" for="semestreSelect">Semestre</label>
+                    
                     </div>
+                    
                     <select class="custom-select custom-select-sm" id="semestreSelect">
-                        <option class="ElementoListado" value="saab">Primero</option>
+                        
+                      <option class="ElementoListado" value="saab">Primero</option>
+                        
                         <option class="ElementoListado" value="saab">Segundo</option>
+                        
                         <option class="ElementoListado" value="saab">Tercero</option>
+                        
                         <option class="ElementoListado" value="saab">Cuarto</option>
+                        
                         <option class="ElementoListado" value="saab">Quinto</option>
+                        
                         <option class="ElementoListado" value="saab">Sexto</option>
+                        
                         <option class="ElementoListado" value="saab">Septimo</option>
+                        
                         <option class="ElementoListado" value="saab">Octavo</option>
+                        
                         <option class="ElementoListado" value="saab">Noveno</option>
+                        
                         <option class="ElementoListado" value="saab">Decimo</option>
+                        
                         <option class="ElementoListado" selected="selected">Semestre</option>
-                    </select>
-                  </div>
+                    
+                      </select>
+                  
+                </div>
 
              
                             
-              <div class="input-group input-group-sm col-md float-left">
+              <div class="input-group input-group-sm col-md-1 float-left">
                 <div class="input-group-prepend">
                   <label id="labels" class="input-group-text" for="materia"> Materia: </label>
                 </div>
@@ -306,7 +447,7 @@
 
 
 
-              <div class="input-group input-group-sm col-md float-left">
+              <div class="input-group input-group-sm col-md-1 float-left">
                 <div class="input-group-prepend">
                   
                   <label id="labels" class="input-group-text" for="Profesor"> Profesor: </label>
@@ -330,27 +471,46 @@
                 </select>
               </div> 
               <div class="col col-md-7"></div>
+              
                 
-              <div class="col-md-1"></div>
-                
+              <div class="col-md-1" ></div>               
 
-                <div class="alert alert-primary col-md-auto mt-3 pt-0 ml-3" style="height: 0px; opacity: 0; display: none; transition: all 1s ease 0s;" role="alert" id="hora" style="display: flex ">
-                    <p id="horaText"><strong>Horas:</strong> &nbsp; </p>
+                <div  class="alert alert-primary col-md-auto mt-3 pt-0 ml-3" style="height:0px; opacity: 0; margin-top: 20px;" role="alert" id="hora">
+                  
+                  <p id="horaText"><strong>Horas:</strong>&nbsp; </p>
                                  
-                </div>
-                 
-                
+                </div>            
+            </div>  
 
-            </div>          
           </div>
+
           <div class="row" style="background: rgb(16, 16, 16);">
             <div class="col-lg-12 Herramientas" >
-              <div class="col-md-3">
-              </div>
+               <div   class="col-md-2 SeccionBoton" id="prueba">                
+                <button id="editarHorario" class=" icon-pencil2 BotonOptions" type="button" onclick="verificarEditar();">
+                </button>                
+                <br/>
+                <label  id="labels"> Editar </label>
+              </div> 
+
+              <div   class="col-md-0 SeccionBoton">                
+                  <button id="cargarHorario" class=" icon-upload2 BotonOptions" type="button" onclick="$('#CargarJson').modal();">
+                  </button>                
+                  <br/>
+                  <label  id="labels">Cargar Horario</label>
+              </div> 
+
+              <div   class="col-md-2 SeccionBoton">                
+                  <button id="eliminarHorario" class=" icon-bin2 BotonOptions" type="button" onclick="verificarHorario();">
+                  </button>                
+                  <br/>
+                  <label  id="labels">Eliminar Horario</label>
+              </div> 
+                  
+              
               <div   class="col-md-1 SeccionBoton">                
                 <button id="guardarHorario" class=" icon-clipboard BotonOptions" type="button" onclick="botonGuardarHorario();">
-                </button>
-                
+                </button>                
                 <br/>
                 <label  id="labels"> Guardar Horario </label>
               </div> 
@@ -382,11 +542,17 @@
     </div>
   </div> 
 
-  <div id="contenedorHorario" >
-    
-  </div>
+  <div id="contenedorHorario2" ></div>
+  <div id="contenedorHorario"></div>
+  
   <script>
-    crearTabla();
+    crearTabla('#contenedorHorario');    
+    var horario = JSON.parse(localStorage.getItem("horario"));
+    if(horario != null)
+      crearTablaVista('#contenedorHorario2',horario.tituloHorario);
+    else{
+      crearTablaVista('#contenedorHorario2');  
+    }
   </script>
   <!-- The actual snackbar -->
 <div id="snackbar" calss="text-center"></div>
@@ -408,6 +574,58 @@
   $("#seccion").change(function(){  
     seleccionarSeccion(""+$("#seccion option:selected").text(),""+$("#profesor option:selected").text(),""+$("#materia option:selected").text());
   });    
+  $("#carrera").change(function(){  
+    if($("#carrera option:selected").text() === "Informática"){
+      $("#unableBoton").attr("onclick","siguientePaso();");
+      $("#unableBoton").attr("id","nextBoton");
+      $("#nextBoton").removeClass("BotonNextUn");
+      $("#nextBoton").addClass("BotonNext");
+      
+    }else{
+      $("#nextBoton").attr("id","unableBoton");
+      $("#unableBoton").attr("onclick","notifica('Seleccione una carrera','rgba(0, 0, 0, 0.7)');");
+      $("#unableBoton").removeClass("BotonNext");
+      $("#unableBoton").addClass("BotonNextUn");
+      notifica($("#carrera option:selected").text() +" no disponible",'rgba(0, 0, 0, 0.7)');
+    }
+  });  //onclick="siguientePaso();"
+
+function verificarEditar(){
+
+    if( ($('#contenedorHorario2').fullCalendar('clientEvents')).length > 0 ){
+    document.ready = document.getElementById("carrera").value ='1';
+    $("#unableBoton").attr("onclick","siguientePaso();");
+    $("#unableBoton").attr("id","nextBoton");
+    $("#nextBoton").removeClass("BotonNextUn");
+    $("#nextBoton").addClass("BotonNext");
+    botonEditar();
+    }else{
+      notifica("No exite horario el cual editar",'rgba(0, 0, 0, 0.7)');
+    }
+}
+function verificarHorario(){
+  if( ($('#contenedorHorario2').fullCalendar('clientEvents')).length > 0 ){
+    $('.ElimHorario').modal();
+  }else{
+    notifica("No hay ningun horario cargado",'rgba(0, 0, 0, 0.7)');
+  }
+}
+function eliminarHorario(){
+  localStorage.removeItem('horario');
+  var materias = $("#contenedorHorario2").fullCalendar('clientEvents');
+    for(var i = 0; i < materias.length;i++){
+      try{
+        $("#contenedorHorario2").fullCalendar( 'removeEvents',materias[i].id);
+      }catch(error){
+        continue;
+      }
+    }
+    $('#contenedorHorario2 .fc-left').empty();
+    $('#contenedorHorario2 .fc-left').append("<p><h2 class='text-success' >No hay Horario cargado</h2></p>");
+    $('.ElimHorario').modal('hide');
+    notifica("Horario eliminado exitosamente!",'rgba(230, 107, 107, 0.652)');
+  
+}
 </script>
 
 
