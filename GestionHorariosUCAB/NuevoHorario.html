@@ -148,7 +148,7 @@
         }
         var materia={
           'materia':lista,
-          'tituloHorario':nombre
+          'tituloHorario':""+nombre[0]
         };
        localStorage.setItem("horario",JSON.stringify(materia));
        $('#carga').animate({"width":"100%"},1000,
