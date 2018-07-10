@@ -120,7 +120,7 @@
                   </div>         
               </div>
               <div class="modal-footer">                
-                <button id="cancelarCarga" type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>  
+                <button id="cancelarCarga" type="button" class="btn btn-danger" data-dismiss="modal" onclick="reiniciarBarra();">Cerrar</button>  
               </div>
           </form>
           </div>
@@ -145,7 +145,7 @@
         
        localStorage.setItem("horario",JSON.stringify(objeto));
        $('#carga').animate({"width":"100%"},1000,
-        finCarga()
+        finCarga();
         );
        
       });    
