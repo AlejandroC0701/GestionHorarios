@@ -9,18 +9,21 @@
 }
 
 header{
-  background-color: black;
-  color: white
-
+  height: 50%;
+  /* background: black; */
 }
 
 body{
-  height: 0;
-  font-family: source-sans-pro;
+  height: 50%;
+  /* font-family: source-sans-pro; */
   font-style: normal;
-  font-weight: 200;
-  background-color: rgb(0, 0, 0); 
+  font-weight: 100;
+  /* background: black;  */
   font: normal "source-sans-pro";	
+  background-image: url("../imagenes/fondoUcab.jpg");
+  background-size: 2000px 180%;                    /* <------ */
+    background-repeat:   no-repeat;
+    background-position:  center; 
 }
 
 .ListaHerramientas{
@@ -28,6 +31,7 @@ body{
     margin: 0;
     padding: 0;
     overflow: hidden;         
+    
 }
 
 li{
@@ -49,10 +53,5 @@ img[class = "OpcionImagen"]:hover {
  
 }
 
-footer{
-  position: absolute; 
-  bottom: 0%; 
-  width: 99%;
-  background: rgba(133, 133, 193, 0.666);
-}
+
 
